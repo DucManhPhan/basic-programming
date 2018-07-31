@@ -180,7 +180,7 @@ private:
 
 int main()
 {
-	int arr[] = { 15, 10, 5, 20, 3, 2 };
+	int arr[] = { 15, 10, 5, 20, 3, 2, 50, 4 };
 	int size = sizeof(arr) / sizeof(int);
 	CLinkedList lkist;
 
