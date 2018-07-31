@@ -69,6 +69,11 @@ public:
 		return m_pHeadNode;
 	}
 
+	void setHeadNode(CNode* pHeadNode)
+	{
+		m_pHeadNode = pHeadNode;
+	}
+
 	void mergeSort(CNode*& pNode)
 	{
 		//MergeSort(headRef)
@@ -92,7 +97,7 @@ public:
 		CNode* firstList = nullptr;
 		CNode* secondList = nullptr;
 
-		splitList(m_pHeadNode, firstList, secondList);
+		splitList(pNode, firstList, secondList);
 
 		// divide the list into the smaller list. 
 		mergeSort(firstList);
@@ -112,7 +117,7 @@ public:
 
 		for (; pHead_FirstList && pHead_SecondList;)
 		{
-			if (pHead_FirstList <= pHead_SecondList)
+			if (pHead_FirstList->m_nData <= pHead_SecondList->m_nData)
 			{				
 				data = pHead_FirstList->m_nData;
 				pHead_FirstList = pHead_FirstList->m_pNext;
@@ -151,24 +156,38 @@ public:
 
 		CNode* pSlowNode = pNode; 
 		CNode* pFastNode = pNode; 
+		CNode* pPrevSlowNode = nullptr;
 
-		for (; !pFastNode || !pFastNode->m_pNext; pSlowNode = pSlowNode->m_pNext, pFastNode = pFastNode->m_pNext)
+		for (; pFastNode && pFastNode->m_pNext; pSlowNode = pSlowNode->m_pNext, pFastNode = pFastNode->m_pNext->m_pNext)
 		{
-			// nothing to do. 
+			pPrevSlowNode = pSlowNode;
 		}
-
+		
+		pPrevSlowNode->m_pNext = nullptr;
 		secondList = pSlowNode;
 	}
 
-	void insertTailForNode(CNode* pNode, CNode* pAddedNode)
+	void insertTailForNode(CNode*& pNode, CNode* pAddedNode)
 	{
-		CNode* tmpNode = pNode; 
-		for (; tmpNode->m_pNext; tmpNode = tmpNode->m_pNext)
+		if (!pAddedNode)
 		{
-			// nothing to do.
+			return;
 		}
 
-		tmpNode->m_pNext = pAddedNode;
+		if (!pNode)
+		{
+			pNode = pAddedNode;
+		}
+		else
+		{
+			CNode* tmpNode = pNode;
+			for (; tmpNode->m_pNext; tmpNode = tmpNode->m_pNext)
+			{
+				// nothing to do.
+			}
+
+			tmpNode->m_pNext = pAddedNode;
+		}
 	}
 
 
@@ -180,7 +199,7 @@ private:
 
 int main()
 {
-	int arr[] = { 15, 10, 5, 20, 3, 2, 50, 4 };
+	int arr[] = { 15, 10, 5, 20, 3, 2 };
 	int size = sizeof(arr) / sizeof(int);
 	CLinkedList lkist;
 
@@ -197,8 +216,12 @@ int main()
 
 	lkist.mergeSort(pNode);
 
+	lkist.setHeadNode(pNode);
+
 	lkist.printList();
 
 	system("pause");
 	return 0;
 }
+
+
