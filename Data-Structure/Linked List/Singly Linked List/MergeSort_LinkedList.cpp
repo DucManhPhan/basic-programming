@@ -80,7 +80,7 @@ public:
 		//	1) If head is NULL or there is only one element in the Linked List
 		//	   then return.
 		//	2) Else divide the linked list into two halves.
-		//	   FrontBackSplit(head, &a, &b); /* a and b are two halves */
+		//	   splitList(head, &a, &b); /* a and b are two halves */
 		//	3) Sort the two halves a and b.
 		//		MergeSort(a);
 		//		MergeSort(b);
@@ -104,8 +104,8 @@ public:
 		mergeSort(secondList);
 
 		// merge the sorted first list and second list. 
-		pNode = merge(firstList, secondList);
-		//pNode = merge_Recursive(firstList, secondList);
+		//pNode = merge(firstList, secondList);
+		pNode = merge_Recursive(firstList, secondList);
 	}
 
 	CNode* merge(CNode* firstList, CNode* secondList)
@@ -181,9 +181,29 @@ public:
 
 	CNode* merge_Recursive(CNode* firstList, CNode* secondList)
 	{
+		CNode* thirdList = nullptr; 
 
+		if (!firstList)
+		{
+			return secondList;
+		}
+		else if (!secondList)
+		{
+			return firstList;
+		}
 
-		return nullptr;
+		if (firstList->m_nData < secondList->m_nData)
+		{
+			thirdList = firstList;
+			thirdList->m_pNext = merge_Recursive(firstList->m_pNext, secondList);
+		}
+		else
+		{
+			thirdList = secondList;
+			thirdList->m_pNext = merge_Recursive(firstList, secondList->m_pNext);
+		}
+		
+		return thirdList;
 	}
 
 	void splitList(CNode* pNode, CNode*& firstList, CNode*& secondList)
