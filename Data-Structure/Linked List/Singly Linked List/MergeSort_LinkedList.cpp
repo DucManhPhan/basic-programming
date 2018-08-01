@@ -105,6 +105,7 @@ public:
 
 		// merge the sorted first list and second list. 
 		pNode = merge(firstList, secondList);
+		//pNode = merge_Recursive(firstList, secondList);
 	}
 
 	CNode* merge(CNode* firstList, CNode* secondList)
@@ -112,41 +113,77 @@ public:
 		CNode* thirdList = nullptr;
 		CNode* pHead_FirstList = firstList; 
 		CNode* pHead_SecondList = secondList;
-		CNode* pTmpNode = nullptr;
-		int data;
+		CNode* pNextNode = nullptr;
+		//CNode* pTmpNode = nullptr;
+		//int data;
 
 		for (; pHead_FirstList && pHead_SecondList;)
 		{
 			if (pHead_FirstList->m_nData <= pHead_SecondList->m_nData)
 			{				
-				data = pHead_FirstList->m_nData;
-				pHead_FirstList = pHead_FirstList->m_pNext;
+				/*data = pHead_FirstList->m_nData;
+				pHead_FirstList = pHead_FirstList->m_pNext;*/
+
+				pNextNode = pHead_FirstList->m_pNext;
+				pHead_FirstList->m_pNext = nullptr;
+
+				insertTailForNode(thirdList, pHead_FirstList);
+
+				pHead_FirstList = pNextNode;
 			}
 			else
 			{
-				data = pHead_SecondList->m_nData;
-				pHead_SecondList = pHead_SecondList->m_pNext;
+				/*data = pHead_SecondList->m_nData;
+				pHead_SecondList = pHead_SecondList->m_pNext;*/
+
+				pNextNode = pHead_SecondList->m_pNext;
+				pHead_SecondList->m_pNext = nullptr;
+
+				insertTailForNode(thirdList, pHead_SecondList);
+
+				pHead_SecondList = pNextNode;
 			}
 
-			pTmpNode = makeNode(data);					
-			insertTailForNode(thirdList, pTmpNode);
+			/*pTmpNode = makeNode(data);					
+			insertTailForNode(thirdList, pTmpNode);*/
 		}
 
 		// add to the first list. 
-		for (; pHead_FirstList; pHead_FirstList = pHead_FirstList->m_pNext)
+		for (; pHead_FirstList;)//pHead_FirstList = pHead_FirstList->m_pNext)
 		{
-			pTmpNode = makeNode(pHead_FirstList->m_nData);
-			insertTailForNode(thirdList, pTmpNode);
+			// pTmpNode = makeNode(pHead_FirstList->m_nData);
+			// insertTailForNode(thirdList, pTmpNode);
+
+			pNextNode = pHead_FirstList->m_pNext;
+			pHead_FirstList->m_pNext = nullptr;
+
+			insertTailForNode(thirdList, pHead_FirstList);
+
+			pHead_FirstList = pNextNode;
 		}
 
 		// add to the second list.
-		for (; pHead_SecondList; pHead_SecondList = pHead_SecondList->m_pNext)
+		for (; pHead_SecondList;) //pHead_SecondList = pHead_SecondList->m_pNext)
 		{
-			pTmpNode = makeNode(pHead_SecondList->m_nData);
-			insertTailForNode(thirdList, pTmpNode);
+			// pTmpNode = makeNode(pHead_SecondList->m_nData);
+			// insertTailForNode(thirdList, pTmpNode);
+
+			pNextNode = pHead_SecondList->m_pNext;
+			pHead_SecondList->m_pNext = nullptr;
+
+			insertTailForNode(thirdList, pHead_SecondList);
+
+			pHead_SecondList = pNextNode;
 		}
 
 		return thirdList;
+	}
+
+	CNode* merge_Recursive(CNode* firstList, CNode* secondList)
+	{
+
+
+		return nullptr;
 	}
 
 	void splitList(CNode* pNode, CNode*& firstList, CNode*& secondList)
@@ -167,7 +204,7 @@ public:
 		secondList = pSlowNode;
 	}
 
-	void insertTailForNode(CNode*& pNode, CNode* pAddedNode)
+	friend void insertTailForNode(CNode*& pNode, CNode* pAddedNode)
 	{
 		if (!pAddedNode)
 		{
