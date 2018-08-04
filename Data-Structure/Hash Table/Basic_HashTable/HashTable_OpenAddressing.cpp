@@ -3,8 +3,8 @@
 
 
 #pragma region Constructor
-CHashTableOpenAddressing::CHashTableOpenAddressing(int size) : m_nSize(size)
-															 , m_vecHashTable(size)
+CHashTableOpenAddressing::CHashTableOpenAddressing(int size, int valueOfElement) : m_nCurrentSize(0)
+, m_vecHashTable(size, valueOfElement)
 {
 	// nothing to do.
 }
@@ -13,44 +13,113 @@ CHashTableOpenAddressing::CHashTableOpenAddressing(int size) : m_nSize(size)
 
 #pragma region Common operations
 void CHashTableOpenAddressing::insertElement(int data)
-{	
-	int nFirstIndex = firstHashFunction(data);	
-	int nSecondIndex = -1;
-	int nPrevFirstIndex = -1;
-	int i = 0;
-
-	for (; ; ++i)
+{
+	if (isFull())
 	{
-		if (nPrevFirstIndex == nFirstIndex)
-		{
-			nSecondIndex = secondHashFunction(data);
-
-		}
-
-		
+		return;
 	}
+
+	int nFirstIndex = firstHashFunction(data);
+
+	if (m_vecHashTable[nFirstIndex] != -1)		// have collision.
+	{
+		int nSecondIndex = secondHashFunction(data);
+		int i = 1; 
+
+		for (; ; ++i)
+		{
+			int nNewIndex = firstHashFunction(nFirstIndex + i * nSecondIndex);
+			if (m_vecHashTable[nNewIndex] == -1)		// no collision.
+			{
+				m_vecHashTable[nNewIndex] = data; 
+				break;
+			}
+		}
+	}
+	else	// no collision.
+	{
+		m_vecHashTable[nFirstIndex] = data;
+	}
+
+	++m_nCurrentSize;
 }
 
 
 void CHashTableOpenAddressing::deleteElement(int data)
 {
+	if (isNoElement())
+	{
+		std::cout << "No element in this hash table.\n";
+		return;
+	}
 
+	int nIndex = firstHashFunction(data);
+	if (m_vecHashTable[nIndex] == -1)  // deleted this element before. 
+	{
+		int nSecondIndex = secondHashFunction(data);
+		int i = 1;
+
+		for (; i < TABLESIZE ; ++i)
+		{
+			int nNewIndex = firstHashFunction(nIndex + i * nSecondIndex);
+			if (m_vecHashTable[nNewIndex] != -1)
+			{
+				m_vecHashTable[nNewIndex] = -1;
+				break;
+			}
+		}
+	}
+	else
+	{
+		m_vecHashTable[nIndex] = -1;
+	}
+
+	--m_nCurrentSize;
 }
 
 
 void CHashTableOpenAddressing::printHashTable()
 {
+	if (m_nCurrentSize == 0)
+	{
+		std::cout << "This hash table has no element.\n";
+		return;
+	}
 
+	for (int i = 0; i < TABLESIZE; ++i)
+	{
+		if (m_vecHashTable[i] != -1)
+		{
+			std::cout << i << "-->" << m_vecHashTable[i] << "  ";
+		}
+		else
+		{
+			std::cout << i << "\n";
+		}
+	}
+
+	std::cout << "\n";
 }
 
 int CHashTableOpenAddressing::firstHashFunction(int data)
 {
-	return data % m_nSize;
+	return data % TABLESIZE;
 }
-
 
 int CHashTableOpenAddressing::secondHashFunction(int data)
 {
 	return PRIME - (data % PRIME);
+}
+
+
+bool CHashTableOpenAddressing::isFull()
+{
+	return m_nCurrentSize == TABLESIZE;
+}
+
+
+bool CHashTableOpenAddressing::isNoElement()
+{
+	return m_nCurrentSize == 0;
 }
 #pragma endregion
