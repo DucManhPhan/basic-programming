@@ -45,39 +45,6 @@ void CHashTableOpenAddressing::insertElement(int data)
 }
 
 
-void CHashTableOpenAddressing::deleteElement(int data)
-{
-	if (isNoElement())
-	{
-		std::cout << "No element in this hash table.\n";
-		return;
-	}
-
-	int nIndex = firstHashFunction(data);
-	if (m_vecHashTable[nIndex] == -1)  // deleted this element before. 
-	{
-		int nSecondIndex = secondHashFunction(data);
-		int i = 1;
-
-		for (; i < TABLESIZE ; ++i)
-		{
-			int nNewIndex = firstHashFunction(nIndex + i * nSecondIndex);
-			if (m_vecHashTable[nNewIndex] != -1)
-			{
-				m_vecHashTable[nNewIndex] = -1;
-				break;
-			}
-		}
-	}
-	else
-	{
-		m_vecHashTable[nIndex] = -1;
-	}
-
-	--m_nCurrentSize;
-}
-
-
 void CHashTableOpenAddressing::printHashTable()
 {
 	if (m_nCurrentSize == 0)
