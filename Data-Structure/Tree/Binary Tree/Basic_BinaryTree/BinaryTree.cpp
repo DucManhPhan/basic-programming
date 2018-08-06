@@ -88,21 +88,23 @@ CNode* CBinaryTree::getDeletedNode(int data)
 	if (empty())
 	{
 		std::cout << "Tree has no element.\n";
-		return;
+		return nullptr;
 	}
 
 	std::queue<CNode*>	queTree;
 	queTree.push(m_pRoot);
 
+	CNode* pTmpNode = nullptr;
+
 	while (queTree.empty())
 	{
-		CNode* pTmpNode = queTree.back();
+		pTmpNode = queTree.back();
 		queTree.pop();
 		if (pTmpNode)
 		{
 			if (pTmpNode->m_nData == data)
 			{
-				return pTmpNode;
+				break;
 			}
 
 			if (pTmpNode->m_pLeft)
@@ -116,6 +118,8 @@ CNode* CBinaryTree::getDeletedNode(int data)
 			}
 		}
 	}
+
+	return pTmpNode;
 }
 
 
