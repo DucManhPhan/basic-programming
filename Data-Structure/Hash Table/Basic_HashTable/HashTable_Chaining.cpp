@@ -4,7 +4,7 @@
 
 #pragma region Constructors. 
 CHashTableChaining::CHashTableChaining(int numberOfElem) : m_nSize(numberOfElem)
-													     , m_vecHashTable(numberOfElem)
+							 , m_vecHashTable(numberOfElem)
 {
 	// nothing to do
 }
