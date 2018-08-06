@@ -35,7 +35,7 @@ public:
 
 // Basic operation about the tree.
 node* find(int item, node* tree);
-void insert(node *& tree, node*& parentNode, node *newNode);
+void insert(node*& tree, node*& parentNode, node *newNode);
 void del(int item, node* tree);
 void GetPressdor(node*& p, node*& q);
 
