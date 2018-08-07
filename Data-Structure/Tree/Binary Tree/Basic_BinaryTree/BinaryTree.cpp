@@ -35,9 +35,9 @@ void CBinaryTree::insertElement(CNode* pNode)
 	std::queue<CNode*> dqTree;
 	dqTree.push(m_pRoot);
 
-	while (dqTree.empty())
+	while (!dqTree.empty())
 	{
-		CNode* pTmpNode = dqTree.back();
+		CNode* pTmpNode = dqTree.front();
 		dqTree.pop();
 
 		if (pTmpNode)
@@ -50,6 +50,8 @@ void CBinaryTree::insertElement(CNode* pNode)
 			{
 				pTmpNode->m_pLeft = pNode; 
 				pNode->m_pParent = pTmpNode;
+
+				break;
 			}
 			
 			if (pTmpNode->m_pRight)
@@ -60,6 +62,8 @@ void CBinaryTree::insertElement(CNode* pNode)
 			{
 				pTmpNode->m_pRight = pNode; 
 				pNode->m_pParent = pTmpNode;
+
+				break;
 			}
 		}
 	}
@@ -69,11 +73,31 @@ void CBinaryTree::insertElement(CNode* pNode)
 // find the replaced node that is deepest and rightmost node in binary tree.
 void CBinaryTree::deleteElement(int data)
 {
-	CNode* pDeletedNode = getDeletedNode(data);
+	CNode* pDeepestNode = nullptr;
+	CNode* pDeletedNode = getDeletedNode(data, pDeepestNode);
 
-	CNode* pRightmostnode = getRightmostNode(m_pRoot);
+	if (pDeepestNode)
+	{
+		int nValueDeepestNode = pDeepestNode->m_nData;
 
+		// save the parent of the deepest node. 
+		CNode* pParentOfDeepestNode = pDeepestNode->m_pParent;
+		if (pParentOfDeepestNode->m_pRight == pDeepestNode)
+		{
+			pParentOfDeepestNode->m_pRight = nullptr;
+		}
+		else if (pParentOfDeepestNode->m_pLeft == pDeepestNode)
+		{
+			pParentOfDeepestNode->m_pLeft = nullptr;
+		}
 
+		// assign value of the deepest node to the deleted node. 
+		pDeletedNode->m_nData = nValueDeepestNode;
+
+		// delete the Deepest node. 
+		delete pDeepestNode;
+		pDeepestNode = nullptr;
+	}
 }
 
 
@@ -83,7 +107,7 @@ bool CBinaryTree::empty()
 }
 
 
-CNode* CBinaryTree::getDeletedNode(int data)
+CNode* CBinaryTree::getDeletedNode(int data, CNode*& pDeepestNode)
 {
 	if (empty())
 	{
@@ -95,16 +119,17 @@ CNode* CBinaryTree::getDeletedNode(int data)
 	queTree.push(m_pRoot);
 
 	CNode* pTmpNode = nullptr;
+	CNode* pDeleteNode = nullptr;
 
-	while (queTree.empty())
+	while (!queTree.empty())
 	{
-		pTmpNode = queTree.back();
+		pTmpNode = queTree.front();
 		queTree.pop();
 		if (pTmpNode)
 		{
 			if (pTmpNode->m_nData == data)
 			{
-				break;
+				pDeleteNode = pTmpNode;
 			}
 
 			if (pTmpNode->m_pLeft)
@@ -119,29 +144,38 @@ CNode* CBinaryTree::getDeletedNode(int data)
 		}
 	}
 
-	return pTmpNode;
-}
-
-
-CNode* CBinaryTree::getRightmostNode(CNode* pNode)
-{
-	if (!pNode)
-	{
-		return nullptr;
-	}
-
-	CNode* pRightmost = getRightmostNode(pNode->m_pRight);
-	if (pRightmost == nullptr)
-	{
-		return pNode;
-	}
-
-	return pRightmost;
+	pDeepestNode = pTmpNode;
+	return pDeleteNode;
 }
 
 
 void CBinaryTree::deleteTree()
 {
 
+
+}
+
+	
+void CBinaryTree::printTree()
+{
+	if (!m_pRoot)
+	{
+		return;
+	}
+	
+	printTreeUtils(m_pRoot);
+}
+
+
+void CBinaryTree::printTreeUtils(CNode* pNode)
+{
+	if (pNode)
+	{
+		printTreeUtils(pNode->m_pLeft);
+
+		std::cout << pNode->m_nData << "  ";
+
+		printTreeUtils(pNode->m_pRight);
+	}
 }
 #pragma endregion

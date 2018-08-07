@@ -15,6 +15,13 @@ int main()
 		binaTree.insertElement(pNode);
 	}
 
+	binaTree.printTree();
+	std::cout << "\n";
+
+	binaTree.deleteElement(11);
+
+	binaTree.printTree();
+	std::cout << "\n";
 
 	system("pause");
 	return 0;

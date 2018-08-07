@@ -31,19 +31,21 @@ public:
 	// Constructor
 	CBinaryTree();
 
-	CNode* makeNode(int data);
+	CNode*	makeNode(int data);
 
 	// Common Operations
-	void insertElement(CNode* pNode);
-	void deleteElement(int data);
+	void	insertElement(CNode* pNode);
+	void	deleteElement(int data);
 
-	void deleteTree();
+	void	deleteTree();
 
-	CNode* getDeletedNode(int data);
-	CNode* getRightmostNode(CNode* pNode);
+	CNode*	getDeletedNode(int data, CNode*& pDeepestNode);
 
-	bool empty();
+	bool	empty();
 	
+	void	printTree();
+	void	printTreeUtils(CNode* pNode);
+
 private:
 	CNode*			m_pRoot;
 	int				m_nCount;
