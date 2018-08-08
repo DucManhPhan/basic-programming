@@ -57,8 +57,8 @@ public:
 	}
 
 private:
-	std::vector<std::list<int>>			m_HashTable;
-	int									m_nSize; 
+	std::vector<std::list<int>>	m_HashTable;
+	int				m_nSize; 
 };
 
 #pragma endregion
@@ -67,7 +67,7 @@ private:
 #pragma region Binary Tree
 struct CNode
 {
-	int			m_nData; 
+	int		m_nData; 
 	CNode*		m_pLeft; 
 	CNode*		m_pRight; 
 	CNode*		m_pParent;
@@ -225,7 +225,7 @@ public:
 
 private: 
 	CNode*		m_pRoot; 
-	int			m_nSize; 
+	int		m_nSize; 
 	CHashTable	m_HashTable;
 };
 #pragma endregion
