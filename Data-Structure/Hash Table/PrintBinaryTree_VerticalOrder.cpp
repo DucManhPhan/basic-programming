@@ -154,6 +154,8 @@ public:
 		}
 	}
 
+	// Use Pre-order to traverse the tree. 
+	// Disadvantage: the order of some nodes in tree is not maintained. 
 	void getVerticalOrder()
 	{
 		int horizontalDistance = 0;
@@ -177,6 +179,44 @@ public:
 		getVerticalOrder_Utils(pNode->m_pLeft, horizontalDistance - 1);
 		getVerticalOrder_Utils(pNode->m_pRight, horizontalDistance + 1);
 	}
+
+	// Use level order traversal. 
+	void getVerticalOrder_LevelOrder()
+	{
+		if (!m_pRoot)
+		{
+			std::cout << "Tree is null.\n";
+			return;
+		}
+
+		CNode* pNode = m_pRoot;
+		int horizontalDistance = 0;
+
+		std::queue<std::pair<CNode*, int>> queTree; 
+		queTree.push(std::make_pair(pNode, horizontalDistance));
+
+		while (!queTree.empty())
+		{
+			std::pair<CNode*, int> pairTmpNode = queTree.front();
+			queTree.pop();
+
+			CNode* pTmpNode = pairTmpNode.first;
+			int hd = pairTmpNode.second;
+
+			m_HashTable.insertElement(hd, pTmpNode->m_nData);
+
+			if (pTmpNode->m_pLeft)
+			{
+				queTree.push(std::make_pair(pTmpNode->m_pLeft, hd - 1));
+			}
+
+			if (pTmpNode->m_pRight)
+			{
+				queTree.push(std::make_pair(pTmpNode->m_pRight, hd + 1));
+			}
+		}
+	}
+
 
 	void printVerticalOrder()
 	{
@@ -205,7 +245,9 @@ int main()
 		binaryTree.insertElement(pNode);
 	}
 
-	binaryTree.getVerticalOrder();
+	//binaryTree.getVerticalOrder();
+
+	binaryTree.getVerticalOrder_LevelOrder();
 	binaryTree.printVerticalOrder();
 
 	system("pause");
