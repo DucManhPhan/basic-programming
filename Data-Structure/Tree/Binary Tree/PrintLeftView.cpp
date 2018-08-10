@@ -8,29 +8,6 @@
 #include <queue>
 
 
-class CHashTable
-{
-public:
-	// Constructor
-	CHashTable(int size) : m_HashTable(size), m_nSize(size)
-	{
-		// nothing to do.
-	}
-
-	// Common operations
-	int HashFunction(int key)
-	{
-		return key % m_nSize;
-	}
-
-
-
-private:
-	std::vector<int>	m_HashTable;
-	int					m_nSize;
-};
-
-
 struct CNode
 {
 	int		m_nData;
@@ -79,6 +56,8 @@ public:
 		{
 			m_pRoot = pNode; 
 			m_pRoot->m_pParent = nullptr;
+
+			return;
 		}
 
 		std::queue<CNode*> queTree;
@@ -118,9 +97,60 @@ public:
 
 	void printLeftView()
 	{
-		
+		int nLevelNode = 0;
+		std::map<int, CNode*> mpLeftView; 
+
+		std::queue<std::pair<CNode*, int>> queTree;
+		queTree.push(std::make_pair(m_pRoot, nLevelNode));
+
+		while (!queTree.empty())
+		{
+			auto pairTmpNode = queTree.front();
+			queTree.pop();
+
+			CNode* pNode = pairTmpNode.first;
+			int key = pairTmpNode.second;
+			if (!isExist(mpLeftView, key))
+			{
+				mpLeftView[key] = pNode;
+			}
+
+			if (pNode->m_pLeft)
+			{
+				queTree.push(std::make_pair(pNode->m_pLeft, key + 1));
+			}
+
+			if (pNode->m_pRight)
+			{
+				queTree.push(std::make_pair(pNode->m_pRight, key + 1));
+			}
+		}
+
+		// print left view 
+		std::map<int, CNode*>::iterator it; 
+		std::map<int, CNode*>::iterator it_begin = mpLeftView.begin();
+		std::map<int, CNode*>::iterator it_end = mpLeftView.end();
+
+		for (it = it_begin; it != it_end; ++it)
+		{
+			std::cout << it->second->m_nData << "\n";
+		}
+
+		std::cout << "\n";
 	}
 
+	bool isExist(const std::map<int, CNode*>& mpLeftView, int key)
+	{
+		std::map<int, CNode*>::const_iterator it = mpLeftView.find(key);
+
+		return it != mpLeftView.end();
+	}
+
+	// the other way: use recursive. 
+	void printLeftView_Recursive()
+	{
+
+	}
 
 
 private:
