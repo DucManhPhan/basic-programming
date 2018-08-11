@@ -4,14 +4,14 @@
 
 struct CNode
 {
-	int			m_nData; 
+	int		m_nData; 
 	
 	CNode*		m_pParent;
 	CNode*		m_pLeft; 
 	CNode*		m_pRight;
 
 	CNode(int data) : m_nData(data), m_pParent(nullptr)
-					, m_pRight(nullptr), m_pLeft(nullptr)
+			, m_pRight(nullptr), m_pLeft(nullptr)
 	{
 		// nothing to do. 
 	}
@@ -35,9 +35,7 @@ public:
 
 	// Common Operations
 	void	insertElement(CNode* pNode);
-	void	deleteElement(int data);
-
-	void	deleteTree();
+	void	deleteElement(int data);	
 
 	CNode*	getDeletedNode(int data, CNode*& pDeepestNode);
 
