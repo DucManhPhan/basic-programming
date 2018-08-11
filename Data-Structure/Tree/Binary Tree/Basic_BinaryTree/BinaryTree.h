@@ -46,5 +46,5 @@ public:
 
 private:
 	CNode*			m_pRoot;
-	int				m_nCount;
+	int			m_nCount;
 };
