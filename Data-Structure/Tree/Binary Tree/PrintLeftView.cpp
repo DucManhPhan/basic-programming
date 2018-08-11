@@ -10,7 +10,7 @@
 
 struct CNode
 {
-	int		m_nData;
+	int	m_nData;
 	CNode*	m_pParent; 
 	CNode*	m_pLeft; 
 	CNode*	m_pRight;
@@ -155,7 +155,7 @@ public:
 
 private:
 	CNode*		m_pRoot;
-	int			m_nSize; 
+	int		m_nSize; 
 };
 
 
