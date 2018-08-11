@@ -125,7 +125,8 @@ CNode* CBinaryTree::getDeletedNode(int data, CNode*& pDeepestNode)
 	{
 		pTmpNode = queTree.front();
 		queTree.pop();
-		if (pTmpNode)
+
+		if (pTmpNode)
 		{
 			if (pTmpNode->m_nData == data)
 			{
@@ -146,13 +147,6 @@ CNode* CBinaryTree::getDeletedNode(int data, CNode*& pDeepestNode)
 
 	pDeepestNode = pTmpNode;
 	return pDeleteNode;
-}
-
-
-void CBinaryTree::deleteTree()
-{
-
-
 }
 
 	
