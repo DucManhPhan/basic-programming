@@ -3,7 +3,7 @@
 
 struct CNode
 {
-	int			m_nData; 
+	int		m_nData; 
 	CNode*		m_pNext; 
 
 	CNode(int data) : m_nData(data), m_pNext(nullptr)
@@ -124,7 +124,7 @@ public:
 
 private:
 	CNode*		m_pHeadNode; 
-	int			m_nCount;
+	int		m_nCount;
 };
 
 
