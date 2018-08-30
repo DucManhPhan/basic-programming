@@ -7,7 +7,7 @@
 #pragma region Definition of Threaded Binary Tree node
 struct CNode
 {
-	int			m_nData;
+	int		m_nData;
 	CNode*		m_pLeft; 
 	CNode*		m_pRight;
 	CNode*		m_pParent;
