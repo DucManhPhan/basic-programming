@@ -23,3 +23,10 @@
   - Always get the parent of the node. 
   - The way to insert or delete node in Threaded Binary tree different from the Binary Search Tree. 
   - When you want to traversal all of the nodes of Threaded Binary Tree, use the bit variable: leftThread and rightThread. 
+
+
+# In Trees and Linked List, use Sentinel node. Sentinels are used an alternative over using null as the path terminator in order to get one or more of the following benefits:
+  - Increased speed of operations. 
+  - Reduced algorithmic complexity and code size. 
+  - Increased data structure robustness. 
+However, sentinel nodes rely on shared memory, which requires extra code to avoid data reaces. This causes sentinel nodes to have poor performance on concurrent systems.
