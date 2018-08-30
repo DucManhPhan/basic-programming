@@ -480,6 +480,33 @@ node* CLinkedList::getEndOfNthNode(int n)
 }
 
 
+// get Nth node from the end of linked list that use recursion.
+node* CLinkedList::getEndOfNthNode_UseRecursion(node* pNode, int n)
+{
+	static int count = 0;
+
+	if (!pNode)
+	{
+		return nullptr;
+	}
+
+	node* pTmpNode = getEndOfNthNode_UseRecursion(pNode->next, n);
+	if (pTmpNode)
+	{
+		return pTmpNode;
+	}
+
+	if (count == n - 1)
+	{
+		return pTmpNode;
+	}
+
+	++count; 
+
+	return nullptr;
+}
+
+
 // print the middle element of linked list. 
 void CLinkedList::printMiddleElement()
 {

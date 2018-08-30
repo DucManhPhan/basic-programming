@@ -79,6 +79,8 @@ public:
 	// get Nth node from the end of linked list. 
 	node* getEndOfNthNode(int n);
 
+	node* getEndOfNthNode_UseRecursion(node* pNode = pFirstNode, int n);
+
 	// print the middle element of linked list. 
 	void printMiddleElement();
 
@@ -98,28 +100,4 @@ public:
 	void  recursive_ReverseLL(node* firstNode, node* remainedNode, node*& lastNode);
 	node* iterative_makeReversedLinkedListFrom(node*& firstNode);
 	bool compareLinkedLists(node* firstLinkedList, node* secondLinkedList);
-
-
-	// Quicksort with Linked Lists. 
-
-
-	// Merge sort with Linked Lists. 
-
-
-	// Merge two sorted linked lists.
-
-
-
-	// Rotate Linked List.
-
-
-
-	// Union and intersection of two Linked Lists 
-
-
-
-	// Sum of last n nodes of the given linked list. 
-
-
-
 };
