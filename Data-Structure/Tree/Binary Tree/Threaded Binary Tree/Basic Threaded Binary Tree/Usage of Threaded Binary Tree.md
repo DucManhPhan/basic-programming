@@ -18,3 +18,8 @@
   inorder traversal. 
   - Threaded binary tree makes the tree traversal faster since we do not need stack or recursion of traversal. 
 
+
+# The most importance to notice about modifying threaded binary tree is:
+  - Always get the parent of the node. 
+  - The way to insert or delete node in Threaded Binary tree different from the Binary Search Tree. 
+  - When you want to traversal all of the nodes of Threaded Binary Tree, use the bit variable: leftThread and rightThread. 
