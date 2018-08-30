@@ -7,7 +7,7 @@
 #pragma region Definition of Threaded Binary Tree node
 struct CNode
 {
-	int		m_nData;
+	int			m_nData;
 	CNode*		m_pLeft; 
 	CNode*		m_pRight;
 	CNode*		m_pParent;
@@ -115,14 +115,6 @@ void insertElement(CNode* pNode)
 #pragma endregion
 
 
-#pragma region Delete element
-void deleteElement(int data)
-{
-
-}
-#pragma endregion
-
-
 #pragma region Inorder traversal
 CNode* InorderPredessorNode(CNode* pNode)
 {
@@ -144,7 +136,7 @@ CNode* InorderPredessorNode(CNode* pNode)
 		pNode = pNode->m_pRight;
 	}
 
-	return pNode; 
+	return pNode;
 }
 
 
@@ -152,7 +144,7 @@ CNode* InorderSucessorNode(CNode* pNode)
 {
 	if (!pNode)
 	{
-		return nullptr; 
+		return nullptr;
 	}
 
 	// that node has the right threaded node. 
@@ -176,7 +168,7 @@ void InorderTree()
 {
 	if (!pRoot)
 	{
-		return; 
+		return;
 	}
 
 	CNode* pNode = pRoot;
@@ -190,6 +182,210 @@ void InorderTree()
 		std::cout << pNode->m_nData << " ";
 		pNode = InorderSucessorNode(pNode);
 	}
+}
+#pragma endregion
+
+
+#pragma region Search Operation
+CNode* searchElement(int data, CNode*& pParent)
+{
+	CNode* pTmpNode = pRoot; 
+	pParent = nullptr; 
+
+	while (pTmpNode != nullptr)
+	{
+		if (pTmpNode->m_nData == data)
+		{
+			std::cout << "\nFound node with the value - " << data << "\n";
+			return pTmpNode;
+		}
+
+		if (pTmpNode->m_nData > data)
+		{
+			if (pTmpNode->m_bLeftThread == false)
+			{
+				pParent = pTmpNode;
+				pTmpNode = pTmpNode->m_pLeft;
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		if (pTmpNode->m_nData < data)
+		{
+			if (pTmpNode->m_bRightThread == false)
+			{
+				pParent = pTmpNode;
+				pTmpNode = pTmpNode->m_pRight;
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+
+	return nullptr;
+}
+
+#pragma endregion 
+
+
+#pragma region Delete element
+// There is one child node: left node or right node 
+void del_OneChildNode(CNode* pParent, CNode* pNode)
+{
+	if (!pRoot)
+	{
+		return;
+	}
+
+	CNode* pChild = nullptr;
+
+	// get child of the deleted node. 
+	if (pNode->m_bLeftThread == false)
+	{
+		pChild = pNode->m_pLeft;
+	}
+	else
+	{
+		pChild = pNode->m_pRight;
+	}
+
+	// links the pointers of the Parent node to the Child node of deleted node. 
+	if (!pParent)
+	{
+		pRoot = pChild;
+	}
+	else if (pNode == pParent->m_pLeft)
+	{
+		pParent->m_pLeft = pChild;
+	}
+	else if (pNode == pParent->m_pRight)
+	{
+		pParent->m_pRight = pChild;
+	}
+
+	// get the inorder predecessor and successor of the deleted node. 
+	CNode* pSuccessor = InorderSucessorNode(pNode);
+	CNode* pPredecessor = InorderPredessorNode(pNode);
+
+	if (pNode->m_bLeftThread == false)
+	{
+		pPredecessor->m_pRight = pSuccessor;
+	}
+	else if (pNode->m_bRightThread == false)
+	{
+		pSuccessor->m_pLeft = pPredecessor;
+	}
+
+	delete pNode;
+	pNode = nullptr;
+}
+
+
+// There is no child node. 
+void del_NoChildNode(CNode* pParent, CNode* pNode)
+{
+	if (!pRoot)
+	{
+		return;
+	}
+
+	if (!pParent)
+	{
+		pRoot = nullptr;
+
+		delete pNode;
+		pNode = nullptr;
+
+		return;
+	}
+
+	if (pParent->m_pLeft == pNode)
+	{
+		pParent->m_pLeft = pNode->m_pLeft;
+		pParent->m_bLeftThread = true;
+	}
+	else
+	{
+		pParent->m_pRight = pNode->m_pRight;
+		pParent->m_bRightThread = true;
+	}
+
+	delete pNode;
+	pNode = nullptr;
+}
+
+
+
+// There are two child nodes
+void del_TwoChildNode(CNode* pParent, CNode* pNode)
+{
+	if (!pRoot)
+	{
+		return;
+	}
+
+	// find the left most node of the right subtree of the pNode.
+	CNode* pParentSuccessor = pNode; 
+	CNode* pSuccessor = pNode->m_pRight;
+
+	while (pSuccessor->m_bLeftThread == false)
+	{
+		pParentSuccessor = pSuccessor;
+		pSuccessor = pSuccessor->m_pLeft;
+	}
+
+	// swap value between the deleted node and the successor node. 
+	pNode->m_nData = pSuccessor->m_nData;
+
+	if (pSuccessor->m_bLeftThread == true && pSuccessor->m_bRightThread == true)   // have no child nodes. 
+	{
+		del_NoChildNode(pParentSuccessor, pSuccessor);
+	}
+	else
+	{
+		del_OneChildNode(pParentSuccessor, pSuccessor);
+	}
+}
+
+
+
+
+
+void deleteElement(int data)
+{
+	CNode* pParent = nullptr; 
+
+	// search element with data. 
+	CNode* pNode = searchElement(data, pParent);
+	if (!pNode)
+	{
+		std::cout << "Do not exist this element.\n";
+		return;
+	}
+
+	CNode* pFound = pNode;
+
+	// When deleting node, there are 3 cases: 
+	//	- case 1 - it is leaf node. 
+	//  - case 2 - it has one child, or the right subtree or the left subtree. 
+	//  - case 3 - it has two child. 
+	if (pFound->m_bLeftThread == false && pFound->m_bRightThread == false)		// have two child
+	{
+		del_TwoChildNode(pParent, pFound);
+	}
+	else if (pFound->m_bLeftThread == false || pFound->m_bRightThread == false)		// have one child node
+	{
+		del_OneChildNode(pParent, pFound);
+	}
+	else  // no have child node
+	{
+		del_NoChildNode(pParent, pFound);
+	}	
 }
 #pragma endregion
 #pragma endregion
@@ -207,6 +403,8 @@ int main()
 
 		insertElement(pNode);
 	}
+
+	deleteElement(16);
 
 	InorderTree();
 
