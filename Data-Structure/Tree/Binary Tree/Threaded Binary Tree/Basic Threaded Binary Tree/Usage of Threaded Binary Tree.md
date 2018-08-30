@@ -29,4 +29,5 @@
   - Increased speed of operations. 
   - Reduced algorithmic complexity and code size. 
   - Increased data structure robustness. 
+
 However, sentinel nodes rely on shared memory, which requires extra code to avoid data reaces. This causes sentinel nodes to have poor performance on concurrent systems.
