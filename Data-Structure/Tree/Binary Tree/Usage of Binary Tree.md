@@ -20,3 +20,12 @@
   - Balanced Binary Tree
   A binary tree is balanced if height of the tree is O(logn) where n is the number of nodes. 
   Balanced Binary Trees have good performance as they provide O(logn) time to search, insert and delete. 
+
+
+# The applications of Binary Trees
+  - Heap is a tree data structure which is implemented using arrays and used to implement priority queues. 
+  - B- Tree and B+ Tree are used to implement indexing in databases. 
+  - Syntax Tree used in compilers. 
+  - K-D Tree: A space partitioning tree used to organize points in K dimensional space. 
+  - Trie used to implement dictionaries with prefix lookup.
+  - Suffix Tree: For quick pattern searching in a fixed text. 
