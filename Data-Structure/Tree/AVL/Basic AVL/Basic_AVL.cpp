@@ -80,10 +80,13 @@ int main()
 
 	pRoot = InitTree();
 
-	srand( time( NULL ));
-	for (i = 0; i < NUMBER; ++i)
+	int a[] = { 25, 20, 36, 10, 22, 12 }; //30, 40, 12, 28, 38, 48};
+	int size = sizeof(a) / sizeof(int);
+
+	//srand( time( NULL ));
+	for (i = 0; i < size; ++i)
 	{
-		int _random = rand()%10 + 1;
+		int _random = a[i];//rand()%10 + 1;
 		Node *p = CreateNode(_random);
 
 		InsertNode(p, pRoot);
@@ -91,11 +94,11 @@ int main()
 
 	NLR(pRoot);
 
-	printf("\nDua ra gia tri ma ban can xoa: ");
+	/*printf("\nDua ra gia tri ma ban can xoa: ");
 	scanf_s("%d", &_data);
 
 	pNode = CreateNode(_data);
-	DeleteNode(pNode);
+	DeleteNode(pNode);*/
 
 
 
@@ -330,6 +333,7 @@ void InsertNode(Node *pSourceNode, Node *pDestinationNode)
 	if (!pDestinationNode)
 	{
 		LLConnect(pSourceNode, pDestinationNode);
+		return;
 	}
 
 
@@ -354,7 +358,7 @@ void InsertNode(Node *pSourceNode, Node *pDestinationNode)
 	{
 		if (pDestinationNode->pRight)
 		{
-			InsertNode(pSourceNode, pDestinationNode);
+			InsertNode(pSourceNode, pDestinationNode->pRight);
 		}
 		else 
 		{
@@ -366,48 +370,48 @@ void InsertNode(Node *pSourceNode, Node *pDestinationNode)
 }
 
 // Delete a node of the tree. 
-void DeleteNode(Node *pRoot, Node *pNode)
-{
-	if (pNode == NULL)
-	{
-		printf("\nKhong ton tai node de xoa.\n");
-		
-		return;
-	}
-
-	if (pNode->Data > pRoot->Data)
-	{
-		DeleteNode(pRoot->pRight, pNode);
-	}
-	else if (pNode->Data < pRoot->Data)
-	{
-		DeleteNode(pRoot->pLeft, pNode);
-	}
-	else
-	{
-		if (pNode->pLeft == NULL && pNode->pRight == NULL)
-		{
-			delete pNode;
-		}
-		else if (pNode->pLeft == NULL)
-		{
-			pNode->pParent = pNode->pRight;
-			delete pNode;
-		}
-		else if (pNode->pRight == NULL)
-		{
-			pNode->pParent = pNode->pLeft;
-			delete pNode;
-		}
-		else
-		{
-
-		}
-
-	}
-
-
-}
+//void DeleteNode(Node *pRoot, Node *pNode)
+//{
+//	if (pNode == NULL)
+//	{
+//		printf("\nKhong ton tai node de xoa.\n");
+//		
+//		return;
+//	}
+//
+//	if (pNode->Data > pRoot->Data)
+//	{
+//		DeleteNode(pRoot->pRight, pNode);
+//	}
+//	else if (pNode->Data < pRoot->Data)
+//	{
+//		DeleteNode(pRoot->pLeft, pNode);
+//	}
+//	else
+//	{
+//		if (pNode->pLeft == NULL && pNode->pRight == NULL)
+//		{
+//			delete pNode;
+//		}
+//		else if (pNode->pLeft == NULL)
+//		{
+//			pNode->pParent = pNode->pRight;
+//			delete pNode;
+//		}
+//		else if (pNode->pRight == NULL)
+//		{
+//			pNode->pParent = pNode->pLeft;
+//			delete pNode;
+//		}
+//		else
+//		{
+//
+//		}
+//
+//	}
+//
+//
+//}
 
 
 
@@ -416,7 +420,7 @@ void NLR(Node *pNode)
 {
 	if (pNode != NULL)
 	{
-		printf("%d", pNode->Data);
+		printf("%d	", pNode->Data);
 		NLR(pNode->pLeft);
 		NLR(pNode->pRight);
 	}
