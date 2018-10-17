@@ -25,7 +25,7 @@ void putQueens(int nCol)
 {
 	for (int iRow = 0; iRow < 8; ++iRow)
 	{
-		if (rows[iRow] == 0 && lineDiagUp[iRow + nCol]		 == 0 
+		if (rows[iRow] == 0 && lineDiagUp[iRow + nCol] == 0 
 							&& lineDiagDown[iRow - nCol + 7] == 0)
 		{
 			// put the queen at this position (iRow, nCol).
