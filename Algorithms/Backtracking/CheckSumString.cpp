@@ -35,8 +35,8 @@ string string_sum(string str1, string str2)
 
 	for (int i = n; i < m; ++i)
 	{
-		int ds = (str1[m - 1 - i] - '0' + carry) % 10;
-		carry = str1[m - 1 - i] - '0' + carry / 10;
+		int ds = ((str1[m - 1 - i] - '0') + carry) % 10;
+		carry = ((str1[m - 1 - i] - '0') + carry) / 10;
 
 		ans = char(ds + '0') + ans;
 	}
