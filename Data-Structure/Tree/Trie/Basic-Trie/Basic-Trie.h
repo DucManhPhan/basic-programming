@@ -25,19 +25,26 @@ private:
 	class TrieNode
 	{
 	public: 
-		TrieNode() : m_vecChildren(ALPHABET_SIZE, nullptr), m_isLeaftNode(false)
+		TrieNode() : m_vecChildren(ALPHABET_SIZE, nullptr), m_isLeafNode(false)
 		{
 			// nothing to do.
 		}
 
-		std::vector<TrieNode*> getChildren()
+		TrieNode(char c) : m_vecChildren(ALPHABET_SIZE, nullptr)
+										 , m_isLeafNode(false)
+										 , m_character(c)
+		{
+			// nothing to do.
+		}
+
+		std::vector<TrieNode*>& getChildren()
 		{
 			return m_vecChildren;
 		}
 
 		bool getIsLeafNode()
 		{
-			return m_isLeaftNode;
+			return m_isLeafNode;
 		}
 
 		char getCharacter()
@@ -52,7 +59,7 @@ private:
 
 	private: 
 		std::vector<TrieNode*>		m_vecChildren; 
-		bool											m_isLeaftNode;
+		bool											m_isLeafNode;
 		char											m_character;
 	};
 
