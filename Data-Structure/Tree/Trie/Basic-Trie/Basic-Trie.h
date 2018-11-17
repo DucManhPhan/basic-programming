@@ -18,7 +18,7 @@ public:
 
 	bool search(const std::string& str);
 
-	bool startsWidth(const std::string& prefix);
+	bool startsWith(const std::string& prefix);
 
 private: 
 
@@ -45,6 +45,11 @@ private:
 		bool getIsLeafNode()
 		{
 			return m_isLeafNode;
+		}
+
+		void setIsLeafNode(bool isLeafNode)
+		{
+			m_isLeafNode = isLeafNode;
 		}
 
 		char getCharacter()
