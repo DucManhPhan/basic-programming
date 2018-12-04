@@ -22,7 +22,8 @@ struct CPicture
 void readCatalogXml(std::istream& is, std::vector<CPicture>& vecPicture)
 {
 	using boost::property_tree::ptree;
-	ptree pt;
+	ptree pt;	
+  	//read_xml(ifs, pt, boost::property_tree::xml_parser::trim_whitespace);
 	read_xml(is, pt);
 
 	BOOST_FOREACH(ptree::value_type const & v, pt.get_child("CATALOG"))
@@ -58,7 +59,8 @@ void writeCatalogXml(std::ostream& os, const std::vector<CPicture>& vecPic)
 		node.put("YEAR", std::to_string(pic.year) + "\n");
 	}
 
-	write_xml(os, pt);
+	boost::property_tree::xml_writer_settings<std::string> settings('\t', 1);
+	write_xml(os, pt, settings);
 }
 
 void printContent(const std::vector<CPicture>& vecPic)
