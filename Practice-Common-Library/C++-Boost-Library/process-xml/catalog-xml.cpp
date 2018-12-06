@@ -14,8 +14,8 @@ struct CPicture
 	std::string nameArtist; 
 	std::string country;
 	std::string company;
-	float				price; 
-	int					year;
+	float		price; 
+	int			year;
 };
 
 
