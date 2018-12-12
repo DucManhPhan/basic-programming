@@ -5,6 +5,7 @@
 #include <boost\date_time\posix_time\posix_time.hpp>
 
 
+// use boost::bind to connect function and parameters
 void print(const boost::system::error_code& e, boost::asio::deadline_timer* t, int* count)
 {
 	if (*count < 5)

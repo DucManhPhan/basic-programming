@@ -4,7 +4,9 @@
 #include <boost\bind.hpp>
 #include <boost\date_time\posix_time\posix_time.hpp>
 
-
+// use boost::asio::strand class to synchonise callback handlers in a multithreaded program
+// boost::asio::strand guarantees that an executing handler will be allowed to complete 
+// before the next one is started.
 class CPrinter
 {
 public:
@@ -54,6 +56,8 @@ private:
 };
 
 
+// The handlers may still execute concurrently with other handlers that were not dispatched through
+// an boost::asio::strand, or were dispatched through a different boost::asio::strand object.
 int main()
 {
 	boost::asio::io_service io;
