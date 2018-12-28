@@ -123,8 +123,10 @@ Echo n|COPY /-y c:\demo\source_file.txt c:\dir\dest.txt
 Syntax: 
 
 ```
-
+XCOPY source [destination] [options]
 ```
+
+
 
 
 Thanks for your reading.
