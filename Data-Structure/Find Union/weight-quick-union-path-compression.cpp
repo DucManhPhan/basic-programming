@@ -23,6 +23,23 @@ void init()
 
 int root(int i)
 {
+	// path compression by linking to the root
+	/*int root = i;
+
+	while (root != id[root])
+	{
+		root = id[root];
+	}
+
+	while (i != root)
+	{	
+		int newi = id[i];
+		id[i] = root;
+		i = newi;
+	}*/
+
+
+	// path compression by linking to grandparent (halving the depth)
 	while (i != id[i])
 	{
 		id[i] = id[id[i]];	// First time, assign this tree to the grandparent of the tree's root node
