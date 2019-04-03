@@ -1,78 +1,101 @@
 #include <iostream>
-#include <vector>
-#include <set>
 #include <algorithm>
 #include <string>
 #include <fstream>
-#include <utility>
+
+using namespace std;
+
+const int MN = 2001;
+const char* inf = "./in.txt";
+int n;   // number of people
+int m;   // number of pair
+int d[MN];
+int numTeams;
 
 
-std::vector<std::pair<int, int>> readFile(const std::string& path, int& numStudents, std::vector<int>& students)
+void init()
 {
-	std::ifstream infile(path);
-	if (!infile.is_open())
+	for (int i = 1; i <= n; ++i)
 	{
-		return;
+		d[i] = i;
 	}
-
-	int minNumber;
-	int first, second, numLines;
-
-	infile >> first >> second;
-	numStudents = first;
-	numLines	= second;
-
-	students.reserve(numStudents);
-	std::vector<std::pair<int, int>> pairMems(numLines);
-
-	for (int i = 0; i < numLines; ++i)
-	{
-		infile >> first >> second;
-		pairMems[i].first = first;
-		pairMems[i].second = second;
-
-		if (first > second)
-		{
-			students[second] = first;
-		}
-		else
-		{
-			students[first] = second;
-		}
-	}
-
-	return pairMems;
 }
 
 
-int root(int i, const std::vector<int>& students)
+int root(int i)	// find function
 {
-	while (i != students[i])
+	while (i != d[i])	// find follow the parent of node
 	{
-		i = students[i];
+		i = d[i];
 	}
 
 	return i;
 }
 
 
-bool connected(int p, int q, const std::vector<int>& students)
+bool connected(int p, int q)
 {
-	return root(p, students) == root(q, students);
+	return root(p) == root(q);
 }
 
 
-std::vector<std::set<int>> getMembersInTeams(const std::vector<std::pair<int, int>>& pairMems, const std::vector<int>& students)
+int quickUnion(int p, int q)
 {
-	std::vector<std::set<int>> results;
-	int sizePairMember = pairMems.size();
+	int i = root(p);
+	int j = root(q);
 
-	for (int i = 0; i < sizePairMember; ++i)
+	if (i == j)
 	{
-		std::set<int> team;
-		if (connected(pairMems[i].first, pairMems[i].second, students))
+		return 0;
+	}
+
+	i < j ? d[j] = i : d[i] = j;
+	return 1;
+}
+
+
+void readFile()
+{
+	ifstream infile(inf);
+	if (!infile.is_open())
+	{
+		return;
+	}
+
+
+	infile >> n >> m;
+	init();
+	numTeams = n;
+
+	int first, second;
+	for (int i = 1; i <= m; ++i)
+	{
+		if (!(infile >> first >> second))
 		{
-			team.insert();
+			break;
+		}
+
+		numTeams -= quickUnion(first, second);
+	}
+
+	infile.close();
+
+	// Print result
+	cout << "The number of teams in class: " << numTeams << "\n";
+	for (int i = 1; i <= n; ++i)
+	{
+		if (d[i] == i)		// find a leader of team
+		{
+			cout << "The team " << i << ": ";
+			for (int j = i + 1; j <= n; ++j)
+			{
+				if (root(j) == i)	// find a member in this team
+				{
+					cout << j << " ";
+				}
+			}
+
+			cout << "\n";
 		}
 	}
 }
@@ -80,10 +103,7 @@ std::vector<std::set<int>> getMembersInTeams(const std::vector<std::pair<int, in
 
 int main()
 {
-
-
-
-
+	readFile();
 
 	system("pause");
 	return 0;
