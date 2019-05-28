@@ -25,13 +25,13 @@ private:
 	class TrieNode
 	{
 	public: 
-		TrieNode() : m_vecChildren(ALPHABET_SIZE, nullptr), m_isLeafNode(false)
+		TrieNode() : m_vecChildren(ALPHABET_SIZE, nullptr), m_numLeafNodes(0)
 		{
 			// nothing to do.
 		}
 
 		TrieNode(char c) : m_vecChildren(ALPHABET_SIZE, nullptr)
-										 , m_isLeafNode(false)
+										 , m_numLeafNodes(0)
 										 , m_character(c)
 		{
 			// nothing to do.
@@ -42,14 +42,14 @@ private:
 			return m_vecChildren;
 		}
 
-		bool getIsLeafNode()
+		int getNumLeafNodes()
 		{
-			return m_isLeafNode;
+			return m_numLeafNodes;
 		}
 
-		void setIsLeafNode(bool isLeafNode)
+		void setNumLeafNodes(int numLeafNodes)
 		{
-			m_isLeafNode = isLeafNode;
+			m_numLeafNodes = numLeafNodes;
 		}
 
 		char getCharacter()
@@ -63,10 +63,10 @@ private:
 		}
 
 	private: 
-		std::vector<TrieNode*>		m_vecChildren; 
-		bool											m_isLeafNode;
-		char											m_character;
+		std::vector<TrieNode*>	m_vecChildren; 
+		int						m_numLeafNodes;
+		char					m_character;
 	};
 
-	TrieNode*				m_pRoot;
+	TrieNode*					m_pRoot;
 };
