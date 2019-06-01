@@ -9,19 +9,19 @@ print_lock = threading.Lock()
 def threaded(c):
     while True:
         # data received from client
-        data = c.recv(1024);
+        data = c.recv(1024)
         if not data:
-            print("Bye");
+            print("Bye")
 
             # lock released on exit
             print_lock.release()
-            break;
+            break
         
         #reverse the given string from client
         data = data[::-1]
 
         # send back reversed string to client
-        c.send(data);
+        c.send(data)
 
     #connection closed
     c.closed()
@@ -35,7 +35,7 @@ def Main():
     s.bind((host, port))
     print("socket binded to post", port)
 
-    s.listen(5);
+    s.listen(5)
     print("Socket is listening.")
 
     # Wait until client wants to exit
