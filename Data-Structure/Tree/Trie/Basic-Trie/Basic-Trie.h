@@ -16,7 +16,7 @@ public:
 
 	void insert(const std::string& str);
 
-	int remove(const std::string& str);
+	Deletion_State remove(const std::string& str);
 
 	bool search(const std::string& str);
 
