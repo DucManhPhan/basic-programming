@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <string>
 #include <vector>
+#include <stack>
 
 #define ALPHABET_SIZE	 26
 
