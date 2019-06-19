@@ -31,6 +31,8 @@ private:
 
 	TrieNode* getPrefix(const std::string& str);
 
+	void findWords(TrieNode* pNode, std::string prefix, std::vector<std::string>& vtWords);
+
 private: 
 	TrieNode*					m_pRoot;
 };
