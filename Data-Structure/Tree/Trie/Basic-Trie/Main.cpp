@@ -21,7 +21,7 @@ int main()
 		trie.insert(keys[i]);
 	}
 
-	trie.search("the") ? std::cout << "Yes\n" : std::cout << "No\n";
+	/*trie.search("the") ? std::cout << "Yes\n" : std::cout << "No\n";
 	trie.search("these") ? std::cout << "Yes\n" : std::cout << "No\n";
 
 	trie.search("hero") ? std::cout << "Yes\n" : std::cout << "No\n";
@@ -35,6 +35,14 @@ int main()
 	else
 	{
 		std::cout << "No exist.\n";
+	}*/
+
+	std::string prefix = "";//"th";
+	std::vector<std::string> vtWords = trie.getWordsWithPrefix(prefix);
+
+	for (std::string word : vtWords)
+	{
+		std::cout << word << "\n";
 	}
 
 	system("pause");

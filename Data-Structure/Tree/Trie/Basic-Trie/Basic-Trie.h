@@ -22,10 +22,16 @@ public:
 
 	bool startsWith(const std::string& prefix);
 
+	std::vector<std::string> getWordsWithPrefix(const std::string& str);
+
 private:
 	TrieNode* remove(TrieNode* pRoot, const std::string& str, int level = 0);
 
 	bool isEmpty(TrieNode* pRoot);
+
+	TrieNode* getPrefix(const std::string& str);
+
+	void findWords(TrieNode* pNode, std::string prefix, std::vector<std::string>& vtWords);
 
 private: 
 	TrieNode*					m_pRoot;
