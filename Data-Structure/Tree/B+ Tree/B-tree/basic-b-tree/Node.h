@@ -1,6 +1,6 @@
 #pragma once
-#include "pch.h"
-
+#include <vector>
+#include <iostream>
 
 
 class CNode {
@@ -11,7 +11,7 @@ public:
 
 	CNode* search(int key);
 
-	friend class CBtree;
+	//friend class CBtree;
 
 private:
 	std::vector<int>	    m_vtKeys;

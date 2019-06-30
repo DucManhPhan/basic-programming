@@ -1,6 +1,5 @@
 #pragma once
 
-#include "pch.h"
 #include "Node.h"
 
 
@@ -11,9 +10,7 @@ public:
 	void traverse();
 
 	CNode* search(int key);
-
-
-
+	   
 
 private:
 	CNode*          m_root;
