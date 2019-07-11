@@ -87,7 +87,6 @@ void printArray(const std::vector<int>& vec)
 }
 
 
-
 int main()
 {
 	std::vector<int> firstVec = { 1, 3, 4, 5, 7 };
