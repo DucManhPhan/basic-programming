@@ -3,3 +3,5 @@ out/
 
 # Ignore all .java files
 #*.java
+
+vc140.pdb
