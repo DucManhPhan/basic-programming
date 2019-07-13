@@ -1,4 +1,5 @@
 // https://leetcode.com/problems/two-sum/
+// Use backtracking to implement this problem - Complexity: O(n)
 
 #include <iostream>
 #include <vector>
@@ -7,22 +8,25 @@
 #include < numeric>
 
 
-void getTwoSum(std::vector<int>& nums, std::vector<int>& result, int target, int currentIndex)
+void getTwoSum(std::vector<int>& nums, std::vector<int>& tmp, std::vector<std::vector<int>>& results, int target, int currentIndex)
 {
-    if (result.size() == 2)
+    if (tmp.size() == 2)
     {
-        int sumElements = std::accumulate(result.begin(), result.end(), 0);
+        int sumElements = std::accumulate(tmp.begin(), tmp.end(), 0);
         if (target == sumElements)
         {
+            results.push_back(tmp);
             return;
         }
     }
 
     for (int i = currentIndex; i < nums.size(); ++i)
     {
-        result.push_back(nums[i]);
-        getTwoSum(nums, result, target, i + 1);
-        result.pop_back();
+        if (tmp.size() < 2) {
+            tmp.push_back(nums[i]);
+            getTwoSum(nums, tmp, results, target, i + 1);
+            tmp.pop_back();
+        }
     }
 }
 
@@ -34,10 +38,11 @@ std::vector<int> twoSum(std::vector<int>& nums, int target)
         return std::vector<int>();
     }
 
-    std::vector<int> results = {};
-    getTwoSum(nums, results, target, 0);
+    std::vector<std::vector<int>> results = {};
+    std::vector<int> tmp = {};
+    getTwoSum(nums, tmp, results, target, 0);
 
-    return results;
+    return results[0];
 }
 
 void printResult(const std::vector<int>& result)
@@ -47,7 +52,7 @@ void printResult(const std::vector<int>& result)
 }
 
 
-int main() 
+int main()
 {
     std::vector<int> nums = {2, 7, 11, 15};
     int target = 9;
