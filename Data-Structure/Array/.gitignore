@@ -4,4 +4,8 @@ out/
 # Ignore all .java files
 #*.java
 
+# Ignore all .obj files
+*.obj
+
 vc140.pdb
+
