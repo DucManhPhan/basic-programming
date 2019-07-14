@@ -38,7 +38,6 @@
         "xstring": "cpp",
         "xtr1common": "cpp",
         "xutility": "cpp",
-        "numeric": "cpp",
-        "chrono": "cpp"
+        "numeric": "cpp"
     }
 }

@@ -39,6 +39,14 @@
         "xtr1common": "cpp",
         "xutility": "cpp",
         "numeric": "cpp",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "map": "cpp",
+        "queue": "cpp",
+        "ratio": "cpp",
+        "unordered_map": "cpp",
+        "xhash": "cpp",
+        "xtree": "cpp"
     }
 }

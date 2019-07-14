@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <iterator>
 #include < numeric>
+#include <chrono>
 
 
 void getTwoSum(std::vector<int>& nums, std::vector<int>& tmp, std::vector<std::vector<int>>& results, int target, int currentIndex)
@@ -54,11 +55,20 @@ void printResult(const std::vector<int>& result)
 
 int main()
 {
-    std::vector<int> nums = {2, 7, 11, 15};
+    std::vector<int> nums = {2, 1, 8, 11, 15, 7};
     int target = 9;
 
-    std::vector<int> results = twoSum(nums, target);
-    printResult(results);
+    // Record start time
+    auto start = std::chrono::high_resolution_clock::now();
+
+    std::vector<int> result = twoSum(nums, target);
+
+    // Record end time
+    auto finish = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = finish - start;
+
+    std::cout << "Elapsed time of this problem is: " << elapsed.count() << "\n";
+    printResult(result);
 
     system("pause");
     return 0;

@@ -1,0 +1,4 @@
+# Ignore *.pdb files
+*.pdb
+
+*.obj

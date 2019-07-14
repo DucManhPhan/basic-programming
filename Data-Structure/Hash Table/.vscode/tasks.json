@@ -8,7 +8,7 @@
             "type": "shell",
             "command": "cmd",
             "args": [
-                "/C %vcvarsall% && cl /Od /Zi /EHsc ./Two_Sum_backtracking.cpp /link /OUT:%outpath%/%TargetName%.%TargetExt% /PDB:%outpath%/%TargetName%.pdb",
+                "/C %vcvarsall% && cl /Od /Zi /EHsc ./Two_sum.cpp /link /OUT:%outpath%/%TargetName%.%TargetExt% /PDB:%outpath%/%TargetName%.pdb",
             ],
             "group": {
                 "kind": "build",
