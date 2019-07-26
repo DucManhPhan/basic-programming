@@ -5,6 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include <iterator>
+#include <limits>
 
 
 int getLengthOfSmallestSubarray(const std::vector<std::vector<int>>& res)
@@ -33,7 +34,6 @@ int findSmallestSubarray(const std::vector<int>& vtInput, int s, std::vector<std
 	for (int k = size; k >= 1; --k)
 	{
 		int numOfSteps = size - k + 1;
-		//int smallestLength = 0;
 
 		for (int i = 0; i < numOfSteps; ++i)
 		{
@@ -69,19 +69,55 @@ int findSmallestSubarray(const std::vector<int>& vtInput, int s, std::vector<std
 
 
 // sliding-window
-int findSmallestSubarray_SlidingWindow(const std::vector<int>& vtInput, int s, std::vector<std::vector<int>>& result)
+int findSmallestSubarray_SlidingWindow(const std::vector<int>& vtInput, int s)
 {
 	int size = vtInput.size();
 	int windowStart = 0;
 	int windowSum = 0;
+	int smallestLength = std::numeric_limits<int>::max();
+	std::vector<int> tmpResult(2, 0);
 
 	for (int windowEnd = 0; windowEnd < size; ++windowEnd)
 	{
-
+		windowSum += vtInput[windowEnd];
+		while (windowSum >= s)
+		{
+			smallestLength = std::min(smallestLength, windowEnd - windowStart + 1);
+			windowSum -= vtInput[windowStart];
+			++windowStart;
+		}
 	}
 
+	return smallestLength;
 }
 
+
+// get all cases that have smallest length
+std::vector<std::vector<int>> getSubarray(const std::vector<int>& vtInput, int s, int k)
+{
+	int size = vtInput.size();
+	int windowStart = 0;
+	int windowSum = 0;
+	std::vector<std::vector<int>> result;
+
+	for (int windowEnd = 0; windowEnd < size; ++windowEnd)
+	{
+		windowSum += vtInput[windowEnd];
+		if (windowEnd >= k - 1)
+		{
+			if (windowSum >= s)
+			{
+				std::vector<int> tmp(vtInput.begin() + windowStart, vtInput.begin() + windowEnd + 1);
+				result.push_back(std::move(tmp));
+			}
+
+			windowSum -= vtInput[windowStart];
+			++windowStart;
+		}
+	}
+
+	return result;
+}
 
 // print result
 void printResult(const std::vector<std::vector<int>>& result)
@@ -106,13 +142,14 @@ void printResult(const std::vector<std::vector<int>>& result)
 
 int main()
 {
-	std::vector<int> vtInput = { 2, 1, 5, 2, 8 }; 	// { 3, 4, 1, 1, 6 }; 	// { 2, 1, 5, 2, 3, 2 };
-	int s = 7; // 7;	// 7;	// 8;
+	std::vector<int> vtInput = { 3, 4, 1, 1, 6 };  // { 2, 1, 5, 2, 8 }; 	// 	// { 2, 1, 5, 2, 3, 2 };
+	int s = 8; // 7;	// 7;
 	std::vector<std::vector<int>> result;
-	int smallestLength = findSmallestSubarray(vtInput, s, result);
+	//int smallestLength = findSmallestSubarray(vtInput, s, result);
+	int smallestLength = findSmallestSubarray_SlidingWindow(vtInput, s);
+	result = getSubarray(vtInput, s, smallestLength);
 
 	std::cout << "Input: " << "[";
-	//std::copy(vtInput.begin(), vtInput.end(), std::ostream_iterator<int>(std::cout, ", "));
 	for (int i = 0; i < vtInput.size(); ++i)
 	{
 		std::cout << vtInput[i] << ((i == vtInput.size() - 1) ? "" : ", ");
