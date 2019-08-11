@@ -13,9 +13,10 @@
 //	Explanation : We can put 3 'B' in one basket and two 'C' in the other basket.
 //	This can be done if we start with the second letter : ['B', 'C', 'B', 'B', 'C']
 
+// --> Write a function to return the maximum number of fruits in both in baskets.
+
 #include <iostream>
 #include <algorithm>
-#include <iterator>
 #include <unordered_map>
 #include <vector>
 
