@@ -16,11 +16,25 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
-
+#include <unordered_map>
 
 int findLengthOfLongestSubstring(const std::string& str)
 {
+	int length = str.size();
+	int windowStart = 0;
+	int maxLength = 0;
+	int maxRepeatedCharacter = 0;
+	std::unordered_map<char, int> frequencyCharacters;
 
+	for (int windowEnd = 0; windowEnd < length; ++windowEnd)
+	{
+		++frequencyCharacters[str[windowEnd]];
+		maxRepeatedCharacter = std::max(maxRepeatedCharacter, frequencyCharacters[str[windowEnd]]);
+
+
+	}
+
+	return maxLength;
 }
 
 
