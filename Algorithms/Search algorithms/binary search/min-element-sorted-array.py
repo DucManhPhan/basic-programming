@@ -3,3 +3,13 @@
 # Find the minimum element.
 # The array will not contain duplicates.
 
+
+def get_min_element(arr):
+    
+
+
+
+if __name__ == "__main__":
+    array = [4, 5, 6, 7, 0, 1, 2]
+    print(get_min_element(array))
+    
