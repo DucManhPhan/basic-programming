@@ -22,5 +22,5 @@ public:
 
 private:
 	vector<list<int>>		m_vecHashTable;
-	int				m_nSize; 
+	int						m_nSize; 
 };
