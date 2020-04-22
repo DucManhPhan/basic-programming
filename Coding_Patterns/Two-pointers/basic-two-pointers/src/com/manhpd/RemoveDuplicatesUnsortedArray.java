@@ -16,11 +16,11 @@ package com.manhpd;
 public class RemoveDuplicatesUnsortedArray {
 
     public static void main(String[] args) {
-        int[] arr = {3, 2, 3, 6, 3, 10, 9, 3};
-        int key = 3;
+//        int[] arr = {3, 2, 3, 6, 3, 10, 9, 3};
+//        int key = 3;
 
-//        int[] arr = {2, 11, 2, 2, 1};
-//        int key = 2;
+        int[] arr = {2, 11, 2, 2, 1};
+        int key = 2;
 
         int result = remove(arr, key);
         System.out.println(result);
@@ -30,19 +30,13 @@ public class RemoveDuplicatesUnsortedArray {
         int left = 0;
         int size = arr.length;
 
-        for (int i = 1; i < size; ++i) {
-            if (arr[i - 1] == key) {
-
+        for (int right = 0; right < size; ++right) {
+            if (arr[right] != key) {
+                arr[left++] = arr[right];
             }
         }
 
-        return -1;
-    }
-
-    public static void swap(int[] arr, int i, int j) {
-        int tmp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = tmp;
+        return left;
     }
 
 }

@@ -15,10 +15,11 @@ package com.manhpd;
 public class RemoveDuplicatesSortedArray {
 
     public static void main(String[] args) {
-//        int[] arr = {2, 3, 3, 3, 6, 9, 9};
-        int[] arr = {2, 2, 2, 11};
+        int[] arr = {2, 3, 3, 3, 6, 9, 9};
+//        int[] arr = {2, 2, 2, 11};
 
-        int result = remove(arr);
+//        int result = remove(arr);
+        int result = removeII(arr);
         System.out.println(result);
     }
 
@@ -49,5 +50,19 @@ public class RemoveDuplicatesSortedArray {
         }
 
         return nextNonDuplicate;
+    }
+
+    public static int removeII(int[] arr) {
+        // assuming that we have left is an index of the other array
+        int left = 0;
+
+        for (int right = 0; right < arr.length - 1; ++right) {
+            if (arr[right] != arr[right + 1]) {
+                arr[left++] = arr[right];
+            }
+        }
+
+        arr[left++] = arr[arr.length - 1];
+        return left;
     }
 }
