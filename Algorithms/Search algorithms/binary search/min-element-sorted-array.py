@@ -5,7 +5,7 @@
 
 
 def get_min_element(arr):
-    
+    pass
 
 
 
