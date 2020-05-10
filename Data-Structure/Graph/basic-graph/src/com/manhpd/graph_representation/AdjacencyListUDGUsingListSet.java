@@ -22,4 +22,19 @@ public class AdjacencyListUDGUsingListSet {
         this.adjacencyList.get(v).add(u);
     }
 
+    public void printGraph() {
+        for (int i = 0; i < this.adjacencyList.size(); ++i) {
+            Object[] nodes = this.adjacencyList.get(i).toArray();
+
+            System.out.println("\nAdjacency list of vertex: " + i);
+            System.out.print("head");
+
+            for (int j = 0; j < nodes.length; ++j) {
+                System.out.print(" --> " + (int)nodes[j]);
+            }
+
+            System.out.println();
+        }
+    }
+
 }
