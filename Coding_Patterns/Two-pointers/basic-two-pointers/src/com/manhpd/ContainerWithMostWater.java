@@ -20,9 +20,53 @@ public class ContainerWithMostWater {
         System.out.println(res);
     }
 
+    /**
+     * Using brute force solution
+     * 
+     * Time complexity: O(n^2)
+     * Space complexity: O(1)
+     * 
+     * @param height
+     * @return
+     */
+    public static int maxAreaBruteForce(int[] height) {
+    	int len = height.length;
+    	int maxWater = Integer.MIN_VALUE;
+    	
+    	for (int i = 0; i < len; ++i) {
+    		for (int j = len - 1; j > i; --j) {
+    			int minHeight = Math.min(height[i], height[j]);
+    			maxWater = Math.max(maxWater, minHeight * (j - i));
+    		}
+    	}
+    	
+        return maxWater;
+    }
+    
+    /**
+     * Using two pointer solution
+     * 
+     * Time complexity: O(n)
+     * Space complexity: O(1)
+     * 
+     * @param height
+     * @return
+     */
     public static int maxArea(int[] height) {
-
-        return -1;
+    	int left = 0;
+    	int right = height.length - 1;
+    	int maxArea = Integer.MIN_VALUE;
+    	
+    	while (left < right) {
+    		maxArea = Math.max(maxArea, Math.min(height[left], height[right]) * (right - left));
+    		if (height[left] < height[right]) {
+    			++left;
+    		} else {
+    			--right;
+    		}
+    	}
+    	
+    	return maxArea;
     }
 
 }

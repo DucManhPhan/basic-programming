@@ -53,6 +53,9 @@ public class RemoveDuplicatesSortedArray {
     }
 
     public static int removeII(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return 0;
+        }
         // assuming that we have left is an index of the other array
         int left = 0;
 
