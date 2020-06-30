@@ -11,7 +11,7 @@ public class Subset {
     public static void main(String[] args) {
         int[] nums = {1, 2, 3};
 //        List<List<Integer>> res = subset(nums);
-        List<List<Integer>> res = subsetII(nums);
+        List<List<Integer>> res = subsetIII(nums);
         res.stream().forEach(values -> {
             System.out.print("[");
             values.stream().forEach(value -> System.out.print(value + ", "));
@@ -27,18 +27,12 @@ public class Subset {
     }
 
     private static void subset(int[] nums, List<List<Integer>> res, List<Integer> values, int index) {
-        if (index >= nums.length) {
-            res.add(new LinkedList<>(values));
-            return;
-        } else {
-            res.add(new LinkedList<>(values));
-        }
+        res.add(new LinkedList<>(values));
 
-        List<Integer> tmp = new ArrayList<>(values);
         for (int i = index; i < nums.length; ++i) {
-            tmp.add(nums[i]);
-            subset(nums, res, tmp, i + 1);
-            tmp.remove(tmp.size() - 1);
+            values.add(nums[i]);
+            subset(nums, res, values, i + 1);
+            values.remove(values.size() - 1);
         }
     }
 
@@ -62,6 +56,25 @@ public class Subset {
             subsetII(nums, res, values, i + 1, k);
             values.remove(values.size() - 1);
         }
+    }
+
+    public static List<List<Integer>> subsetIII(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        res.add(new ArrayList<>());
+
+        for (int value : nums) {
+            List<List<Integer>> subSets = new ArrayList<>(res);
+
+            for (List<Integer> tmp : res) {
+                subSets.add(new ArrayList<>(tmp){{add(value);}});
+            }
+
+            for (List<Integer> tmp : subSets) {
+                res.add(tmp);
+            }
+        }
+
+        return res;
     }
 
 }
