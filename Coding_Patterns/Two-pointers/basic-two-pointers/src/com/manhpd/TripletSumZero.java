@@ -22,12 +22,12 @@ public class TripletSumZero {
         int[] arr = {-5, 2, -1, -2, 3};
 
 //        List<List<Integer>> results = searchTriplets(arr);
-        List<List<Integer>> results = threeSum(arr);
-//        List<List<Integer>> results = searchTripletsNormal(arr);
+//        List<List<Integer>> results = threeSum(arr);
+        List<List<Integer>> results = searchTripletsNormal(arr);
         System.out.println("Size of result: " + results.size());
         results.stream().forEach(items -> {
             for (Integer item : items) {
-                System.out.println(item + ", ");
+                System.out.print(item + ", ");
             }
 
             System.out.println();
