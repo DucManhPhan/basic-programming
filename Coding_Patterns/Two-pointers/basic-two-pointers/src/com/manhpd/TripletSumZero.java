@@ -22,8 +22,8 @@ public class TripletSumZero {
         int[] arr = {-5, 2, -1, -2, 3};
 
 //        List<List<Integer>> results = searchTriplets(arr);
-//        List<List<Integer>> results = threeSum(arr);
-        List<List<Integer>> results = searchTripletsNormal(arr);
+        List<List<Integer>> results = threeSum(arr);
+//        List<List<Integer>> results = searchTripletsNormal(arr);
         System.out.println("Size of result: " + results.size());
         results.stream().forEach(items -> {
             for (Integer item : items) {
@@ -142,10 +142,10 @@ public class TripletSumZero {
 
             while (begin < end) {
                 if (nums[begin] + nums[end] == -nums[i]) {
-                    ArrayList<Integer> arr = new ArrayList<Integer>(3);
-                    arr.add(nums[i]);
-                    arr.add(nums[end]);
-                    arr.add(nums[begin]);
+                    ArrayList<Integer> arr = new ArrayList<Integer>(Arrays.asList(nums[i], nums[end], nums[begin]));
+//                    arr.add(nums[i]);
+//                    arr.add(nums[end]);
+//                    arr.add(nums[begin]);
                     res.add(arr);
 
                     ++begin;
