@@ -1,5 +1,7 @@
 package com.manhpd;
 
+import java.util.Arrays;
+
 /**
  * Given an array of unsorted numbers and a target number, find a triplet in the array whose sum is as close to the target number as possible,
  * return the sum of the triplet.
@@ -32,6 +34,20 @@ public class TripletSumCloseToTarget {
     }
 
     public static int searchTriplet(int[] arr, int targetSum) {
+        int minDistance = Integer.MIN_VALUE;
+        Arrays.sort(arr);
+
+        int left = 0;
+        int right = arr.length - 1;
+        int currentSum = 0;
+
+        while (left <= right) {
+            if (arr[left] + arr[right] < targetSum) {
+                ++left;
+            } else {
+                --right;
+            }
+        }
 
         return -1;
     }
