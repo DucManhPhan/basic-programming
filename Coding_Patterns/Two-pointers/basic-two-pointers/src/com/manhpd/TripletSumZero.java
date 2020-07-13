@@ -27,7 +27,7 @@ public class TripletSumZero {
         System.out.println("Size of result: " + results.size());
         results.stream().forEach(items -> {
             for (Integer item : items) {
-                System.out.println(item + ", ");
+                System.out.print(item + ", ");
             }
 
             System.out.println();
@@ -142,10 +142,10 @@ public class TripletSumZero {
 
             while (begin < end) {
                 if (nums[begin] + nums[end] == -nums[i]) {
-                    ArrayList<Integer> arr = new ArrayList<Integer>(3);
-                    arr.add(nums[i]);
-                    arr.add(nums[end]);
-                    arr.add(nums[begin]);
+                    ArrayList<Integer> arr = new ArrayList<Integer>(Arrays.asList(nums[i], nums[end], nums[begin]));
+//                    arr.add(nums[i]);
+//                    arr.add(nums[end]);
+//                    arr.add(nums[begin]);
                     res.add(arr);
 
                     ++begin;
