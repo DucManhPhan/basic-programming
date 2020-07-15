@@ -28,8 +28,17 @@ public class TripletSumCloseTarget {
     private static int smallestSum = Integer.MAX_VALUE;
 
     public static void main(String[] args) {
-        int[] arr = {-2, 0, 1, 2};
-        int targetSum = 2;
+//        int[] arr = {-2, 0, 1, 2};
+//        int targetSum = 2;
+
+        int[] arr = {-3, -1, 1, 2};
+        int targetSum = 1;
+
+//        int[] arr = {1, 2, 4, 8, 16, 32, 64, 128};
+//        int targetSum = 82;
+
+//        int[] arr = {1, 0, 1, 1};
+//        int targetSum = 100;
 
         int res = searchTriplet(arr, targetSum);
         System.out.println(res);
@@ -59,23 +68,41 @@ public class TripletSumCloseTarget {
         }
     }
 
-    public static int searchTriplet(int[] arr, int targetSum) {
-        int minDistance = Integer.MIN_VALUE;
-        Arrays.sort(arr);
+    /**
+     * Using two pointers technique
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int searchTriplet(int[] nums, int target) {
+        int minDistance = Integer.MAX_VALUE;
+        Arrays.sort(nums);
 
-        int left = 0;
-        int right = arr.length - 1;
-        int currentSum = 0;
+        for (int i = 0; i <= nums.length - 3; ++i) {
+            int left = i + 1;
+            int right = nums.length - 1;
 
-        while (left <= right) {
-            if (arr[left] + arr[right] < targetSum) {
-                ++left;
-            } else {
-                --right;
+            while (left < right) {
+                int diff = target - nums[i] - nums[left] - nums[right];
+                if (diff == 0) {
+                    return target - diff;
+                }
+
+                if (Math.abs(diff) < Math.abs(minDistance)
+                                    || (Math.abs(diff) == Math.abs(minDistance) && diff > minDistance)) {
+                    minDistance = diff;
+                }
+
+                if (diff > 0) {
+                    ++left;
+                } else {
+                    --right;
+                }
             }
         }
 
-        return -1;
+        return target - minDistance;
     }
 
 }
