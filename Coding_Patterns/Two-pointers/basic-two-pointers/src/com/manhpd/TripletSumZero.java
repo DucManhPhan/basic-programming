@@ -143,9 +143,6 @@ public class TripletSumZero {
             while (begin < end) {
                 if (nums[begin] + nums[end] == -nums[i]) {
                     ArrayList<Integer> arr = new ArrayList<Integer>(Arrays.asList(nums[i], nums[end], nums[begin]));
-//                    arr.add(nums[i]);
-//                    arr.add(nums[end]);
-//                    arr.add(nums[begin]);
                     res.add(arr);
 
                     ++begin;
