@@ -1,0 +1,8 @@
+
+Z	java:S1060"9Replace this use of System.out or System.err by a logger.(¸šñÙüÿÿÿÿ8Ç·ãş¶.
+F
+java:S5413h")Verify that "remove()" is used correctly.(íÜ–µ8Ç·ãş¶.
+]	java:S125!"<This block of commented-out lines of code should be removed.(ƒ½Ï´úÿÿÿÿ8Ç·ãş¶.
+X	java:S125$"<This block of commented-out lines of code should be removed.(Œ Æ¼8Ç·ãş¶.
+]	java:S125'"<This block of commented-out lines of code should be removed.(×­²Èşÿÿÿÿ8Ç·ãş¶.
+W	java:S125-"<This block of commented-out lines of code should be removed.(Á¯±58Ç·ãş¶.

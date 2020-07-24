@@ -1,0 +1,4 @@
+
+t	java:S1274"XRefactor the code in order to not assign to this loop counter from within the loop body.(ΪέπΫ8ύ«ƒÿ¶.
+t	java:S1276"XRefactor the code in order to not assign to this loop counter from within the loop body.(‹Μεξ8ªγ„ÿ¶.
+Z	java:S106+"9Replace this use of System.out or System.err by a logger.(ΈρΩόÿÿÿÿ8μÿ¶.
