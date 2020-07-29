@@ -68,6 +68,13 @@ public class LongPressedName {
         return (iTyped == typed.length()) || (iName == name.length() - 1);
     }
 
+    /**
+     * Using brute force algorithm
+     *
+     * @param name
+     * @param typed
+     * @return
+     */
     public static boolean isLongPressedName(String name, String typed) {
         NumChar[] numNameChars = new NumChar[1000];
         NumChar[] numTypedChars = new NumChar[1000];
@@ -91,7 +98,6 @@ public class LongPressedName {
 
     private static int countChars(String name, NumChar[] numNameChars) {
         int count = 0;
-//        numNameChars = new NumChar[1000];
 
         for (int iName = 0; iName < name.length(); ++iName) {
             char nameChar = name.charAt(iName);
