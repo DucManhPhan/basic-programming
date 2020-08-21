@@ -39,8 +39,11 @@ public class LongPressedName {
 //        String name = "leelee";
 //        String typed = "lleeelee";
 
-        String name = "saeed";
-        String typed = "ssaaedd";
+//        String name = "saeed";
+//        String typed = "ssaaedd";
+
+        String name = "laidez";
+        String typed = "laideccc";
 
         boolean res = isLongPressedName(name, typed);
         System.out.println(res);
@@ -65,6 +68,13 @@ public class LongPressedName {
         return (iTyped == typed.length()) || (iName == name.length() - 1);
     }
 
+    /**
+     * Using brute force algorithm
+     *
+     * @param name
+     * @param typed
+     * @return
+     */
     public static boolean isLongPressedName(String name, String typed) {
         NumChar[] numNameChars = countChars(name);
         NumChar[] numTypedChars = countChars(typed);
@@ -83,20 +93,49 @@ public class LongPressedName {
     private static NumChar[] countChars(String name) {
         NumChar[] numNameChars = new NumChar[1000];
 
-        for (int iName = 0, count = 0; iName < name.length(); ++iName) {
+        int countNameChars = countChars(name, numNameChars);
+        int countTypedChars = countChars(typed, numTypedChars);
+
+        if (countNameChars != countTypedChars) {
+            return false;
+        }
+
+        for (int i = 0; i < countNameChars + 1; ++i) {
+            if (numNameChars[i].c != numTypedChars[i].c
+                            || numNameChars[i].num > numTypedChars[i].num) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static int countChars(String name, NumChar[] numNameChars) {
+        int count = 0;
+
+        for (int iName = 0; iName < name.length(); ++iName) {
             char nameChar = name.charAt(iName);
-            if (nameChar != numNameChars[count].c) {
-                ++count;
+
+            if (numNameChars[count] == null) {
+                NumChar tmp = new NumChar();
+                numNameChars[count] = tmp;
             }
 
             numNameChars[count].c = nameChar;
             ++numNameChars[count].num;
+
+            if (iName < name.length() - 1) {
+                nameChar = name.charAt(iName + 1);
+                if (nameChar != numNameChars[count].c) {
+                    ++count;
+                }
+            }
         }
 
-        return numNameChars;
+        return count;
     }
 
-    class NumChar {
+    static class NumChar {
         char c = 0;
         int num = 0;
     }
