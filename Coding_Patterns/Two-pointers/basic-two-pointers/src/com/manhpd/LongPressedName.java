@@ -66,8 +66,22 @@ public class LongPressedName {
     }
 
     public static boolean isLongPressedName(String name, String typed) {
+        NumChar[] numNameChars = countChars(name);
+        NumChar[] numTypedChars = countChars(typed);
+
+        for (int i = 0; i < 1000; ++i) {
+            if (numNameChars[i].c != numTypedChars[i].c) {
+                return false;
+            } else if (numNameChars[i].num > numTypedChars[i].num) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static NumChar[] countChars(String name) {
         NumChar[] numNameChars = new NumChar[1000];
-        NumChar[] numTypedChars = new NumChar[1000];
 
         for (int iName = 0, count = 0; iName < name.length(); ++iName) {
             char nameChar = name.charAt(iName);
@@ -79,10 +93,7 @@ public class LongPressedName {
             ++numNameChars[count].num;
         }
 
-        for (int iTyped = 0; iTyped < name.length(); ++iTyped) {
-
-        }
-
+        return numNameChars;
     }
 
     class NumChar {
