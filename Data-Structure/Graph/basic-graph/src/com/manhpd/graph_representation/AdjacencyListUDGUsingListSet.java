@@ -2,9 +2,6 @@ package com.manhpd.graph_representation;
 
 import java.util.*;
 
-/**
- *
- */
 public class AdjacencyListUDGUsingListSet {
 
     private List<Set<Integer>> adjacencyList;
