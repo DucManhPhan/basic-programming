@@ -11,6 +11,14 @@ public class AMGraph {
         this.graph = new int[capacity][capacity];
     }
 
+    public int getCapacity() {
+        return this.capacity;
+    }
+
+    public boolean isAnEdge(int u, int v) {
+        return this.graph[u][v] == 1;
+    }
+
     public void addEdge(int u, int v) {
         this.graph[u][v] = 1;
         this.graph[v][u] = 1;
