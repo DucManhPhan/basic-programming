@@ -1,4 +1,4 @@
-package com.manhpd.graph_representation;
+package com.manhpd.representation.adjacency_list;
 
 import java.util.ArrayList;
 import java.util.List;
