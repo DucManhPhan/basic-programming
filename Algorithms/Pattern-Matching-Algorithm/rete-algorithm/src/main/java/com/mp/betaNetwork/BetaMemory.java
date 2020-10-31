@@ -5,16 +5,17 @@ import com.mp.node.ReteNode;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
 @Data
 public class BetaMemory extends ReteNode {
 
-    private List<Token> tokens;
+    private LinkedList<Token> tokens;
 
     public BetaMemory() {
-        this.tokens = new ArrayList<>();
+        this.tokens = new LinkedList<>();
     }
 
     @Override
@@ -38,9 +39,7 @@ public class BetaMemory extends ReteNode {
         System.out.println(wme.toString());
 
         Token newToken = new Token(wme, token);
-
-        // TODO: add new token at the head of this.tokens
-        this.tokens.add(newToken);
+        this.tokens.addFirst(newToken);
 
         for (ReteNode child : this.children) {
             child.leftActivation(newToken);

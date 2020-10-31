@@ -7,6 +7,7 @@ import com.mp.betaNetwork.Token;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -20,6 +21,7 @@ public class JoinNode extends ReteNode {
     public JoinNode() {
         super();
         this.alphaMemory = null;
+        this.testAtJoinNodes = new ArrayList<>();
     }
 
     @Override
@@ -27,7 +29,13 @@ public class JoinNode extends ReteNode {
         if (this.parent instanceof BetaMemory) {
             BetaMemory betaParent = (BetaMemory) (this.parent);
             for (Token token : betaParent.getTokens()) {
+                if (!this.performJoinTests(token, wme)) {
+                    continue;
+                }
 
+                for (ReteNode child : this.children) {
+                    child.leftActivation(token, wme);
+                }
             }
         } else if (this.parent instanceof DummyTopNode) {
             DummyTopNode dummyTopNode = (DummyTopNode) this.parent;

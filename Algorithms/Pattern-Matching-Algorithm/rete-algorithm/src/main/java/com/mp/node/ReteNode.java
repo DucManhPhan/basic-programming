@@ -4,6 +4,7 @@ import com.mp.alphaNetwork.WME;
 import com.mp.betaNetwork.Token;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,6 +18,7 @@ public abstract class ReteNode {
 
     public ReteNode() {
         this.parent = null;
+        this.children = new ArrayList<>();
     }
 
     public abstract void rightActivation(WME wme);

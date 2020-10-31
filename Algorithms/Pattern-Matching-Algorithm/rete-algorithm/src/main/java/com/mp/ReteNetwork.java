@@ -9,18 +9,17 @@ import com.mp.constants.Condition;
 import com.mp.constants.Field;
 import com.mp.constants.FieldType;
 import com.mp.constants.WMEFieldType;
-import com.mp.node.JoinNode;
-import com.mp.node.ProductionNode;
-import com.mp.node.ReteNode;
-import com.mp.node.TestAtJoinNode;
+import com.mp.node.*;
 import com.mp.objects.ConditionInfo;
 import com.mp.utils.ValidationUtils;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+@Getter
 public class ReteNetwork {
 
     private ConstantTestNode alphaTop;
@@ -38,6 +37,18 @@ public class ReteNetwork {
     private List<ProductionNode> productionNodes;
 
     private List<WME> wmes;
+
+    public ReteNetwork() {
+        this.alphaTop = ConstantTestNode.getDummyTopNode();
+        this.betaTop = new DummyTopNode();
+
+        this.alphaMemories = new ArrayList<>();
+        this.betaMemories = new ArrayList<>();
+        this.constantTestNodes = new ArrayList<>();
+        this.joinNodes = new ArrayList<>();
+        this.productionNodes = new ArrayList<>();
+        this.wmes = new ArrayList<>();
+    }
 
     public void alphaMemoryActivation(AlphaMemory alphaMemory, WME wme) {
         Objects.requireNonNull(alphaMemory);
@@ -140,8 +151,29 @@ public class ReteNetwork {
     }
 
     public ConditionInfo lookupEarlierConditionsWithField(List<Condition> earlierConds, String name) {
+        int condNumberOfArg2 = earlierConds.size() - 1;
 
-        return null;
+        for (int i = earlierConds.size() - 1; i >= 0; --i) {
+            for (WMEFieldType type : WMEFieldType.values()) {
+                if (type.equals(WMEFieldType.NONE)) {
+                    continue;
+                }
+
+                Condition cond = earlierConds.get(i);
+                Field currentField = cond.getAttributes()[type.ordinal() - 1];
+                if (!currentField.getFieldType().equals(FieldType.VAR)) {
+                    continue;
+                }
+
+                if (currentField.getName().equals(name)) {
+                    return new ConditionInfo(type, condNumberOfArg2);
+                }
+            }
+
+            condNumberOfArg2--;
+        }
+
+        return new ConditionInfo(WMEFieldType.NONE, -1);
     }
 
     public List<TestAtJoinNode> getJoinTestNodesFromCondition(Condition condition, List<Condition> earlierConds) {
@@ -256,6 +288,10 @@ public class ReteNetwork {
 
         this.updateNewNodeWithMatchesFromAbove(productionNode);
         return productionNode;
+    }
+
+    public void addProductioNode(ProductionNode node) {
+        this.productionNodes.add(node);
     }
 
 }

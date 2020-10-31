@@ -2,7 +2,9 @@ package com.mp.node;
 
 import com.mp.alphaNetwork.WME;
 import com.mp.betaNetwork.Token;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class DummyTopNode extends ReteNode {
 
     @Override

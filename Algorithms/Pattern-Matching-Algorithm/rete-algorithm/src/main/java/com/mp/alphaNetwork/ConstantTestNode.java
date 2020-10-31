@@ -3,6 +3,7 @@ package com.mp.alphaNetwork;
 import com.mp.constants.WMEFieldType;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -21,6 +22,8 @@ public class ConstantTestNode {
         this.testedField = testedField;
         this.equalField = equalField;
         this.alphaMemory = alphaMemory;
+
+        this.children = new ArrayList<>();
     }
 
     @Override

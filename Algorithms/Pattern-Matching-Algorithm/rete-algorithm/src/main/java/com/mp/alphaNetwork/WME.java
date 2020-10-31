@@ -9,21 +9,16 @@ import java.util.stream.Stream;
 @Setter
 public class WME {
 
-    String[] fields;
-
-    public WME() {
-        this.fields = new String[3];
-    }
+    private String[] fields = new String[3];
 
     public WME(String id, String attribute, String value) {
-        this();
-        this.fields[WMEFieldType.IDENTITY.ordinal()] = id;
-        this.fields[WMEFieldType.ATTRIBUTE.ordinal()] = attribute;
-        this.fields[WMEFieldType.VALUE.ordinal()] = value;
+        this.fields[WMEFieldType.IDENTITY.ordinal() - 1] = id;
+        this.fields[WMEFieldType.ATTRIBUTE.ordinal() -1] = attribute;
+        this.fields[WMEFieldType.VALUE.ordinal() - 1] = value;
     }
 
     public String getField(WMEFieldType type) {
-        return this.fields[type.ordinal()];
+        return this.fields[type.ordinal() - 1];
     }
 
     @Override
