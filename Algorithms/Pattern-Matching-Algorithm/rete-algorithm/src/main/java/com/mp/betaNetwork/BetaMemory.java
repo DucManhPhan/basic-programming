@@ -38,10 +38,12 @@ public class BetaMemory extends ReteNode {
         System.out.println(wme.toString());
 
         Token newToken = new Token(wme, token);
+
+        // TODO: add new token at the head of this.tokens
         this.tokens.add(newToken);
 
         for (ReteNode child : this.children) {
-            child.leftActivation(token);
+            child.leftActivation(newToken);
         }
     }
 }

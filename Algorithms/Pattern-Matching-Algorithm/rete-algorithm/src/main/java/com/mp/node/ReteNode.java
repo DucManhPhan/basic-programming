@@ -9,6 +9,8 @@ import java.util.List;
 @Data
 public abstract class ReteNode {
 
+//    private String nodeType;    // beta memory, join node, production node, ...
+
     protected ReteNode parent;
 
     protected List<ReteNode> children;

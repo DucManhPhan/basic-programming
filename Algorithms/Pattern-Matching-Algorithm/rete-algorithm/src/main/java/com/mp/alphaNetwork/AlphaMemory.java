@@ -14,6 +14,7 @@ public class AlphaMemory {
 
     private List<WME> wmes;
 
+    // activation with JoinNode
     private List<ReteNode> successors;
 
     @Override
