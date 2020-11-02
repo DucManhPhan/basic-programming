@@ -180,12 +180,12 @@ public class ReteNetwork {
         List<TestAtJoinNode> results = new ArrayList<>();
         Field[] fields = condition.getAttributes();
 
-        for (int i = 0; i < 3; ++i) {
-            if (fields[i].getFieldType().equals(FieldType.VAR)) {
+        for (int i = 1; i < 4; ++i) {
+            if (fields[i - 1].getFieldType().equals(FieldType.VAR)) {
                 continue;
             }
 
-            String name = fields[i].getName();
+            String name = fields[i - 1].getName();
             ConditionInfo infoCondition = lookupEarlierConditionsWithField(earlierConds, name);
 
             // create TestAtJoinNode object
@@ -237,12 +237,12 @@ public class ReteNetwork {
         ConstantTestNode constTestNode = this.alphaTop;
         Field[] fields = condition.getAttributes();
 
-        for (int i = 0; i < 3; ++i) {
-            if (!fields[i].getFieldType().equals(FieldType.CONST)) {
+        for (int i = 1; i < 4; ++i) {
+            if (!fields[i - 1].getFieldType().equals(FieldType.CONST)) {
                 continue;
             }
 
-            String sym = fields[i].getName();
+            String sym = fields[i - 1].getName();
             constTestNode = this.buildOrShareConstantTestNode(constTestNode, WMEFieldType.valueOf(i), sym);
         }
 
