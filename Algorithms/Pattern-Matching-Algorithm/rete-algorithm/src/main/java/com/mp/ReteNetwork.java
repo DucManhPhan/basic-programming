@@ -48,6 +48,8 @@ public class ReteNetwork {
         this.joinNodes = new ArrayList<>();
         this.productionNodes = new ArrayList<>();
         this.wmes = new ArrayList<>();
+
+        this.constantTestNodes.add(this.alphaTop);
     }
 
     public void alphaMemoryActivation(AlphaMemory alphaMemory, WME wme) {
@@ -290,7 +292,7 @@ public class ReteNetwork {
         return productionNode;
     }
 
-    public void addProductioNode(ProductionNode node) {
+    public void addProductionNode(ProductionNode node) {
         this.productionNodes.add(node);
     }
 

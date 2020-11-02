@@ -4,9 +4,7 @@ import com.mp.alphaNetwork.WME;
 import com.mp.node.ReteNode;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
 
 @Data

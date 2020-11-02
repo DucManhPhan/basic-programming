@@ -10,6 +10,11 @@ import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
+        WME wme1 = new WME("B1", "on", "B2");
+        WME wme2 = new WME("B1", "on", "B3");
+        WME wme3 = new WME("B1", "color", "red");
+        WME wme4 = new WME("B2", "on", "table");
+
         ReteNetwork network = new ReteNetwork();
 
         // define production
