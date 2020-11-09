@@ -55,7 +55,7 @@ public class ReteNetwork {
     public void alphaMemoryActivation(AlphaMemory alphaMemory, WME wme) {
         Objects.requireNonNull(alphaMemory);
 
-        alphaMemory.getWmes().add(wme);
+        alphaMemory.getWmes().addFirst(wme);
         for (ReteNode child : alphaMemory.getSuccessors()) {
             child.rightActivation(wme);
         }
