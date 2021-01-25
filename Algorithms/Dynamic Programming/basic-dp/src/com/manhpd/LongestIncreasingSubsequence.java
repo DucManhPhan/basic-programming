@@ -19,20 +19,6 @@ public class LongestIncreasingSubsequence {
     }
 
     /**
-     * Using brute force solution
-     * @param nums
-     * @return
-     */
-    public int lengthOfLISIII(int[] nums) {
-        int[] lengthRes = new int[nums.length];
-        int[] prevIdx = new int[nums.length];
-
-        for (int i = 0; i < )
-
-        return 0;
-    }
-
-    /**
      * Using stack to solve - fail
      *
      * @param nums
