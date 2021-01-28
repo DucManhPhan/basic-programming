@@ -21,12 +21,6 @@ public class LongestIncreasingSubsequence {
         System.out.println(res);
     }
 
-    /**
-     * Using stack to solve - fail
-     *
-     * @param nums
-     * @return
-     */
     public int lengthOfLIS(int[] nums) {
         Stack<Integer> res = new Stack<>();
         res.add(nums[0]);
@@ -54,8 +48,7 @@ public class LongestIncreasingSubsequence {
     }
 
     /**
-     * Using the BST to solve - pass
-     *
+     * Use BST to solve
      * @param nums
      * @return
      */
@@ -73,6 +66,7 @@ public class LongestIncreasingSubsequence {
         }
 
         return max;
+
     }
 
     private int currentMax = 1;

@@ -33,7 +33,7 @@ public class MinSegmentTree {
         int diff = value = arr[idxOrigin];
         arr[idxOrigin] = value;
 
-        this.update(0, 0, this.arr.length - 1, idxOrigin, value);
+        this.updateAt(0, 0, this.arr.length - 1, idxOrigin, value);
     }
 
     public void updateRange(int start, int end, int queryStart, int queryEnd, int diff, int idxSegTree) {
@@ -72,7 +72,38 @@ public class MinSegmentTree {
                                             this.segTree[2 * idxSegTree + 2]);
     }
 
-    private void update(int idxSegTree, int start, int end, int idxOrigin, int value) {
+    public int query(int qStart, int qEnd) {
+        if (qStart < 0 || qEnd >= this.arr.length) {
+            return -1;
+        }
+
+        return this.query(0, 0, this.arr.length - 1, qStart, qEnd);
+    }
+
+    public int queryRange(int idxSegTree, int start, int end, int qStart, int qEnd) {
+        return -1;
+    }
+
+    private int query(int idxSegTree, int start, int end, int qStart, int qEnd) {
+        // outside of query index
+        if (start > qEnd || end < qEnd) {
+            return -1;
+        }
+
+        // inside of query index: qStart --- start --- end --- qEnd
+        if (qStart <= start && end <= qEnd) {
+            return this.segTree[idxSegTree];
+        }
+
+        // overlap
+        int mid = this.getIndexOfMid(start, end);
+        int minLeft = this.query(2 * idxSegTree + 1, start, mid, qStart, qEnd);
+        int minRight = this.query(2 * idxSegTree + 2, mid + 1, end, qStart, qEnd);
+
+        return Math.min(minLeft, minRight);
+    }
+
+    private void updateAt(int idxSegTree, int start, int end, int idxOrigin, int value) {
         if (idxOrigin < start || idxOrigin > end) {
             return;
         }
@@ -83,8 +114,8 @@ public class MinSegmentTree {
         }
 
         int mid = this.getIndexOfMid(start, end);
-        update(2 * idxSegTree + 1, start, mid, idxOrigin, value);
-        update(2 * idxSegTree + 2, mid + 1, end, idxOrigin, value);
+        updateAt(2 * idxSegTree + 1, start, mid, idxOrigin, value);
+        updateAt(2 * idxSegTree + 2, mid + 1, end, idxOrigin, value);
 
         this.segTree[idxSegTree] = Math.min(this.segTree[2 * idxSegTree + 1],
                                             this.segTree[2 * idxSegTree + 2]);
