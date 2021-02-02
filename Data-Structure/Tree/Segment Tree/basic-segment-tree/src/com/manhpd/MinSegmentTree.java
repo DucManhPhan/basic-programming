@@ -45,7 +45,7 @@ public class MinSegmentTree {
                 this.lazyArr[2 * idxSegTree + 2] = this.lazyArr[idxSegTree];
             }
 
-            // reset value of lazyArr[idxSegTree] t o prepare for update again
+            // reset value of lazyArr[idxSegTree] to prepare for update again
             lazyArr[idxSegTree] = 0;
         }
 
