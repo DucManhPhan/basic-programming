@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/basic-dp.iml" filepath="$PROJECT_DIR$/basic-dp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Fenwick Tree.iml" filepath="$PROJECT_DIR$/Fenwick Tree.iml" />
     </modules>
   </component>
 </project>
