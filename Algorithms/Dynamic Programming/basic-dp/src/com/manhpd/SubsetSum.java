@@ -64,6 +64,4 @@ public class SubsetSum {
         return isSecondSum || isFirstSum;
     }
 
-    private boolean 
-
 }
