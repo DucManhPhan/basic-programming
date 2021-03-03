@@ -1,13 +1,12 @@
 package com.manhpd;
 
-import java.util.Arrays;
-
 public class UnboundedKnapsack {
 
     public static void main(String[] args) {
-        int[] profits = {15, 20, 50};
-        int[] weights = {1, 2, 3};
-        int capacity = 5;
+        int[] profits = {15, 50, 60, 90};
+        int[] weights = {1, 3, 4, 5};
+//        int capacity = 8;
+        int capacity = 6;
 
         UnboundedKnapsack solution = new UnboundedKnapsack();
 //        System.out.println(solution.knapsackRecursive(profits, weights, capacity, 0));
@@ -75,6 +74,10 @@ public class UnboundedKnapsack {
 
     public int knapsackUnboundedBottomUp(int[] profits, int[] weights, int capacity) {
         int[][] profitMt = new int[weights.length][capacity + 1];
+
+//        for (int i = 0; i < weights.length; ++i) {
+//            profitMt[i][0] = 0;
+//        }
 
         for (int i = 0; i < weights.length; ++i) {
             for (int j = 1; j <= capacity; ++j) {
