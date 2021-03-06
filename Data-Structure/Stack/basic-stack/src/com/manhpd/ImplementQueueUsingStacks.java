@@ -7,7 +7,7 @@ import java.util.Stack;
  * What's the time complexity of various queue operations for this implementation?
  *
  */
-public class Queue {
+public class ImplementQueueUsingStacks {
 
     private Stack<Integer> addStack;
 
