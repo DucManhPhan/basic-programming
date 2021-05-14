@@ -1,7 +1,5 @@
 package com.manhpd;
 
-import java.util.Arrays;
-
 /**
  * You are given two integer arrays nums and multipliers of size n and m respectively, where n >= m. The arrays are 1-indexed.
  * You begin with a score of 0. You want to perform exactly m operations. On the ith operation (1-indexed), you will:
@@ -93,8 +91,11 @@ public class MaximumScorePerformingMultiplicationOperations {
      */
     public int maximumScoreDP(int[] nums, int[] multipliers) {
         // using top down approach
-        int[][][] dp = new int[multipliers.length][nums.length][nums.length];
-        return this.maximumScoreTopDown(nums, multipliers, dp, 0, 0, nums.length - 1);
+//        int[][][] dp = new int[multipliers.length][nums.length][nums.length];
+//        return this.maximumScoreTopDown(nums, multipliers, dp, 0, 0, nums.length - 1);
+
+        int[][] dp = new int[nums.length][nums.length];
+        return this.maximumScoreTopDown(nums, multipliers, dp, 0, nums.length - 1);
 
         // using bottom up approach
 //        return this.maximumScoreBottomUp(nums, multipliers);
@@ -119,12 +120,39 @@ public class MaximumScorePerformingMultiplicationOperations {
         return dp[currentOp][start][end];
     }
 
-    public int maximumScoreTopDown(int[] nums, int[] multipliers, int currentOp, int start, int end) {
+    public int maximumScoreTopDown(int[] nums, int[] multipliers, int[][] dp, int start, int end) {
+        int currentOp = nums.length - (end - start + 1);
 
-        return 0;
+        if (currentOp >= multipliers.length || start > end) {
+            return 0;
+        }
+
+        if (dp[start][end] != 0) {
+            return dp[start][end];
+        }
+
+        int num1 = multipliers[currentOp] * nums[start];
+        int num2 = multipliers[currentOp] * nums[end];
+
+        int max1 = num1 + maximumScoreTopDown(nums, multipliers, dp,start + 1, end);
+        int max2 = num2 + maximumScoreTopDown(nums, multipliers, dp, start, end - 1);
+        dp[start][end] = Math.max(max1, max2);
+
+        return dp[start][end];
     }
 
     public int maximumScoreBottomUp(int[] nums, int[] multipliers) {
-        return 0;
+        int[][] dp = new int[nums.length][nums.length];
+
+        for (int start = 0; start < nums.length; ++start) {
+            for (int end = nums.length - 1; end >= 0; --end) {
+                int currentOp = nums.length - (end - start + 1);
+
+                dp[start][end] = Math.max(multipliers[currentOp] * nums[start] + dp[start + 1][end],
+                                          multipliers[currentOp] * nums[end] + dp[start][end]);
+            }
+        }
+
+        return dp[0][0];
     }
 }
