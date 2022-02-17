@@ -25,11 +25,23 @@ public class TripletsSmallerSum {
         int target = 3;
 //        int target = 5;
 
-        int count = searchTriplets(arr, target);
+        int count = searchTripletsWith3Loops(arr, target);
         System.out.println("Count: " + count);
     }
 
-    public static int searchTriplets(int[] arr, int target) {
+    public static int searchTripletsWith3Loops(int[] arr, int target) {
+        int count = -1;
+        // TODO: Write your code here
+        return count;
+    }
+
+    public static int searchTripletsWithBacktracking(int[] arr, int target) {
+        int count = -1;
+        // TODO: Write your code here
+        return count;
+    }
+
+    public static int searchTripletsWith3Pointers(int[] arr, int target) {
         int count = -1;
         // TODO: Write your code here
         return count;
