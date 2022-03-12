@@ -32,12 +32,81 @@ package com.manhpd;
 public class CeilingNumber {
 
     public static void main(String[] args) {
+//        int[] arr = {4, 6, 10};
+//        int key = 6;
 
+        int[] arr = {1, 3, 8, 10, 15};
+        int key = 12;
+//        int key = 7;
+
+//        int[] arr = {4, 6, 10};
+//        int key = 17;
+
+//        int[] arr = {4, 6, 10};
+//        int key = -1;
+
+        int result = searchCeilingOfANumber(arr, key);
+        System.out.println("Result: " + result);
     }
 
+    /**
+     * Using Binary Search algorithm
+     *
+     * @param arr
+     * @param key
+     * @return
+     */
     public static int searchCeilingOfANumber(int[] arr, int key) {
+        int start = 0;
+        int end = arr.length - 1;
+        int pos = -1;
 
-        return 0;
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+
+            if (key == arr[mid]) {
+                return mid;
+            }
+
+            if (key < arr[mid]) {
+                pos = mid;
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+
+        return pos;
+    }
+
+    /**
+     * Using the algorithm
+     *
+     * @param arr
+     * @param key
+     * @return
+     */
+    public static int searchCeilingOfANumberV2(int[] arr, int key) {
+        int start = 0;
+        int end = arr.length - 1;
+
+        if (key > arr[end]) {
+            return -1;
+        }
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+
+            if (key > arr[mid]) {
+                start = mid + 1;
+            } else if (key < arr[mid]) {
+                end = mid - 1;
+            } else {
+                return mid;
+            }
+        }
+
+        return start;
     }
 
 }
