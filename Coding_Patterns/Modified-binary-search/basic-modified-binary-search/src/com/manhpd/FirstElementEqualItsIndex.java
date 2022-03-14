@@ -29,10 +29,46 @@ package com.manhpd;
 public class FirstElementEqualItsIndex {
 
     public static void main(String[] args) {
+//        int[] nums = {-10, -5, 0, 3, 7};
+//        int[] nums = {0, 2, 5, 8, 17};
+        int[] nums = {-10, -5, 3, 4, 7, 9};
 
+        int res = fixedPoint(nums);
+        System.out.println("Result: " + res);
     }
 
     public static int fixedPoint(int[] nums) {
+        int left = -1;
+        int right = nums.length;
+
+        while (left + 1 < right) {
+            int mid = left + (right - left)/2;
+
+            if (nums[mid] == mid) {
+                return mid;
+            }
+
+            /**
+             * The question here is: Why do we assign: right = mid when nums[mid] > mid?
+             * Answer: We know that our index is incremented by 1 for each idx.
+             * But our array is in ascending order, then the difference between two adjacent value is more than 1.
+             * So if using left = mid is wrong, we will assign right = mid
+             *
+             */
+            if (nums[mid] > mid) {
+                right = mid;
+            } else {
+                left = mid;
+            }
+        }
+
+        if (left == nums[left]) {
+            return left;
+        }
+
+        if (right < nums.length && nums[right] == right) {
+            return right;
+        }
 
         return -1;
     }
