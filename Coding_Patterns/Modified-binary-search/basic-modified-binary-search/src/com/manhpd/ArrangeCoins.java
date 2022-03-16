@@ -37,10 +37,16 @@ public class ArrangeCoins {
     public static void main(String[] args) {
 //        int n = 5;
         int n = 8;
-        int res = ArrangeCoins.arrangeCoins(n);
+        int res = ArrangeCoins.arrangeCoinsV2(n);
         System.out.println("Result: " + res);
     }
 
+    /**
+     * Create an sorted array for applying Binary Search algorithm
+     *
+     * @param n
+     * @return
+     */
     public static int arrangeCoins(int n) {
         // build the staircase coins
         List<Integer> staircase = new ArrayList<>();
@@ -77,6 +83,35 @@ public class ArrangeCoins {
         }
 
         return staircase.size();
+    }
+
+    /**
+     * Without creating a new array
+     *
+     * @param n
+     * @return
+     */
+    public static int arrangeCoinsV2(int n) {
+        if (n < 2) {
+            return n;
+        }
+
+        int left = 0;
+        int right = n;
+
+        while (left + 1 < right) {
+            int mid = left + (right - left)/2;
+
+            if (mid * (mid + 1) / 2 == n) {
+                return mid;
+            } else if (n > mid * (mid + 1) / 2) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+
+        return left;
     }
 
 }
