@@ -1,5 +1,8 @@
 package com.manhpd;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Ref: https://www.educative.io/courses/binary-search-coding-interview/RLrAvNRWkRK
  *
@@ -32,15 +35,48 @@ package com.manhpd;
 public class ArrangeCoins {
 
     public static void main(String[] args) {
-        int n = 5;
-//        int n = 8
-        int res = arrangeCoins(n);
+//        int n = 5;
+        int n = 8;
+        int res = ArrangeCoins.arrangeCoins(n);
         System.out.println("Result: " + res);
     }
 
     public static int arrangeCoins(int n) {
+        // build the staircase coins
+        List<Integer> staircase = new ArrayList<>();
+        int coin = 1;
+        int remainedCoins = n;
 
-        return -1;
+        while (remainedCoins > 0) {
+            if (remainedCoins < coin) {
+                coin = remainedCoins;
+            }
+
+            staircase.add(coin);
+            remainedCoins = remainedCoins - coin;
+
+            ++coin;
+        }
+
+        // using binary search tree to iterate
+        int left = 0;
+        int right = staircase.size();
+
+        while (left + 1 < right) {
+            int mid = left + (right - left)/2;
+
+            if (mid > 0 && staircase.get(mid) > staircase.get(mid - 1)) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+
+        if (right < staircase.size() && staircase.get(right) <= staircase.get(right - 1)) {
+            return right;
+        }
+
+        return staircase.size();
     }
 
 }
