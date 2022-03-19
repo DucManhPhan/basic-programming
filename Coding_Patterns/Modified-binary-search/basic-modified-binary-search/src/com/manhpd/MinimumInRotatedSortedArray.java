@@ -55,6 +55,15 @@ public class MinimumInRotatedSortedArray {
         return bitonicPoint + 1;
     }
 
+    /**
+     * We can't use the bitonic array into this issue. Because our sorted array was rotated.
+     * Then it doesn't have some properties of bitonic array.
+     *
+     * So we will use the findPivot() method as our solution.
+     *
+     * @param nums
+     * @return
+     */
     public static int findBitonicPoint(int[] nums) {
         int left = 0;
         int right = nums.length;
