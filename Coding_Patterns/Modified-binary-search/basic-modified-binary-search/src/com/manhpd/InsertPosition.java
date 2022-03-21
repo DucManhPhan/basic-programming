@@ -68,4 +68,32 @@ public class InsertPosition {
         return right;
     }
 
+    public static int searchPositionV2(int[] nums, int target) {
+        // the initial value for left index is 0
+        int left = 0;
+        // the initial value for right index is the number of elements in the array
+        int right = nums.length;
+        // left + 1 >= right will finish while loop
+        while (left + 1 < right) {
+            int mid = (right + left) / 2;
+
+            if (nums[mid] == target) {
+                // mid is the index of the target
+                return mid;
+            } else if (nums[mid] < target) {
+                // there is no sense to search in the left half of the array
+                left = mid;
+            } else {
+                // there is no sense to search in the right half of the array
+                right = mid;
+            }
+        }
+        // left can be the index to insert the target
+        if (nums[left] >= target) {
+            return left;
+        }
+        // right is the index to insert the target
+        return right;
+    }
+
 }

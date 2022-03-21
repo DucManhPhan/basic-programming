@@ -46,8 +46,24 @@ public class SingleElementSortedArray {
      * @return
      */
     public static int findSingleElement(int[] nums) {
+        int left = 0;
+        int right = nums.length;
 
-        return -1;
+        while (left + 1 < right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid] != nums[mid - 1] && (1 + mid == nums.length || nums[mid] != nums[mid + 1])) {
+                return nums[mid];
+            }
+
+            if (((mid % 2 != 0) && nums[mid] == nums[mid - 1]) || ((mid % 2) == 0 && nums[mid] == nums[mid + 1])) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+
+        return nums[left];
     }
 
     /**
