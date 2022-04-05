@@ -3,13 +3,14 @@ package com.manhpd;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class FindMinMaxOnSequenceElemens {
+public class FindMinMaxOnSequenceElements {
 
     public static void main(String[] args) {
 //        int[] nums = {1, 3, 5, 4, 2, 8};
         int[] nums = {3, 4, 3, 1};
-//        usingBruteForce(nums);
-        usingQueueSolution(nums);
+
+        usingBruteForce(nums);
+//        usingQueueSolution(nums);
     }
 
     public static void usingBruteForce(int[] nums) {
@@ -21,23 +22,23 @@ public class FindMinMaxOnSequenceElemens {
             l[i] = i;
             while (l[i] > -1 && nums[i] <= nums[l[i]]) --l[i];
             ++l[i];
-//            System.out.println("At index = " + i + ", l = ");
-//            for (int j = 0; j <= i; ++j) {
-//                System.out.print(l[j] + ", ");
-//            }
-//
-//            System.out.println();
+            System.out.println("At index = " + i + ", l = ");
+            for (int j = 0; j <= i; ++j) {
+                System.out.print(l[j] + ", ");
+            }
+
+            System.out.println();
 
             // Calculate r
             r[i] = i;
             while (r[i] < nums.length && nums[i] <= nums[r[i]]) ++r[i];
             --r[i];
-//            System.out.println("At index = " + i + ", r = ");
-//            for (int j = 0; j <= i; ++j) {
-//                System.out.print(r[j] + ", ");
-//            }
-//
-//            System.out.println();
+            System.out.println("At index = " + i + ", r = ");
+            for (int j = 0; j <= i; ++j) {
+                System.out.print(r[j] + ", ");
+            }
+
+            System.out.println();
         }
     }
 
