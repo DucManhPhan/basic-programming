@@ -1,4 +1,4 @@
-package com.manhpd;
+package com.manhpd.patternFibonacciNumber;
 
 /**
  * Given a number ‘n’, implement a method to count how many possible ways there are to express ‘n’ as the sum of 1, 3, or 4.

@@ -1,4 +1,4 @@
-package com.manhpd;
+package com.manhpd.patternFibonacciNumber;
 
 /**
  * Given a stair with ‘n’ steps, implement a method to count how many possible ways are there to reach the top of the staircase,

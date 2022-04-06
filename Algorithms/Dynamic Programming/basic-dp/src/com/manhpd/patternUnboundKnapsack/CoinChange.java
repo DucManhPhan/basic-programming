@@ -1,4 +1,4 @@
-package com.manhpd;
+package com.manhpd.patternUnboundKnapsack;
 
 /**
  * Given an infinite supply of ‘n’ coin denominations and a total money amount,

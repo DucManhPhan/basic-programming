@@ -1,4 +1,4 @@
-package com.manhpd;
+package com.manhpd.patternUnboundKnapsack;
 
 public class UnboundedKnapsack {
 

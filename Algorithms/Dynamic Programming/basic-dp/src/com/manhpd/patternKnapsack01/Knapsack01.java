@@ -1,4 +1,4 @@
-package com.manhpd;
+package com.manhpd.patternKnapsack01;
 
 import java.util.ArrayList;
 import java.util.Arrays;
