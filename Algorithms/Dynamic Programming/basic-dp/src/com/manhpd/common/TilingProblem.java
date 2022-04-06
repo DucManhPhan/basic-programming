@@ -1,4 +1,4 @@
-package com.manhpd;
+package com.manhpd.common;
 
 /**
  * https://www.geeksforgeeks.org/tiling-problem/
