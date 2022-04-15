@@ -20,8 +20,8 @@ public class UnboundedKnapsack {
         int capacity = 6;
 
         UnboundedKnapsack solution = new UnboundedKnapsack();
-//        System.out.println(solution.knapsackRecursive(profits, weights, capacity, 0));
-        System.out.println(solution.knapsackUnboundedDP(profits, weights, capacity));
+        System.out.println(solution.knapsackRecursive(profits, weights, capacity, 0));
+//        System.out.println(solution.knapsackUnboundedDP(profits, weights, capacity));
     }
 
     /**
