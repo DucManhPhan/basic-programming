@@ -28,4 +28,17 @@ public class MinimumJumpsReachEnd {
         return -1;
     }
 
+    public int countMinJumps(int[] jumps, int idx) {
+        // base case
+        if (idx == jumps.length) {
+            return 1;
+        }
+
+        // recursion case
+        int steps = jumps[idx];
+        for (int i = idx + 1; i <= steps; ++i) {
+
+        }
+    }
+
 }
