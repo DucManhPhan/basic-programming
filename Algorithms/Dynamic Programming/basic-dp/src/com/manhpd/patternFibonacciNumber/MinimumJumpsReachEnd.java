@@ -19,26 +19,40 @@ package com.manhpd.patternFibonacciNumber;
 public class MinimumJumpsReachEnd {
 
     public static void main(String[] args) {
+        int[] jumps = {2, 1, 1, 1, 4};
+        int steps = countMinJumps(jumps);
 
+        System.out.println("Result: " + steps);
     }
 
-    public int countMinJumps(int[] jumps) {
-
-
-        return -1;
+    public static int countMinJumps(int[] jumps) {
+        return countMinJumps(jumps, 0);
     }
 
-    public int countMinJumps(int[] jumps, int idx) {
+    public static int countMinJumps(int[] jumps, int idx) {
         // base case
-        if (idx == jumps.length) {
-            return 1;
+        if (idx == jumps.length - 1) {
+            return 0;
+        }
+
+        if (jumps[idx] == 0) {
+            return Integer.MAX_VALUE;
         }
 
         // recursion case
-        int steps = jumps[idx];
-        for (int i = idx + 1; i <= steps; ++i) {
+        int totalJumps = Integer.MAX_VALUE;
+        int start = idx + 1;
+        int end = idx + jumps[idx];
 
+        while (start < jumps.length && start <= end) {
+            int minJumps = countMinJumps(jumps, start++);
+
+            if (minJumps != Integer.MAX_VALUE) {
+                totalJumps = Math.min(totalJumps, minJumps + 1);
+            }
         }
+
+        return totalJumps;
     }
 
 }
