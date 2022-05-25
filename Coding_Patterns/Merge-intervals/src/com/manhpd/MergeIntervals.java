@@ -53,34 +53,58 @@ public class MergeIntervals {
 
     public static List<Interval> merge(List<Interval> intervals) {
         List<Interval> mergedIntervals = new LinkedList<Interval>();
-        Comparator<Interval> byStartPoint = (i1, i2) -> {
-            return Integer.compare(i1.start, i2.start);
-        };
+        Comparator<Interval> byStartPoint = Comparator.comparingInt(i -> i.start);
 
         Collections.sort(intervals, byStartPoint);
         for (int i = 1; i < intervals.size(); ++i) {
-            if (intervals.isEmpty()) {
-                Interval i1 = intervals.get(i - 1);
-                Interval i2 = intervals.get(i);
-
-                Interval newInterval = new Interval(0, 0);
-                if (i1.start <= i2.start) {
-                    newInterval.start = i1.start;
-                }
-
-                if (i1.end < i2.start) { // not overlapping
-                    intervals.add(i1);
-                    intervals.add(i2);
-                    continue;
-                }
-
-
+            Interval i1, i2;
+            if (mergedIntervals.isEmpty()) {
+                i1 = intervals.get(i - 1);
+                i2 = intervals.get(i);
             } else {
+                i1 = intervals.get(i);
+                i2 = mergedIntervals.remove(mergedIntervals.size() - 1);
+            }
 
+            Interval newInterval = merge(mergedIntervals, i1, i2);
+            if (newInterval == null) {  // non-overlapping
+                mergedIntervals.add(i1);
+                mergedIntervals.add(i2);
+            } else {
+                mergedIntervals.add(newInterval);
             }
         }
 
         return mergedIntervals;
+    }
+
+    /**
+     * After sorting, i1.start will be always less than or equal to i2.start
+     *
+     * @param mergedIntervals
+     * @param i1
+     * @param i2
+     */
+    private static Interval merge(List<Interval> mergedIntervals, Interval i1, Interval i2) {
+        Interval newInterval = new Interval(-1, -1);
+//        boolean isOverlapping = false;
+
+        // overlapping: i1s --- i2s --- i1e
+        if (i2.start <= i1.end) {
+//            isOverlapping = true;
+
+            if (i1.end <= i2.end) { // i1s --- i2s --- i1e --- i2e
+                newInterval.start = i1.start;
+                newInterval.end = i2.end;
+            } else {
+                newInterval = i1;
+            }
+
+            return newInterval;
+        } else { // non-overlap: i1s --- i1e --- i2s --- i2e
+//            isOverlapping = false;
+            return null;
+        }
     }
 
     static class Interval {
@@ -91,5 +115,5 @@ public class MergeIntervals {
             this.start = start;
             this.end = end;
         }
-    };
+    }
 }
