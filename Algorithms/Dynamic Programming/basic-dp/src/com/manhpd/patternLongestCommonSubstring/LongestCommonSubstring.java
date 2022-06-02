@@ -18,8 +18,11 @@ package com.manhpd.patternLongestCommonSubstring;
  */
 public class LongestCommonSubstring {
     public static void main(String[] args) {
-        String str1 = "abdca";
-        String str2 = "cbda";
+//        String str1 = "abdca";
+//        String str2 = "cbda";
+
+        String str1 = "passport";
+        String str2 = "ppsspt";
 
 //        int res = findLongestLengthSubstring(str1, str2);
         int res = findLongestLengthSubstringV2(str1, str2);
