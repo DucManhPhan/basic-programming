@@ -18,15 +18,20 @@ package com.manhpd.patternLongestCommonSubstring;
  */
 public class LongestCommonSubstring {
     public static void main(String[] args) {
-        String str1 = "abdca";
-        String str2 = "cbda";
+//        String str1 = "abdca";
+//        String str2 = "cbda";
 
-        int res = findLongestLengthSubstring(str1, str2);
+        String str1 = "passport";
+        String str2 = "ppsspt";
+
+//        int res = findLongestLengthSubstring(str1, str2);
+        int res = findLongestLengthSubstringV2(str1, str2);
         System.out.println("Result: " + res);
     }
 
     /**
      * Using brute force for this problem
+     * Time complexity: O(n^2 * m)
      *
      * @param str1
      * @param str2
@@ -72,16 +77,30 @@ public class LongestCommonSubstring {
 
     /**
      * Using Recursion
+     * Time complexity: O(3^n)
      *
      * @param str1
      * @param str2
      * @return
      */
     public static int findLongestLengthSubstringV2(String str1, String str2) {
-
-
-        return 0;
+        return findLongestLengthSubstringV2(str1, str2, 0, 0, 0);
     }
 
+    private static int findLongestLengthSubstringV2(String str1, String str2, int i1, int i2, int count) {
+        // base case
+        if (i1 == str1.length() || i2 == str2.length()) {
+            return count;
+        }
 
+        if (str1.charAt(i1) == str2.charAt(i2)) {
+            count = findLongestLengthSubstringV2(str1, str2, i1 + 1, i2 + 1, count + 1);
+        }
+
+        int c2 = findLongestLengthSubstringV2(str1, str2, i1, i2 + 1, 0);
+        int c3 = findLongestLengthSubstringV2(str1, str2, i1 + 1, i2, 0);
+
+        return Math.max(count, Math.max(c2, c3));
     }
+
+}
