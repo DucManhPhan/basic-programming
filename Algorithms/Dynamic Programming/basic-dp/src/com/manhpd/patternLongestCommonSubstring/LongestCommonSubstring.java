@@ -26,7 +26,9 @@ public class LongestCommonSubstring {
 
 //        int res = findLongestLengthSubstring(str1, str2);
 //        int res = findLongestLengthSubstringV2(str1, str2);
-        int res = findLongestLengthSubstringV3(str1, str2);
+//        int res = findLongestLengthSubstringV3(str1, str2);
+//        int res = findLongestLengthSubstringV4(str1, str2);
+        int res = findLongestLengthSubstringV5(str1, str2);
         System.out.println("Result: " + res);
     }
 
@@ -137,6 +139,53 @@ public class LongestCommonSubstring {
 
         dp[i1][i2][count] = Math.max(c1, Math.max(c2, c3));
         return dp[i1][i2][count];
+    }
+
+    /**
+     * Using Bottom-Up Dynamic Programming
+     *
+     * @param str1
+     * @param str2
+     * @return
+     */
+    public static int findLongestLengthSubstringV4(String str1, String str2) {
+        int[][] dp = new int[str1.length() + 1][str2.length() + 1];
+        int maxLength = 0;
+
+        for (int i = 1; i <= str1.length(); ++i) {
+            for (int j = 1; j <= str2.length(); ++j) {
+                if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                    maxLength = Math.max(maxLength, dp[i][j]);
+                }
+            }
+        }
+
+        return maxLength;
+    }
+
+    /**
+     * Improve Bottom-Up Dynamic Programming
+     *
+     * @param str1
+     * @param str2
+     * @return
+     */
+    public static int findLongestLengthSubstringV5(String str1, String str2) {
+        int[][] dp = new int[2][str2.length() + 1];
+        int maxLength = 0;
+
+        for (int i = 1; i <= str1.length(); ++i) {
+            for (int j = 1; j <= str2.length(); ++j) {
+                dp[i % 2][j] = 0;
+                if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+                    dp[i % 2][j] = dp[(i - 1) % 2][j - 1] + 1;
+                    maxLength = Math.max(maxLength, dp[i % 2][j]);
+                }
+            }
+        }
+
+        return maxLength;
     }
 
 }
