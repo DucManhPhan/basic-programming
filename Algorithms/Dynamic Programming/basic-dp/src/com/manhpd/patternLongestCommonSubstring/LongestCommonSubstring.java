@@ -167,6 +167,9 @@ public class LongestCommonSubstring {
     /**
      * Improve Bottom-Up Dynamic Programming
      *
+     * Time complexity: O(m * n)
+     * Space complexity: O(n)
+     *
      * @param str1
      * @param str2
      * @return
