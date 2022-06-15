@@ -25,10 +25,10 @@ public class LongestCommonSubstring {
         String str2 = "ppsspt";
 
 //        int res = findLongestLengthSubstring(str1, str2);
-//        int res = findLongestLengthSubstringV2(str1, str2);
+        int res = findLongestLengthSubstringV2(str1, str2);
 //        int res = findLongestLengthSubstringV3(str1, str2);
 //        int res = findLongestLengthSubstringV4(str1, str2);
-        int res = findLongestLengthSubstringV5(str1, str2);
+//        int res = findLongestLengthSubstringV5(str1, str2);
         System.out.println("Result: " + res);
     }
 
@@ -87,7 +87,8 @@ public class LongestCommonSubstring {
      * @return
      */
     public static int findLongestLengthSubstringV2(String str1, String str2) {
-        return findLongestLengthSubstringV2(str1, str2, 0, 0, 0);
+//        return findLongestLengthSubstringV2(str1, str2, 0, 0, 0);
+        return findLongestLengthSubstringV2(str1, str2, 0, 0);
     }
 
     private static int findLongestLengthSubstringV2(String str1, String str2, int i1, int i2, int count) {
@@ -104,6 +105,31 @@ public class LongestCommonSubstring {
         int c3 = findLongestLengthSubstringV2(str1, str2, i1 + 1, i2, 0);
 
         return Math.max(count, Math.max(c2, c3));
+    }
+
+    /**
+     * Check the difference between two versions of this same method findLongestLengthSubstringV2()
+     *
+     * @param str1
+     * @param str2
+     * @param i1
+     * @param i2
+     * @return
+     */
+    private static int findLongestLengthSubstringV2(String str1, String str2, int i1, int i2) {
+        // base case
+        if (i1 == str1.length() || i2 == str2.length()) {
+            return 0;
+        }
+
+        if (str1.charAt(i1) == str2.charAt(i2)) {
+            return 1 + findLongestLengthSubstringV2(str1, str2, i1 + 1, i2 + 1);
+        }
+
+        int c2 = findLongestLengthSubstringV2(str1, str2, i1, i2 + 1);
+        int c3 = findLongestLengthSubstringV2(str1, str2, i1 + 1, i2);
+
+        return Math.max(c2, c3);
     }
 
     /**
