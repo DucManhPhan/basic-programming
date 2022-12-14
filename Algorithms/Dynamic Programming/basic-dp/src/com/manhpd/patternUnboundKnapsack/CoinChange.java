@@ -24,7 +24,7 @@ public class CoinChange {
 //        int[] denominations = {3};
 //        int total = 2;
         CoinChange solution = new CoinChange();
-//        System.out.println(solution.countChange(denominations, total));
+        System.out.println(solution.countChange(denominations, total));
         System.out.println(solution.countChangeRecursion(denominations, total));
     }
 
