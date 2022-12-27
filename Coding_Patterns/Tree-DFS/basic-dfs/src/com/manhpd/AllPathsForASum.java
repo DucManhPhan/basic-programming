@@ -8,12 +8,14 @@ import java.util.List;
  *
  * Example 1:
  * S: 12
+ * Tree: [1], [7, 9], [[4, 5], [2, 7]]
  * Output: [[1, 7, 4], [1, 9, 2]]
  * Explanation:
  *      Here are the two paths with sum '12':1 -> 7 -> 4 and 1 -> 9 -> 2
  *
  * Example 2:
  * S: 23
+ * Tree: [12], [7, 1], [[4], [10, 5]]
  * Output: [[12, 7, 4], [12, 1, 10]]
  * Explanation:
  *      Here are the two paths with sum '23':12 -> 7 -> 4 and 12 -> 1 -> 10
