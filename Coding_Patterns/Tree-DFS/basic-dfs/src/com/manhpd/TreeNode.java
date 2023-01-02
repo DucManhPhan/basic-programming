@@ -6,8 +6,8 @@ class TreeNode {
     TreeNode right;
 
     TreeNode parent;
-    int depth;
-    boolean visited;
+    int depth = -1;
+//    boolean visited;
 
     TreeNode(int x) {
         val = x;
