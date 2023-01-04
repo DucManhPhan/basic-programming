@@ -3,7 +3,8 @@ package com.manhpd;
 import java.util.Arrays;
 
 /**
- * We are given an array containing n objects. Each object, when created, was assigned a unique number from the range 1 to n based on their creation sequence.
+ * We are given an array containing n objects.
+ * Each object, when created, was assigned a unique number from the range 1 to n based on their creation sequence.
  * This means that the object with sequence number 3 was created just before the object with sequence number 4.
  *
  * Write a function to sort the objects in-place on their creation sequence number in O(n) and without using any extra space.
@@ -34,7 +35,18 @@ public class CyclicSort {
     }
 
     public static void sort(int[] nums) {
-        // TODO: Write your code here
+        int start = 0;
+
+        while (start < nums.length) {
+            int current = nums[start];
+
+            if (current <= nums.length && (current - 1) != start) {
+                nums[start] = nums[current - 1];
+                nums[current - 1] = current;
+            }
+
+            ++start;
+        }
     }
 
 }
