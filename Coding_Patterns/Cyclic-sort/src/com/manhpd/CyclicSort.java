@@ -38,15 +38,20 @@ public class CyclicSort {
         int start = 0;
 
         while (start < nums.length) {
-            int current = nums[start];
+            int current = nums[start] - 1;
 
-            if (current <= nums.length && (current - 1) != start) {
-                nums[start] = nums[current - 1];
-                nums[current - 1] = current;
+            if (nums[start] != nums[current]) {
+                swap(nums, start, current);
+            } else {
+                ++start;
             }
-
-            ++start;
         }
+    }
+
+    private static void swap(int[] nums, int x, int y) {
+        int tmp = nums[x];
+        nums[x] = nums[y];
+        nums[y] = tmp;
     }
 
 }
