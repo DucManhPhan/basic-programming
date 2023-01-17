@@ -26,8 +26,8 @@ public class FindDuplicateNumber {
 
     public static void main(String[] args) {
 //        int[] nums = {1, 4, 4, 3, 2};
-        int[] nums = {2, 1, 3, 3, 5, 4};
-//        int[] nums = {2, 4, 1, 3, 4};
+//        int[] nums = {2, 1, 3, 3, 5, 4};
+        int[] nums = {2, 4, 1, 3, 4};
 //        int duplicateNumber = findDuplicateNumber(nums);
 //        int duplicateNumber = findDuplicateNumberV1(nums);
 //        int duplicateNumber = findDuplicateNumberV2(nums);
