@@ -27,14 +27,14 @@ public class SearchInsertPosition {
 //        int[] nums = {1, 3};
 //        int target = 2;
 
-//        int[] nums = {1, 3, 5, 6};
-//        int target = 2;
+        int[] nums = {1, 3, 5, 6};
+        int target = 7;
 
-        int[] nums = {2, 4, 5, 9, 11};
-        int target = -1;
+//        int[] nums = {2, 4, 5, 9, 11};
+//        int target = -1;
 
-//        int res = searchInsert(nums, target);
-        int res = searchInsertV2(nums, target);
+        int res = searchInsert(nums, target);
+//        int res = searchInsertV2(nums, target);
         System.out.println(res);
     }
 
@@ -51,6 +51,8 @@ public class SearchInsertPosition {
 
         while (left <= right) {
             int mid = left + (right - left) / 2;
+
+            System.out.println("(mid, left, right) = (" + mid + ", " + left + ", " + right + ")");
 
             if (nums[mid] == target) {
                 return mid;
