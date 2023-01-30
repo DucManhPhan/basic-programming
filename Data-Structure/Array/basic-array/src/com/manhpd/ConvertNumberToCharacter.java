@@ -23,7 +23,7 @@ public class ConvertNumberToCharacter {
 //        int i = 4;
 //        int i = 100;
 
-        int[] testcase = {1005, 10500, 10050, 12500, 1234, 1234567, 1, 12, 123, 100, 123456789, 4, 50, 105};
+        int[] testcase = {1000000000, 1005, 10500, 10050, 12500, 1234, 1234567, 1, 12, 123, 100, 123456789, 4, 50, 105};
         for (int i : testcase) {
             String res = numberToString(i);
             System.out.println(i + " - " + res);
