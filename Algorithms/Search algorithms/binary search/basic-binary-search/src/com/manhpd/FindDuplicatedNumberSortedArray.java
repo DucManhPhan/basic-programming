@@ -58,6 +58,12 @@ public class FindDuplicatedNumberSortedArray {
         return -1;
     }
 
+    /**
+     * Using the relation between the element's value and its index to move left or right pointers.
+     *
+     * @param nums
+     * @return
+     */
     public static int getDuplicateNumberV1(int[] nums) {
         int left = 0;
         int right = nums.length;
