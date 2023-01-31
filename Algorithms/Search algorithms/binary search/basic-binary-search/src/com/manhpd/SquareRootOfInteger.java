@@ -19,9 +19,12 @@ public class SquareRootOfInteger {
 //        int x = 11;
 //        int x = 4;
 //        int x = 2147395600;
-        int x = 2147395599;
+//        int x = 2147395599;
+        int x = 2147483647;
 //        int res = mySqrt(x);
-        int res = mySqrtBinarySearch(x);
+//        int res = mySqrtV1(x);
+        int res = mySqrtV2(x);
+//        int res = mySqrtBinarySearch(x);
         System.out.println(res);
     }
 
@@ -31,11 +34,11 @@ public class SquareRootOfInteger {
         }
 
         int i = 1;
-        int res = 1;
+        long res = 1;
 
         while (res <= x) {
             ++i;
-            res = i * i;
+            res = (long) i * i;
         }
 
         return i - 1;
@@ -74,6 +77,65 @@ public class SquareRootOfInteger {
         }
 
         return pos;
+    }
+
+    private static int mySqrtV1(int x) {
+        int left = 0;
+        int right = x/2;
+
+        while (left + 1 < right) {
+            int mid = left + (right - left) / 2;
+            long square = (long) mid * mid;
+
+            if (square == x) {
+                return mid;
+            }
+
+            if (x < square) {
+                right = mid;
+            } else {
+                left = mid;
+            }
+        }
+
+
+        if (((long) right * right) <= x) {
+            return right;
+        }
+
+        if (((long) left * left) <= x) {
+            return left;
+        }
+
+        return -1;
+    }
+
+    private static int mySqrtV2(int a) {
+        if (a < 2) {
+            return a;
+        }
+        // the initial value for left is 0
+        int left = 0;
+        // the initial value for right is the number
+        int right = a;
+        // left + 1 >= right will finish while loop
+        while (left + 1 < right) {
+            int mid = (right + left) / 2;
+            long square = (long) mid * mid;
+
+            if (square == a) {
+                // mid is the answer
+                return mid;
+            } else if (square < a) {
+                // there is no sense to search among numbers less than mid
+                left = mid;
+            } else {
+                // there is no sense to search among numbers bigger than mid
+                right = mid;
+            }
+        }
+        // the answer is left
+        return left;
     }
 
 }
