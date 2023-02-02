@@ -1,5 +1,11 @@
 package com.manhpd;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * https://leetcode.com/problems/arranging-coins/description/
  * Suppose that there are a total of n coins that we want to form into a staircase shape, where every k-th row contains exactly k coins.
@@ -21,11 +27,15 @@ public class ArrangingCoins {
 
     public static void main(String[] args) {
 //        int n = 1;
-        int n = 3;
+//        int n = 2;
+//        int n = 3;
 //        int n = 5;
 //        int n = 8;
+        int n = 1804289383; // 60070
 
-        int res = arrangeCoins(n);
+//        int res = arrangeCoins(n);
+//        int res = arrangeCoinsV1(n);
+        int res = arrangeCoinsV2(n);
         System.out.println("Result: " + res);
     }
 
@@ -62,9 +72,46 @@ public class ArrangingCoins {
      * @return
      */
     private static int arrangeCoinsV1(int n) {
+        List<Integer> stairCase = buildStairCase(n);
+        System.out.println(Arrays.toString(stairCase.toArray()));
 
+        int left = 0;
+        int right = stairCase.size();
 
-        return -1;
+        while (left + 1 < right) {
+            int mid = left + (right - left) / 2;
+
+            if (stairCase.get(mid - 1) < stairCase.get(mid)) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+
+        if (left == 0 || stairCase.get(left - 1) < stairCase.get(left)) {
+            return left + 1;
+        }
+
+        return stairCase.size();
+    }
+
+    private static List<Integer> buildStairCase(int n) {
+        List<Integer> stairCase = new ArrayList<>();
+
+        int coin = 1;
+        int remaining = n;
+
+        while (remaining > 0) {
+            if (remaining < coin) {
+                coin = remaining;
+            }
+
+            remaining -= coin;
+            stairCase.add(coin);
+            ++coin;
+        }
+
+        return stairCase;
     }
 
     /**
@@ -74,9 +121,25 @@ public class ArrangingCoins {
      * @return
      */
     private static int arrangeCoinsV2(int n) {
+        int left = 0;
+        int right = n;
 
+        while (left + 1 < right) {
+            int mid = left + (right - left) / 2;
+            long numCoins =  ((long)(mid + 1) * mid) / 2;
 
-        return -1;
+            if (numCoins == n) {
+                return mid;
+            }
+
+            if (numCoins < n) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+
+        return left;
     }
 
 }
