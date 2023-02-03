@@ -43,12 +43,23 @@ public class MinimumRotatedSortedArray {
     }
 
     /**
-     * Using Binary Search based on the upward segments and downward segments
+     * Using Binary Search based on the upward segments and downward segments.
+     * Condition: comparing mid and left.
      *
      * @param nums
      * @return
      */
     private static int findMinimumElement(int[] nums) {
+        return -1;
+    }
+
+    /**
+     * Use Binary Search with comparing mid and right.
+     *
+     * @param nums
+     * @return
+     */
+    private static int findMinimumElementV2(int[] nums) {
         return -1;
     }
 
