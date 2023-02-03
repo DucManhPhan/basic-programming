@@ -34,7 +34,8 @@ public class MinimumRotatedSortedArray {
     public static void main(String[] args) {
 //        int[] nums = {3, 4, 5, 1, 2};
 //        int[] nums = {4, 5, 6, 7, 0, 1, 2};
-        int[] nums = {11, 13, 15, 17};
+//        int[] nums = {11, 13, 15, 17};
+        int[] nums = {5, 1, 2, 3, 4};
 
 //        int res = findMinimumElement(nums);
         int res = findMinimumElementV1(nums);
@@ -53,6 +54,8 @@ public class MinimumRotatedSortedArray {
 
     /**
      * Using Bitonic point in nums array
+     * --> Wrong way when applying this example: [5, 1, 2, 3, 4]
+     * It is not bitonic point when taking care it.
      *
      * @param nums
      * @return
