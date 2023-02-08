@@ -21,10 +21,18 @@ public class SearchInRotatedSortedArray {
         int[] nums = {4, 5, 6, 7, 0, 1, 2};
         int target = 0;
 
-        int pos = search(nums, target);
+//        int pos = search(nums, target);
+        int pos = searchV1(nums, target);
         System.out.println(pos);
     }
 
+    /**
+     * Using Binary search's the first invariant.
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
     public static int search(int[] nums, int target) {
         int left = 0;
         int right = nums.length - 1;
@@ -52,5 +60,50 @@ public class SearchInRotatedSortedArray {
 
         return -1;
     }
+
+    /**
+     * Using Binary Search's third invariant
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int searchV1(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length;
+
+        while (left + 1 < right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid] == target) {
+                return mid;
+            }
+
+            if (right < nums.length && nums[mid] <= nums[right]) {
+                if (nums[mid] <= target && target <= nums[right]) {
+                    left = mid;
+                } else {
+                    right = mid;
+                }
+            } else {
+                if (nums[left] <= target && target <= nums[mid]) {
+                    right = mid;
+                } else {
+                    left = mid;
+                }
+            }
+        }
+
+        if (nums[left] == target) {
+            return left;
+        }
+
+        if (right < nums.length && nums[right] == target) {
+            return right;
+        }
+
+        return -1;
+    }
+
 
 }

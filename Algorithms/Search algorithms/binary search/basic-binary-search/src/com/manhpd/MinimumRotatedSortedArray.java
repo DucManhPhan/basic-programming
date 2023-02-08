@@ -35,10 +35,12 @@ public class MinimumRotatedSortedArray {
 //        int[] nums = {3, 4, 5, 1, 2};
 //        int[] nums = {4, 5, 6, 7, 0, 1, 2};
 //        int[] nums = {11, 13, 15, 17};
-        int[] nums = {5, 1, 2, 3, 4};
+//        int[] nums = {5, 1, 2, 3, 4};
+        int[] nums = {2, 3, 4, 5, 6, 0, 1};
 
-//        int res = findMinimumElement(nums);
-        int res = findMinimumElementV1(nums);
+//        int res = findMinimumElementV1(nums);
+//        int res = findMinimumElementV2(nums);
+        int res = findMinimumElementV3(nums);
         System.out.println("Result: " + res);
     }
 
@@ -49,8 +51,28 @@ public class MinimumRotatedSortedArray {
      * @param nums
      * @return
      */
-    private static int findMinimumElement(int[] nums) {
-        return -1;
+    private static int findMinimumElementV3(int[] nums) {
+        int pivot = findPivot(nums);
+        return Math.min(nums[0], nums[pivot]);
+    }
+
+    private static int findPivot(int[] nums) {
+        int left = 0;
+        int right = nums.length;
+
+        while (left + 1 < right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid - 1] > nums[mid]) {
+                return mid;
+            } else if (nums[left] < nums[mid]) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+
+        return left;
     }
 
     /**
@@ -60,7 +82,20 @@ public class MinimumRotatedSortedArray {
      * @return
      */
     private static int findMinimumElementV2(int[] nums) {
-        return -1;
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left + 1 < right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid] < nums[right]) {
+                right = mid;
+            } else {
+                left = mid;
+            }
+        }
+
+        return Math.min(nums[left], nums[right]);
     }
 
     /**
