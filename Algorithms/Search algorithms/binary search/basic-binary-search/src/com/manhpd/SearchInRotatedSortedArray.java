@@ -18,11 +18,20 @@ package com.manhpd;
 public class SearchInRotatedSortedArray {
 
     public static void main(String[] args) {
-        int[] nums = {4, 5, 6, 7, 0, 1, 2};
+//        int[] nums = {4, 5, 6, 7, 0, 1, 2};
+//        int[] nums = {7, 0, 1, 2, 4, 5, 6};
+        int[] nums = {5, 6, 7, 0, 1, 2, 4};
         int target = 0;
 
+//        int[] nums = {1, 3};
+//        int target = 1;
+
+//        int[] nums = {5, 1, 3};
+//        int target = 3;
+
 //        int pos = search(nums, target);
-        int pos = searchV1(nums, target);
+//        int pos = searchV1(nums, target);
+        int pos = searchV3(nums, target);
         System.out.println(pos);
     }
 
@@ -70,7 +79,10 @@ public class SearchInRotatedSortedArray {
      */
     public static int searchV1(int[] nums, int target) {
         int left = 0;
-        int right = nums.length;
+
+        // The initially condition of right variable is not correct when using the template of Binary Search's third invariant.
+        // But in this problem, we need to use it to pass all test case in LeetCode.
+        int right = nums.length - 1;
 
         while (left + 1 < right) {
             int mid = left + (right - left) / 2;
@@ -79,17 +91,17 @@ public class SearchInRotatedSortedArray {
                 return mid;
             }
 
-            if (right < nums.length && nums[mid] <= nums[right]) {
-                if (nums[mid] <= target && target <= nums[right]) {
-                    left = mid;
-                } else {
-                    right = mid;
-                }
-            } else {
+            if (nums[mid] > nums[left]) {
                 if (nums[left] <= target && target <= nums[mid]) {
                     right = mid;
                 } else {
                     left = mid;
+                }
+            } else {
+                if (right < nums.length && nums[mid] <= target && target <= nums[right]) {
+                    left = mid;
+                } else {
+                    right = mid;
                 }
             }
         }
@@ -105,5 +117,68 @@ public class SearchInRotatedSortedArray {
         return -1;
     }
 
+    /**
+     * Using Using pivot element to search on each sub-arrays.
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int searchV3(int[] nums, int target) {
+        int pivot = findPivot(nums);
+
+        int res = binarySearch(nums, 0, pivot, target);
+        if (res != -1) {
+            return res;
+        }
+
+        return binarySearch(nums, pivot, nums.length, target);
+    }
+
+    private static int findPivot(int[] nums) {
+        int left = 0;
+        int right = nums.length;
+
+        while (left + 1 < right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid - 1] > nums[mid]) {
+                return mid;
+            } else if (nums[mid] > nums[left]) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+
+        return nums[left] > nums[0] ? 0 : left;
+    }
+
+    private static int binarySearch(int[] nums, int startIdx, int endIdx, int target) {
+        int left = startIdx;
+        int right = endIdx;
+
+        while (left + 1 < right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] < target) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+
+        if (nums[left] == target) {
+            return left;
+        }
+
+        if (right < nums.length - 1 && nums[right] == target) {
+            return right;
+        }
+
+        return -1;
+    }
 
 }
