@@ -50,24 +50,14 @@ public class PathWithMaximumSum {
     }
 
     public static void main(String[] args) {
-//        TreeNode root = buildExample1();
-//        System.out.println("Maximum Path Sum: " + PathWithMaximumSum.findMaximumPathSum(root));
+        TreeNode root = buildExample1();
+        System.out.println("Maximum Path Sum: " + PathWithMaximumSum.findMaximumPathSum(root));
 
-//        TreeNode root = buildExample2();
-//        System.out.println("Maximum Path Sum: " + PathWithMaximumSum.findMaximumPathSum(root));
+        TreeNode root1 = buildExample2();
+        System.out.println("Maximum Path Sum: " + PathWithMaximumSum.findMaximumPathSum(root1));
 
-//        Tree Node root = buildExample3();
-//        System.out.println("Maximum Path Sum: " + PathWithMaximumSum.findMaximumPathSum(root));
-
-        List<String> commands = new ArrayList<>() {{
-            add("open firefox");
-            add("open curl");
-            add("open terminal");
-            add("close 2");
-            add("open ps");
-        }};
-
-        getOpenApplications(commands);
+        TreeNode root2 = buildExample3();
+        System.out.println("Maximum Path Sum: " + PathWithMaximumSum.findMaximumPathSum(root2));
     }
 
     private static TreeNode buildExample1() {
@@ -103,51 +93,6 @@ public class PathWithMaximumSum {
         root.right.right.left = new TreeNode(9);
 
         return root;
-    }
-
-    public static List<String> getOpenApplications(List<String> commands) {
-        // Write your code here
-        if (commands == null || commands.size() == 0) {
-            return new LinkedList<>();
-        }
-
-        List<String> openApplications = new LinkedList<>();
-        for (String command : commands) {
-            System.out.println(command);
-
-            String name = extractApplicationName(command);
-
-            if (command.contains("open")) {
-                openApplications.add(name);
-            } else if (command.contains("close")) {
-                int k = Integer.valueOf(name);
-                System.out.println("Close number of app: " + k);
-
-                if (k >= openApplications.size()) {
-                    openApplications.clear();
-                    continue;
-                }
-
-                int length = openApplications.size();
-                for (int i = length - 1;; --i) {
-                    if (length - i == k + 1) {
-                        break;
-                    }
-
-                    openApplications.remove(i);
-                }
-            } else if (command.contains("clear")) {
-                openApplications.clear();
-            }
-        }
-
-        System.out.println(openApplications.toArray());
-        return openApplications;
-    }
-
-    private static String extractApplicationName(String command) {
-        int idxOfSpace = command.indexOf(' ');
-        return command.substring(idxOfSpace + 1, command.length());
     }
 
 }
