@@ -26,6 +26,14 @@ public class PathWithMaximumSum {
 
     private static int maxDiameter = Integer.MIN_VALUE;
 
+    private static int globalMaximumSum = Integer.MIN_VALUE;
+
+    /**
+     * 1st way: Using Diameter concept
+     *
+     * @param root
+     * @return
+     */
     public static int findMaximumPathSum(TreeNode root) {
         findHeight(root, 0);
         return maxPathSum;
@@ -49,15 +57,54 @@ public class PathWithMaximumSum {
         return Math.max(leftHeight, rightHeight) + 1;
     }
 
+    /**
+     * 2nd way: Using the same concept of Diameter.
+     *
+     * @param root
+     * @return
+     */
+    public static int findMaximumPathSumV2(TreeNode root) {
+        globalMaximumSum = Integer.MIN_VALUE;
+        findMaximumPathSumRecursive(root);
+        return globalMaximumSum;
+    }
+
+    private static int findMaximumPathSumRecursive(TreeNode currentNode) {
+        if (currentNode == null)
+            return 0;
+
+        int maxPathSumFromLeft = findMaximumPathSumRecursive(currentNode.left);
+        int maxPathSumFromRight = findMaximumPathSumRecursive(currentNode.right);
+
+        // ignore paths with negative sums, since we need to find the maximum sum we should
+        // ignore any path which has an overall negative sum.
+        maxPathSumFromLeft = Math.max(maxPathSumFromLeft, 0);
+        maxPathSumFromRight = Math.max(maxPathSumFromRight, 0);
+
+        // maximum path sum at the current node will be equal to the sum from the left subtree +
+        // the sum from right subtree + val of current node
+        int localMaximumSum = maxPathSumFromLeft + maxPathSumFromRight + currentNode.val;
+
+        // update the global maximum sum
+        globalMaximumSum = Math.max(globalMaximumSum, localMaximumSum);
+
+        // maximum sum of any path from the current node will be equal to the maximum of
+        // the sums from left or right subtrees plus the value of the current node
+        return Math.max(maxPathSumFromLeft, maxPathSumFromRight) + currentNode.val;
+    }
+
     public static void main(String[] args) {
         TreeNode root = buildExample1();
-        System.out.println("Maximum Path Sum: " + PathWithMaximumSum.findMaximumPathSum(root));
+        System.out.println("Maximum Path Sum V1: " + PathWithMaximumSum.findMaximumPathSum(root));
+        System.out.println("Maximum Path Sum V2: " + PathWithMaximumSum.findMaximumPathSumV2(root));
 
         TreeNode root1 = buildExample2();
         System.out.println("Maximum Path Sum: " + PathWithMaximumSum.findMaximumPathSum(root1));
+        System.out.println("Maximum Path Sum V2: " + PathWithMaximumSum.findMaximumPathSumV2(root1));
 
         TreeNode root2 = buildExample3();
         System.out.println("Maximum Path Sum: " + PathWithMaximumSum.findMaximumPathSum(root2));
+        System.out.println("Maximum Path Sum V2: " + PathWithMaximumSum.findMaximumPathSumV2(root2));
     }
 
     private static TreeNode buildExample1() {
