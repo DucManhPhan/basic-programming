@@ -1,5 +1,7 @@
 package com.manhpd;
 
+import java.util.Stack;
+
 /**
  * Given the head of a Singly LinkedList, write a method to check if the LinkedList is a palindrome or not.
  * Your algorithm should use constant space and the input LinkedList should be in the original form once the algorithm is finished.
@@ -28,6 +30,14 @@ public class PalindromicLinkedList {
         System.out.println("Is palindrome: " + PalindromicLinkedList.isPalindrome(head));
     }
 
+    /**
+     * 1st way: Split linked list into two parts:
+     * 1. from start to middle position.
+     * 2. from middle to end position.
+     *
+     * @param head
+     * @return
+     */
     public static boolean isPalindrome(ListNode head) {
         if (head == null || head.next == null) {
             return false;
@@ -39,12 +49,29 @@ public class PalindromicLinkedList {
             return false;
         }
 
-        // check elements in range [start, mid] and range [mid, end]
-        while (middle != null) {
-
+        // get the values from the end to start
+        Stack<Integer> stk = new Stack<>();
+        ListNode tmp = middle.next;
+        while (tmp != null) {
+            stk.push(tmp.value);
+            tmp = tmp.next;
         }
 
-        return false;
+        // compare with the beginning nodes
+        while (head != middle) {
+            int currentValue = stk.pop();
+            if (head.value != currentValue) {
+                return false;
+            }
+
+            head = head.next;
+        }
+
+        if (!stk.isEmpty()) {
+            return false;
+        }
+
+        return true;
     }
 
     private static ListNode findMiddle(ListNode head) {
@@ -61,6 +88,14 @@ public class PalindromicLinkedList {
         }
 
         return slow;
+    }
+
+    /**
+     * 2nd way:
+     *
+     */
+    public static boolean isPalindromeV2(ListNode head) {
+        return false;
     }
 
 }
