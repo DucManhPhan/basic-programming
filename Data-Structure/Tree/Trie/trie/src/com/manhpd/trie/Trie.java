@@ -1,8 +1,4 @@
-package com.manhpd;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+package com.manhpd.trie;
 
 class Trie {
 
@@ -87,10 +83,9 @@ class TrieNode {
     public boolean isEndOfWord;
 
     public TrieNode() {
-        this.childrenNodes = new TrieNode[26];    //new ArrayList<>(26);
+        this.childrenNodes = new TrieNode[26];
         this.isEndOfWord = false;
     }
-
 }
 
 /**
