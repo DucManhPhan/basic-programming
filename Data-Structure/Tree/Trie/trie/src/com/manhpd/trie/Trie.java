@@ -1,6 +1,6 @@
 package com.manhpd.trie;
 
-class Trie {
+public class Trie {
 
     private TrieNode root;
 
