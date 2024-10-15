@@ -4,12 +4,18 @@ class Trie {
 
     private TrieNode root;
 
-    /** Initialize your data structure here. */
+    /**
+     * Initialize your data structure here.
+     */
     public Trie() {
         this.root = new TrieNode();
     }
 
-    /** Inserts a word into the trie. */
+    /**
+     * Inserts a word into the trie.
+     *
+     * @param word: String
+     */
     public void insert(String word) {
         if (word == null || word == "") {
             return;
@@ -20,17 +26,23 @@ class Trie {
         int len = lowerCase.length();
         for (int i = 0; i < len; ++i) {
             char c = lowerCase.charAt(i);
-            if (node.childrenNodes[c - 'a'] == null) {
-                node.childrenNodes[c - 'a'] = new TrieNode();
+            int idx = c - 'a';
+
+            if (node.childrenNodes[idx] == null) {
+                node.childrenNodes[idx] = new TrieNode();
             }
 
-            node = node.childrenNodes[c - 'a'];
+            node = node.childrenNodes[idx];
         }
 
         node.isEndOfWord = true;
     }
 
-    /** Returns if the word is in the trie. */
+    /**
+     * Returns if the word is in the trie.
+     *
+     * @param word: String
+     */
     public boolean search(String word) {
         if (word == null || word == "") {
             return false;
@@ -52,7 +64,11 @@ class Trie {
         return node != null && node.isEndOfWord;
     }
 
-    /** Returns if there is any word in the trie that starts with the given prefix. */
+    /**
+     * Returns if there is any word in the trie that starts with the given prefix.
+     *
+     * @param prefix: String
+     */
     public boolean startsWith(String prefix) {
         if (prefix == null || prefix == "") {
             return false;
