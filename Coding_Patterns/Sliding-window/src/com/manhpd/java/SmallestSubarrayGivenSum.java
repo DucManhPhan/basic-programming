@@ -38,5 +38,4 @@ public class SmallestSubarrayGivenSum {
 
         return smallestSize == Integer.MAX_VALUE ? 0 : smallestSize;
     }
-
 }
