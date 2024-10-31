@@ -1,4 +1,4 @@
-package com.manhpd;
+package com.manhpd.java;
 
 
 import java.util.HashMap;
@@ -20,7 +20,7 @@ import java.util.Map;
  * Explanation: The longest substrings with no more than '3' distinct characters are "cbbeb" & "bbebi".
  *
  */
-public class longest_substring_k_distinct_characters {
+public class LongestSubstringKDistinctCharacters {
 
     public static void main(String[] args) {
         String str = "araaci";

@@ -1,4 +1,4 @@
-package com.manhpd;
+package com.manhpd.java;
 
 
 /**
@@ -11,7 +11,7 @@ package com.manhpd;
  * Explanation: The smallest subarray with a sum greater than or equal to '7' is [8].
  *
  */
-public class smallest_subarray_given_sum {
+public class SmallestSubarrayGivenSum {
 
     public static void main(String[] args) {
         int[] a = {2, 1, 5, 2, 3, 2};

@@ -1,4 +1,4 @@
-package com.manhpd;
+package com.manhpd.java;
 
 import java.util.ArrayList;
 import java.util.List;

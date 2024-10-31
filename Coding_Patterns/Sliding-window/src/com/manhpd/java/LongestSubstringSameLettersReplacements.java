@@ -1,4 +1,4 @@
-package com.manhpd;
+package com.manhpd.java;
 
 
 import java.util.HashMap;
@@ -21,7 +21,7 @@ import java.util.Map;
  * Explanation: Replace the 'b' or 'd' with 'c' to have the longest repeating substring "ccc".
  *
  */
-public class longest_substring_same_letters_replacements {
+public class LongestSubstringSameLettersReplacements {
 
     public static void main(String[] args) {
         String str = "abccde";

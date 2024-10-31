@@ -1,4 +1,4 @@
-package com.manhpd;
+package com.manhpd.java;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +17,7 @@ import java.util.Map;
  * Output: 9
  * Explanation: Replace the '0' at index 6, 9, and 10 to have the longest contiguous subarray of 1s having length 9.
  */
-public class longest_subarray_ones_replacement {
+public class LongestSubarrayOnesReplacement {
 
     public static void main(String[] args) {
         int[] a = {0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1};

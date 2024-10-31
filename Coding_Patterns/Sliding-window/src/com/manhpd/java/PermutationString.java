@@ -1,4 +1,4 @@
-package com.manhpd;
+package com.manhpd.java;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +24,7 @@ import java.util.Map;
  * Explanation: The string contains "acb" which is a permutation of the given pattern.
  *
  */
-public class permutation_string {
+public class PermutationString {
 
     public static void main(String[] args) {
         String target = "odicf";

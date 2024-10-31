@@ -1,4 +1,4 @@
-package com.manhpd;
+package com.manhpd.java;
 
 
 import java.util.HashMap;
@@ -20,7 +20,7 @@ import java.util.Map;
  * Explanation: Longest substrings without any repeating characters are "abc" & "cde".
  *
  */
-public class no_repeat_substring {
+public class NoRepeatSubstring {
 
     public static void main(String[] args) {
         String str = "after calling";
