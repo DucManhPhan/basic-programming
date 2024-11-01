@@ -3,7 +3,6 @@ package com.manhpd.java;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * Given an array containing 0s and 1s,
  * if you are allowed to replace no more than ‘k’ 0s with 1s,
@@ -20,10 +19,39 @@ import java.util.Map;
 public class LongestSubarrayOnesReplacement {
 
     public static void main(String[] args) {
+        // Example 1
+//        int[] a = {0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1};
+//        int k = 2;
+//        int expected = 6;
+
+        // Example 2
         int[] a = {0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1};
         int k = 3;
+        int expected = 9;
 
-        System.out.println("Longest length of subarray is: " + getLongestLength(a, k));
+        System.out.printf("Result: %d, Expected: %d", findLength(a, k), expected);
+    }
+
+    private static int findLength(int[] arr, int k) {
+        int windowStart = 0;
+        int numZeros = 0;
+        int maxLength = Integer.MIN_VALUE;
+
+        for (int windowEnd = 0; windowEnd < arr.length; ++windowEnd) {
+            int digitEnd = arr[windowEnd];
+            numZeros = digitEnd == 0 ? numZeros + 1 : numZeros;
+
+            while (numZeros > k) {
+                int digitStart = arr[windowStart];
+                numZeros = digitStart == 0 ? numZeros - 1 : numZeros;
+
+                ++windowStart;
+            }
+
+            maxLength = Math.max(maxLength, windowEnd - windowStart + 1);
+        }
+
+        return maxLength;
     }
 
     private static int getLongestLength(int[] chars, int k) {
@@ -73,5 +101,4 @@ public class LongestSubarrayOnesReplacement {
 
         return longestLength;
     }
-
 }
