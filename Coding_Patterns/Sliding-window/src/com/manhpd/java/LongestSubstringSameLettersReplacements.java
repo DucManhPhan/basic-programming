@@ -31,16 +31,21 @@ public class LongestSubstringSameLettersReplacements {
 //        int expected = 5;
 
         // Example 2
-        String str = "abbcb";
-        int k = 1;
-        int expected = 4;
+//        String str = "abbcb";
+//        int k = 1;
+//        int expected = 4;
 
         // Example 3
 //        String str = "abccde";
 //        int k = 1;
 //        int expected = 3;
 
-        System.out.printf("Result = %d, Expected = %d", getLongestSubstring(str, k), expected);
+        // Example 4
+        String str = "aabbaca";
+        int k = 2;
+        int expected = 5;
+
+        System.out.printf("Result = %d, Expected = %d", getLongestSubstringV2(str, k), expected);
     }
 
 
