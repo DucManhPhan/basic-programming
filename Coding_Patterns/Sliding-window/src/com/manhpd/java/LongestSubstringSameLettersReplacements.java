@@ -1,6 +1,7 @@
 package com.manhpd.java;
 
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,13 +25,61 @@ import java.util.Map;
 public class LongestSubstringSameLettersReplacements {
 
     public static void main(String[] args) {
-        String str = "abccde";
-        int k = 1;
+        // Example 1
+//        String str = "aabccbb";
+//        int k = 2;
+//        int expected = 5;
 
-        System.out.println("Longest length of string is: " + getLongestSubstring(str, k));
+        // Example 2
+        String str = "abbcb";
+        int k = 1;
+        int expected = 4;
+
+        // Example 3
+//        String str = "abccde";
+//        int k = 1;
+//        int expected = 3;
+
+        System.out.printf("Result = %d, Expected = %d", getLongestSubstring(str, k), expected);
     }
 
-    private static int getLongestSubstring(String str, int k) {
+
+    public static int getLongestSubstring(String str, int k) {
+        int windowStart = 0;
+        int maxLength = Integer.MIN_VALUE;
+
+        Map<Character, Integer> characterFrequency = new HashMap<>();
+
+        for (int windowEnd = 0; windowEnd < str.length(); ++windowEnd) {
+            char cEnd = str.charAt(windowEnd);
+            characterFrequency.put(cEnd, characterFrequency.getOrDefault(cEnd, 0) + 1);
+
+            Map.Entry<Character, Integer> maxSameElements = Collections.max(characterFrequency.entrySet(), Map.Entry.comparingByValue());
+            int numReplacedCharacters = (windowEnd - windowStart + 1) - maxSameElements.getValue();
+
+            if (numReplacedCharacters > k) {
+                char cStart = str.charAt(windowStart);
+                characterFrequency.put(cStart, characterFrequency.get(cStart) - 1);
+
+                ++windowStart;
+            }
+
+            maxLength = Math.max(maxLength, windowEnd - windowStart + 1);
+        }
+
+        return maxLength;
+    }
+
+    /**
+     * Optimized the above version by using maxLengthSameLetters
+     * to contain the maximum number of the same letters in the substring
+     * without iterate all elements of Hashmap.
+     *
+     * @param str
+     * @param k
+     * @return
+     */
+    private static int getLongestSubstringV2(String str, int k) {
         int windowStart = 0;
         int longestLength = 0;
         int maxLengthSameLetters = 0;
