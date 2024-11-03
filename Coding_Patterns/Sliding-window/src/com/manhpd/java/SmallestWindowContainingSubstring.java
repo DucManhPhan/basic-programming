@@ -34,14 +34,14 @@ import java.util.Map;
 public class SmallestWindowContainingSubstring {
     public static void main(String[] args) {
         // Example 1
-        String s = "aabdec";
-        String t = "abc";
-        String expected = "abdec";
+//        String s = "aabdec";
+//        String t = "abc";
+//        String expected = "abdec";
 
         // Example 1
-//        String s = "aabdec";
-//        String t = "abac";
-//        String expected = "aabdec";
+        String s = "aabdec";
+        String t = "abac";
+        String expected = "aabdec";
 
         // Example 1
 //        String s = "abdbca";
@@ -59,11 +59,12 @@ public class SmallestWindowContainingSubstring {
 
     private static String findSubstring(String s, String t) {
         int windowStart = 0;
-        Map<Character, Integer> charFrequency = new HashMap<>();
-        int minLength = Integer.MAX_VALUE;
         int matched = 0;
-        String result = "";
+        int minLength = s.length() + 1;
+        int subStrStart = 0;
 
+        // initialize the hashmap for window
+        Map<Character, Integer> charFrequency = new HashMap<>();
         for (char c : t.toCharArray()) {
             charFrequency.put(c, charFrequency.getOrDefault(c, 0) + 1);
         }
@@ -74,34 +75,28 @@ public class SmallestWindowContainingSubstring {
             if (charFrequency.containsKey(cEnd)) {
                 charFrequency.put(cEnd, charFrequency.get(cEnd) - 1);
 
-                if (charFrequency.get(cEnd) == 0) {
+                if (charFrequency.get(cEnd) >= 0) {
                     ++matched;
-                }
-
-                if (charFrequency.get(cEnd) < 0) {
-                    char cStart = s.charAt(windowStart++);
-
-                    if (charFrequency.containsKey(cStart)) {
-                        if (charFrequency.get(cStart) == 0) {
-                            --matched;
-                        }
-
-                        charFrequency.put(cEnd, charFrequency.get(cEnd) + 1);
-                    }
                 }
             }
 
-            if (matched == charFrequency.size()) {
+            while (matched == t.length()) {
                 if (minLength > windowEnd - windowStart + 1) {
                     minLength = windowEnd - windowStart + 1;
-
-                    result = s.substring(windowStart, windowEnd + 1);
+                    subStrStart = windowStart;
                 }
 
-                ++windowStart;
+                char cStart = s.charAt(windowStart++);
+                if (charFrequency.containsKey(cStart)) {
+                    if (charFrequency.get(cStart) == 0) {
+                        --matched;
+                    }
+
+                    charFrequency.put(cStart, charFrequency.get(cStart) + 1);
+                }
             }
         }
 
-        return result;
+        return minLength > s.length() ? "" : s.substring(subStrStart, subStrStart + minLength);
     }
 }
