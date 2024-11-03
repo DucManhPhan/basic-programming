@@ -47,7 +47,8 @@ public class PermutationString {
         String pattern = "abc";
         boolean expected = true;
 
-        System.out.printf("Result: %b, Expected: %b", findPermutation(target, pattern), expected);
+//        System.out.printf("Result: %b, Expected: %b", findPermutation(target, pattern), expected);
+        System.out.printf("Result: %b, Expected: %b", findPermutationV2(target, pattern), expected);
     }
 
     /**
