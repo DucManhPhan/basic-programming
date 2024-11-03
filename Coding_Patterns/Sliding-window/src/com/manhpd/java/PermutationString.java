@@ -27,31 +27,98 @@ import java.util.Map;
 public class PermutationString {
 
     public static void main(String[] args) {
-        String target = "odicf";
-        String pattern = "dc";
+        // Example 1
+//        String target = "oidbcaf";
+//        String pattern = "abc";
+//        boolean expected = true;
 
-        System.out.println("Permutation string is: " + isPermutationSubstring(target, pattern));
+        // Example 2
+//        String target = "odicf";
+//        String pattern = "dc";
+//        boolean expected = false;
+
+        // Example 3
+//        String target = "bcdxabcdy";
+//        String pattern = "bcdyabcdx";
+//        boolean expected = true;
+
+        // Example 4
+        String target = "aaacb";
+        String pattern = "abc";
+        boolean expected = true;
+
+        System.out.printf("Result: %b, Expected: %b", findPermutation(target, pattern), expected);
     }
 
-    private static boolean isPermutationSubstring(String target, String pattern) {
+    /**
+     * This way didn't work with the case - duplicate characters like "aaacb"
+     *
+     * @param str
+     * @param pattern
+     * @return
+     */
+    private static boolean findPermutation(String str, String pattern) {
         int windowStart = 0;
+        Map<Character, Integer> charFrequency = new HashMap<>();
+
+        int numCharsInPattern = pattern.length();
+        for (int i = 0; i < numCharsInPattern; ++i) {
+            char c = pattern.charAt(i);
+            charFrequency.put(c, charFrequency.getOrDefault(c, 0) + 1);
+        }
+
+        for (int windowEnd = 0; windowEnd < str.length(); ++windowEnd) {
+            char cEnd = str.charAt(windowEnd);
+
+            if (!charFrequency.containsKey(cEnd)) {
+                windowStart = Math.max(windowStart, windowEnd);
+
+                if (numCharsInPattern == 0) {
+                    return true;
+                } else {
+                    numCharsInPattern = pattern.length();
+                }
+            } else {
+                if (windowEnd == 0 || (windowEnd > 0 && cEnd != str.charAt(windowEnd - 1))) {
+                    --numCharsInPattern;
+                }
+            }
+        }
+
+        return numCharsInPattern == 0 ? true : false;
+    }
+
+    private static boolean findPermutationV2(String str, String pattern) {
+        int windowStart = 0, matched = 0;
         Map<Character, Integer> charFrequencyMap = new HashMap<>();
+        for (char chr : pattern.toCharArray())
+            charFrequencyMap.put(chr, charFrequencyMap.getOrDefault(chr, 0) + 1);
 
-        // set data for pattern
-        for (int i = 0; i < pattern.length(); ++i) {
-            charFrequencyMap.put(pattern.charAt(i), charFrequencyMap.getOrDefault(pattern.charAt(i), 0) + 1);
-        }
+        // our goal is to match all the characters from the 'charFrequencyMap' with the current window
+        // try to extend the range [windowStart, windowEnd]
+        for (int windowEnd = 0; windowEnd < str.length(); windowEnd++) {
+            char rightChar = str.charAt(windowEnd);
+            if (charFrequencyMap.containsKey(rightChar)) {
+                // decrement the frequency of the matched character
+                charFrequencyMap.put(rightChar, charFrequencyMap.get(rightChar) - 1);
+                if (charFrequencyMap.get(rightChar) == 0) // character is completely matched
+                    matched++;
+            }
 
-        for (int windowEnd = 0; windowEnd < target.length(); ++windowEnd) {
-            Character rightCharacter = target.charAt(windowEnd);
+            if (matched == charFrequencyMap.size())
+                return true;
 
-        }
-
-        if (charFrequencyMap.size() == 0) {
-            return true;
+            if (windowEnd >= pattern.length() - 1) { // shrink the window by one character
+                char leftChar = str.charAt(windowStart++);
+                if (charFrequencyMap.containsKey(leftChar)) {
+                    if (charFrequencyMap.get(leftChar) == 0)
+                        matched--; // before putting the character back, decrement the matched count
+                    // put the character back for matching
+                    charFrequencyMap.put(leftChar, charFrequencyMap.get(leftChar) + 1);
+                }
+            }
         }
 
         return false;
     }
-
 }
