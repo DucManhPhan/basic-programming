@@ -89,6 +89,13 @@ public class PermutationString {
         return numCharsInPattern == 0 ? true : false;
     }
 
+    /**
+     * This problem is the fixed-size sliding window based on the length of pattern.
+     *
+     * @param str
+     * @param pattern
+     * @return
+     */
     private static boolean findPermutationV2(String str, String pattern) {
         int windowStart = 0, matched = 0;
         Map<Character, Integer> charFrequencyMap = new HashMap<>();
@@ -109,7 +116,7 @@ public class PermutationString {
             if (matched == charFrequencyMap.size())
                 return true;
 
-            if (windowEnd >= pattern.length() - 1) { // shrink the window by one character
+            if (windowEnd >= pattern.length() - 1) { // shrink the window when the size of substring is greater than pattern's length
                 char leftChar = str.charAt(windowStart++);
                 if (charFrequencyMap.containsKey(leftChar)) {
                     if (charFrequencyMap.get(leftChar) == 0)
