@@ -21,7 +21,7 @@ import java.util.Map;
  * Explanation: The only substring containing both the words is "catfox".
  *
  */
-public class WordsConcatention {
+public class WordsConcatenation {
     public static void main(String[] args) {
         // Example 1
 //        String str = "catfoxcat";
