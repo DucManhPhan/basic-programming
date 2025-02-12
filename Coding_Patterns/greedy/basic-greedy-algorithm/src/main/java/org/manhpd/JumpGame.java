@@ -29,6 +29,11 @@ public class JumpGame {
     }
 
     public static void main(String[] args) {
+        // Example 1
+        int nums[] = {2, 3, 1, 1, 4};
+        boolean expected = true;
 
+        boolean res = jumpGame(nums);
+        System.out.println("Result = " + res + ", expected: " + expected);
     }
 }
