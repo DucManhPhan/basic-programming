@@ -22,18 +22,73 @@ package org.manhpd;
  */
 public class JumpGame {
 
-    public static boolean jumpGame(int[] nums) {
+    public static void main(String[] args) {
+        // Example 1
+//        int nums[] = {2, 3, 1, 1, 4};
+//        boolean expected = true;
 
-        // Replace this placeholder return statement with your code
+        // Example 2
+//        int nums[] = {3, 2, 1, 0, 4};
+//        boolean expected = false;
+
+        // Example 3
+//        int nums[] = {2, 3, 1, 1, 9};
+//        boolean expected = true;
+
+        // Example 4
+        int nums[] = {4, 0, 0, 0, 4};
+        boolean expected = true;
+
+        boolean res = jumpGameV1(nums);
+//        boolean res = jumpGameV2(nums);
+        System.out.println("Result = " + res + ", expected: " + expected);
+    }
+
+    /**
+     * Use brute force solution
+     *
+     * @param nums
+     * @return
+     */
+    public static boolean jumpGameV1(int[] nums) {
+        return backtrackingJumpGame(nums, 0, nums[0]);
+    }
+
+    private static boolean backtrackingJumpGame(int[] nums, int currentIdx, int numSteps) {
+        // final backtracking
+        if (currentIdx == nums.length - 1) {
+            return true;
+        }
+
+        for (int i = currentIdx; i < nums.length; ++i) {
+            int step = nums[i];
+            boolean result = false;
+
+            while (step > 0) {
+                int newIdx = i + step;
+                result = backtrackingJumpGame(nums, newIdx, step);
+                if (result == true) {
+                    return result;
+                }
+
+                --step;
+            }
+
+            return result;
+        }
+
         return false;
     }
 
-    public static void main(String[] args) {
-        // Example 1
-        int nums[] = {2, 3, 1, 1, 4};
-        boolean expected = true;
+    /**
+     * Use greedy technique
+     *
+     * @param nums
+     * @return
+     */
+    public static boolean jumpGameV2(int[] nums) {
 
-        boolean res = jumpGame(nums);
-        System.out.println("Result = " + res + ", expected: " + expected);
+        // Replace this placeholder return statement with your code
+        return false;
     }
 }
