@@ -28,19 +28,24 @@ public class JumpGame {
 //        boolean expected = true;
 
         // Example 2
-//        int nums[] = {3, 2, 1, 0, 4};
-//        boolean expected = false;
+        int nums[] = {3, 2, 1, 0, 4};
+        boolean expected = false;
 
         // Example 3
 //        int nums[] = {2, 3, 1, 1, 9};
 //        boolean expected = true;
 
         // Example 4
-        int nums[] = {4, 0, 0, 0, 4};
-        boolean expected = true;
+//        int nums[] = {4, 0, 0, 0, 4};
+//        boolean expected = true;
+
+        // Example 5
+//        int nums[] = {3, 2, 2, 0, 1, 4};
+//        boolean expected = true;
 
         boolean res = jumpGameV1(nums);
 //        boolean res = jumpGameV2(nums);
+//        boolean res = jumpGameV3(nums);
         System.out.println("Result = " + res + ", expected: " + expected);
     }
 
@@ -51,44 +56,89 @@ public class JumpGame {
      * @return
      */
     public static boolean jumpGameV1(int[] nums) {
-        return backtrackingJumpGame(nums, 0, nums[0]);
+        return backtrackingJumpGame(nums, 0);
     }
 
-    private static boolean backtrackingJumpGame(int[] nums, int currentIdx, int numSteps) {
-        // final backtracking
-        if (currentIdx == nums.length - 1) {
+    private static boolean backtrackingJumpGame(int[] nums, int currentIdx) {
+        // base case
+        if (currentIdx >= nums.length - 1) {
             return true;
         }
 
-        for (int i = currentIdx; i < nums.length; ++i) {
-            int step = nums[i];
-            boolean result = false;
+        // Way 1: Use while loop
+//        int step = nums[currentIdx];
+//        while (step > 0) {
+//            int newIdx = currentIdx + step;
+//
+//            if (backtrackingJumpGame(nums, newIdx)) {
+//                return true;
+//            }
+//
+//            --step;
+//        }
 
-            while (step > 0) {
-                int newIdx = i + step;
-                result = backtrackingJumpGame(nums, newIdx, step);
-                if (result == true) {
-                    return result;
-                }
-
-                --step;
+        // Way 2: Use for loop to jumps
+        for (int i = 1; i <= nums[i]; ++i) {
+            if (backtrackingJumpGame(nums, currentIdx + i)) {
+                return true;
             }
-
-            return result;
         }
 
         return false;
     }
 
     /**
-     * Use greedy technique
+     * Use greedy technique by iterate from the last element of an array
      *
      * @param nums
      * @return
      */
     public static boolean jumpGameV2(int[] nums) {
+        int targetNumIdx = nums.length - 1;
 
-        // Replace this placeholder return statement with your code
+        for (int i = nums.length - 2; i >= 0; --i) {
+            if (targetNumIdx <= i + nums[i]) {
+                targetNumIdx = i;
+            }
+        }
+
+        if (targetNumIdx == 0) {
+            return true;
+        }
+
         return false;
     }
+
+    /**
+     * Use greedy technique by iterating from the beginning of an array
+     *
+     * @param nums
+     * @return
+     */
+    public static boolean jumpGameV3(int[] nums) {
+        int farthestIndex = 0;
+
+        for (int i = 0; i < nums.length; ++i) {
+            if (farthestIndex < i) {
+                return false;
+            }
+
+            farthestIndex = Math.max(farthestIndex, i + nums[i]);
+            if (farthestIndex >= nums.length - 1) {
+                return true;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Improve the backtracking method by using memoization
+     *
+     */
+    public static boolean jumpGameV4(int[] nums) {
+        return false;
+    }
+
+
 }
