@@ -25,30 +25,36 @@ public class Knapsack01 {
     private static List<List<Integer>> realResults = new ArrayList<>();
 
     public static void main(String[] args) {
-        int[] weights = {2, 3, 1, 4};
-        int[] profits = {4, 5, 3, 7};
-        int capacity = 5;
+        // Example 1
+//        int[] weights = {2, 3, 1, 4};
+//        int[] profits = {4, 5, 3, 7};
+//        int capacity = 5;
+
+        // Example 2
+        int[] weights = {1, 2, 3, 5};
+        int[] profits = {1, 6, 10, 16};
+        int capacity = 7;
 
         // use brute force way
         long startMs = System.currentTimeMillis();
         bruteForce(weights, profits, capacity);
         long duration = System.currentTimeMillis() - startMs;
 
-        System.out.println("Time process of brute force: " + duration + " ms.");
+//        System.out.println("Time process of brute force: " + duration + " ms.");
 //        result.stream().forEach(System.out::println);
 //        System.out.println(realResults.toString());
 
         // use recursive function
-        startMs = System.currentTimeMillis();
-        int res = solveKnapsack01(weights, profits, capacity);
-        duration = System.currentTimeMillis() - startMs;
-
-        System.out.println("Time process of recursive function: " + duration + " ms.");
-        System.out.println(res);
+//        startMs = System.currentTimeMillis();
+//        int res = solveKnapsack01(weights, profits, capacity);
+//        duration = System.currentTimeMillis() - startMs;
+//
+//        System.out.println("Time process of recursive function: " + duration + " ms.");
+//        System.out.println(res);
 
         // use Top-Down dynamic programming
         startMs = System.currentTimeMillis();
-        res = solveKnapsack01DP(weights, profits, capacity);
+        int res = solveKnapsack01DP(weights, profits, capacity);
         duration = System.currentTimeMillis() - startMs;
 
         System.out.println("Time process of the top-down dp: " + duration + " ms.");
@@ -199,5 +205,4 @@ public class Knapsack01 {
             System.out.print(" " + weights[0]);
         System.out.println("");
     }
-
 }
