@@ -43,9 +43,10 @@ public class JumpGame {
 //        int nums[] = {3, 2, 2, 0, 1, 4};
 //        boolean expected = true;
 
-        boolean res = jumpGameV1(nums);
+//        boolean res = jumpGameV1(nums);
 //        boolean res = jumpGameV2(nums);
 //        boolean res = jumpGameV3(nums);
+        boolean res = jumpGameV4(nums);
         System.out.println("Result = " + res + ", expected: " + expected);
     }
 
@@ -133,12 +134,40 @@ public class JumpGame {
     }
 
     /**
-     * Improve the backtracking method by using memoization
+     * Improve the backtracking method by using DP - memoization
      *
      */
     public static boolean jumpGameV4(int[] nums) {
+        boolean[] memoizationBuffer = new boolean[nums.length];
+        return canJumpMemoization(nums, 0, memoizationBuffer);
+    }
+
+    private static boolean canJumpMemoization(int[] nums, int idx, boolean[] memoizationBuffer) {
+        if (memoizationBuffer[idx] || idx >= nums.length - 1) {
+            return true;
+        }
+
+        for (int i = 1; i <= nums[idx]; ++i) {
+            if (canJumpMemoization(nums, idx + i, memoizationBuffer)) {
+                memoizationBuffer[idx] = true;
+                return true;
+            }
+        }
+
+        memoizationBuffer[idx] = false;
         return false;
     }
 
+    /**
+     * Using Dynamic programming based on tabulation
+     *
+     * @param nums
+     * @return
+     */
+    public static boolean jumpGame5(int[] nums) {
 
+
+
+        return false;
+    }
 }
