@@ -22,16 +22,16 @@ public class EqualSubsetSumPartition {
 
     public static void main(String[] args) {
         // Example 1
-        int[] nums = {1, 2, 3, 4};
-        boolean res = true;
+//        int[] nums = {1, 2, 3, 4};
+//        boolean res = true;
 
         // Example 2
 //        int[] nums = {1, 1, 3, 4, 7};
 //        boolean res = true;
 
         // Example 3
-//        int[] nums = {2, 3, 4, 6};
-//        boolean res = false;
+        int[] nums = {2, 3, 4, 6};
+        boolean res = false;
 
 //        boolean canPartition = canPartitionV1(nums);
 //        boolean canPartition = canPartitionV2(nums);
@@ -147,13 +147,15 @@ public class EqualSubsetSumPartition {
         int halfSum = sum/2;
         boolean[][] dp = new boolean[num.length][halfSum + 1];
 
-        // initialize boolean array
-        for (int i = 0; i < num.length; ++i) {
-            dp[i][0] = false;
+        // when sum = 0, we always have a subset's sum = 0 --> true
+        for (int i = 1; i < num.length; ++i) {
+                dp[i][0] = true;
         }
 
+        // If the nums array that has only one element, the value at dp's index will be true
+        // if its value = sum
         for (int i = 1; i <= halfSum; ++i) {
-            dp[0][i] = false;
+            dp[0][i] = (num[0] == i ? true : false);
         }
 
         boolean res = false;
@@ -165,7 +167,7 @@ public class EqualSubsetSumPartition {
                     res = dp[i - 1][j - num[i]];
                 }
 
-                dp[i][halfSum] = res | dp[i - 1][j];
+                dp[i][j] = res || dp[i - 1][j];
             }
         }
 
