@@ -1,6 +1,8 @@
 package com.manhpd.patternKnapsack01;
 
 import java.util.Arrays;
+import java.util.BitSet;
+import java.util.HashSet;
 
 /**
  * Given a set of positive numbers, find if we can partition it into two subsets such that the sum of elements in both the subsets is equal.
@@ -35,7 +37,9 @@ public class EqualSubsetSumPartition {
 
 //        boolean canPartition = canPartitionV1(nums);
 //        boolean canPartition = canPartitionV2(nums);
-        boolean canPartition = canPartitionV3(nums);
+//        boolean canPartition = canPartitionV3(nums);
+//        boolean canPartition = canPartitionV4(nums);
+        boolean canPartition = canPartitionV5(nums);
 
         System.out.println(canPartition);
     }
@@ -172,5 +176,98 @@ public class EqualSubsetSumPartition {
         }
 
         return dp[num.length - 1][halfSum];
+    }
+
+    /**
+     * Using the brute-force solution with HashSet to
+     * save all the sum and prevent the duplications.
+     *
+     * @param num
+     * @return
+     */
+    public static boolean canPartitionV4(int[] num) {
+        if (num == null || num.length == 0) {
+            return false;
+        }
+
+        int sum = Arrays.stream(num).sum();
+        if ((sum & 1) != 0) {
+            return false;
+        }
+
+        int halfSum = sum / 2;
+        HashSet<Integer> dp = new HashSet<>();
+        dp.add(0);
+
+        for (int i = 0; i < num.length; ++i) {
+            HashSet<Integer> tmp = new HashSet<>();
+
+            for (int val : dp) {
+                tmp.add(val);
+                if (val + num[i] == halfSum) {
+                    return true;
+                }
+
+                tmp.add(val + num[i]);
+            }
+
+            dp = tmp;
+        }
+
+        return false;
+    }
+
+    /**
+     * Using BitSet
+     *
+     * @param num
+     * @return
+     */
+    public static boolean canPartitionV5(int[] num) {
+        if (num == null || num.length == 0) {
+            return false;
+        }
+
+        int sum = Arrays.stream(num).sum();
+        if (sum % 2 != 0) {
+            return false;
+        }
+
+        BitSet bitSet = new BitSet();
+        bitSet.set(0);
+
+        for (int n : num) {
+            bitSet.or(shiftLeft(bitSet, n));
+            bitSet.set(0);
+        }
+
+        return bitSet.get(sum >> 1);
+    }
+
+    private static BitSet shiftLeft(BitSet bitSet, int shift) {
+        if (shift == 0) {
+            return bitSet;
+        }
+
+        int d = shift >> 6;
+        int r = shift & 63;
+
+        long[] arr = bitSet.toLongArray();
+        int arrLen = arr.length;
+        int resLen = arrLen + d + 1;
+
+        long[] res = new long[resLen];
+
+        for (int i = d; i < resLen; ++i) {
+            if (i - d < arrLen) {
+                res[i] = arr[i - d] << r;
+            }
+
+            if (i - d - 1 >= 0 && r > 0) {
+                res[i] |= arr[i - d - 1] >>> 64 - r;
+            }
+        }
+
+        return BitSet.valueOf(res);
     }
 }
