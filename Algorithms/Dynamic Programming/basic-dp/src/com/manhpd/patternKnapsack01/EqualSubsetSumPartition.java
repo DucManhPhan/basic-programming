@@ -32,14 +32,19 @@ public class EqualSubsetSumPartition {
 //        boolean res = true;
 
         // Example 3
-        int[] nums = {2, 3, 4, 6};
+//        int[] nums = {2, 3, 4, 6};
+//        boolean res = false;
+
+        // Example 4
+        int[] nums = {2, 12, 4, 6};
         boolean res = false;
 
 //        boolean canPartition = canPartitionV1(nums);
 //        boolean canPartition = canPartitionV2(nums);
 //        boolean canPartition = canPartitionV3(nums);
 //        boolean canPartition = canPartitionV4(nums);
-        boolean canPartition = canPartitionV5(nums);
+//        boolean canPartition = canPartitionV5(nums);
+        boolean canPartition = canPartitionV6(nums);
 
         System.out.println(canPartition);
     }
@@ -269,5 +274,21 @@ public class EqualSubsetSumPartition {
         }
 
         return BitSet.valueOf(res);
+    }
+
+    public static boolean canPartitionV6(int[] num) {
+        int total = 0;
+        int dp = 1;
+
+        for (int i = 0; i < num.length; ++i) {
+            System.out.println("Index = " + i + ", num[i] = " + num[i]);
+            total += num[i];
+            dp |= dp << num[i];
+
+            System.out.println("dp = " + dp + ", binary format of dp = " + Integer.toBinaryString(dp));
+        }
+
+        int half = total / 2;
+        return (total % 2 == 0) && (dp & (1 << half)) != 0;
     }
 }
