@@ -24,8 +24,8 @@ public class EqualSubsetSumPartition {
 
     public static void main(String[] args) {
         // Example 1
-//        int[] nums = {1, 2, 3, 4};
-//        boolean res = true;
+        int[] nums = {1, 2, 3, 4};
+        boolean res = true;
 
         // Example 2
 //        int[] nums = {1, 1, 3, 4, 7};
@@ -36,15 +36,16 @@ public class EqualSubsetSumPartition {
 //        boolean res = false;
 
         // Example 4
-        int[] nums = {2, 12, 4, 6};
-        boolean res = false;
+//        int[] nums = {2, 12, 4, 6};
+//        boolean res = true;
 
 //        boolean canPartition = canPartitionV1(nums);
 //        boolean canPartition = canPartitionV2(nums);
 //        boolean canPartition = canPartitionV3(nums);
 //        boolean canPartition = canPartitionV4(nums);
 //        boolean canPartition = canPartitionV5(nums);
-        boolean canPartition = canPartitionV6(nums);
+//        boolean canPartition = canPartitionV6(nums);
+        boolean canPartition = canPartitionV7(nums);
 
         System.out.println(canPartition);
     }
@@ -276,6 +277,13 @@ public class EqualSubsetSumPartition {
         return BitSet.valueOf(res);
     }
 
+    /**
+     * Using Dynamic Programming with Bitmask
+     * Bitmask dp will save all the subset sum of the current array
+     *
+     * @param num
+     * @return
+     */
     public static boolean canPartitionV6(int[] num) {
         int total = 0;
         int dp = 1;
@@ -290,5 +298,41 @@ public class EqualSubsetSumPartition {
 
         int half = total / 2;
         return (total % 2 == 0) && (dp & (1 << half)) != 0;
+    }
+
+    /**
+     * Using brute force with Bit Masking
+     *
+     * @param num
+     * @return
+     */
+    public static boolean canPartitionV7(int[] num) {
+        if (num == null || num.length == 0) {
+            return false;
+        }
+
+        int sum = Arrays.stream(num).sum();
+        if (sum % 2 != 0) {
+            return false;
+        }
+
+        int target = sum / 2;
+        int maxMask = 1 << num.length;
+
+        for (int mask = 0; mask < maxMask; ++mask) {
+            int subsetSum = 0;
+
+            for (int i = 0; i < num.length; ++i) {
+                if ((mask & (1 << i)) != 0) {
+                    subsetSum += num[i];
+                }
+            }
+
+            if (subsetSum == target) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
