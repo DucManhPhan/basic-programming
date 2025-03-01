@@ -1,8 +1,6 @@
 package com.manhpd.patternKnapsack01;
 
-import java.util.Arrays;
-import java.util.BitSet;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * Given a set of positive numbers, find if we can partition it into two subsets such that the sum of elements in both the subsets is equal.
@@ -24,8 +22,8 @@ public class EqualSubsetSumPartition {
 
     public static void main(String[] args) {
         // Example 1
-        int[] nums = {1, 2, 3, 4};
-        boolean res = true;
+//        int[] nums = {1, 2, 3, 4};
+//        boolean res = true;
 
         // Example 2
 //        int[] nums = {1, 1, 3, 4, 7};
@@ -36,8 +34,8 @@ public class EqualSubsetSumPartition {
 //        boolean res = false;
 
         // Example 4
-//        int[] nums = {2, 12, 4, 6};
-//        boolean res = true;
+        int[] nums = {2, 12, 4, 6};
+        boolean res = true;
 
 //        boolean canPartition = canPartitionV1(nums);
 //        boolean canPartition = canPartitionV2(nums);
@@ -45,7 +43,9 @@ public class EqualSubsetSumPartition {
 //        boolean canPartition = canPartitionV4(nums);
 //        boolean canPartition = canPartitionV5(nums);
 //        boolean canPartition = canPartitionV6(nums);
-        boolean canPartition = canPartitionV7(nums);
+//        boolean canPartition = canPartitionV7(nums);
+//        boolean canPartition = canPartitionV8(nums);
+        boolean canPartition = canPartitionV9(nums);
 
         System.out.println(canPartition);
     }
@@ -334,5 +334,79 @@ public class EqualSubsetSumPartition {
         }
 
         return false;
+    }
+
+    /**
+     * Using backtracking to show all elements
+     *
+     * @param nums
+     * @return
+     */
+    public static boolean canPartitionV8(int[] nums) {
+        int sum = 0;
+        int dp = 1;
+
+        for (int i = 0; i < nums.length; ++i) {
+            sum += nums[i];
+            dp |= dp << nums[i];
+        }
+
+        int target = sum / 2;
+        if (((dp & (1 << target)) == 0)) {
+            return false;
+        }
+
+        List<Integer> subset = new ArrayList<>();
+        for (int i = nums.length - 1; i >= 0; --i) {
+            if (target >= nums[i] && (dp & (1 << (target - nums[i]))) != 0 ) {
+                subset.add(nums[i]);
+                target -= nums[i];
+            }
+
+            if (target == 0) {
+                break;
+            }
+        }
+
+        System.out.println("subset: " + subset);
+        return true;
+    }
+
+    /**
+     * Using a buffer to save subset
+     *
+      * @param nums
+     * @return
+     */
+    public static boolean canPartitionV9(int[] nums) {
+        int dp = 1;
+        int sum = Arrays.stream(nums).sum();
+        int target = sum / 2;
+
+        int maxSum = sum + 1;
+        int[] trace = new int[maxSum];
+        Arrays.fill(trace, -1); // -1 biểu thị chưa có số nào tạo ra tổng này
+
+        for (int num : nums) {
+            for (int i = target; i >= num; --i) { // Duyệt ngược để tránh ghi đè sai
+                if ((dp & (1 << (i - num))) != 0 && trace[i] == -1) {
+                    dp |= (1 << i);
+                    trace[i] = num;
+                }
+            }
+        }
+
+        if (trace[target] == -1) {
+            return false;
+        }
+
+        List<Integer> subset = new ArrayList<>();
+        while (target > 0) {
+            subset.add(trace[target]);
+            target -= trace[target];
+        }
+
+        System.out.println("subset: " + subset);
+        return true;
     }
 }
