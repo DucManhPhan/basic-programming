@@ -94,7 +94,7 @@ public class MinimumSubsetSumDifference {
         return res;
     }
 
-    public static int canPartitionV2(int[] num, int idx, int sum1, int sum2, int[][] dp) {
+    private static int canPartitionV2(int[] num, int idx, int sum1, int sum2, int[][] dp) {
         if (idx >= num.length) {
             return Math.abs(sum1 - sum2);
         }
@@ -113,6 +113,12 @@ public class MinimumSubsetSumDifference {
      * @return
      */
     public static int canPartitionV3(int[] num) {
+        if (num == null || num.length == 0) {
+            return 0;
+        }
+
+        int sum = Arrays.stream(num).sum();
+        int[][] dp = new int[num.length][sum + 1];
 
 
 
