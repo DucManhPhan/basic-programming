@@ -1,6 +1,6 @@
 package com.manhpd;
 
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * You are given an integer array nums of length n, and an integer array queries of length m.
@@ -47,7 +47,18 @@ public class LongestSubsequenceWithLimitedSum {
     }
 
     private static int[] answerQueries(int[] nums, int[] queries) {
+        PriorityQueue<Integer> intQueue = new PriorityQueue<>();
+        int sum = 0;
+        List<Integer> res = new ArrayList<>();
 
+        for (int qSum : queries) {
+            sum = 0;
+            intQueue.clear();
+
+            for (int i = 0; i < nums.length; ++i) {
+
+            }
+        }
 
         return new int[0];
     }
