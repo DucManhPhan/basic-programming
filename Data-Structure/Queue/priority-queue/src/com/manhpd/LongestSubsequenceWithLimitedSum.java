@@ -41,13 +41,14 @@ public class LongestSubsequenceWithLimitedSum {
     public static void main(String[] args) {
         int[] nums = {4, 5, 2, 1};
         int[] queries = {3, 10, 21};
+//        int[] queries = {10};
 
         int[] answer = answerQueries(nums, queries);
         System.out.println(Arrays.toString(answer));
     }
 
     private static int[] answerQueries(int[] nums, int[] queries) {
-        PriorityQueue<Integer> intQueue = new PriorityQueue<>();
+        PriorityQueue<Integer> intQueue = new PriorityQueue<>(Collections.reverseOrder());
         int sum = 0;
         List<Integer> res = new ArrayList<>();
 
@@ -56,10 +57,27 @@ public class LongestSubsequenceWithLimitedSum {
             intQueue.clear();
 
             for (int i = 0; i < nums.length; ++i) {
+                if (sum + nums[i] <= qSum) {
+                    sum += nums[i];
+                    intQueue.add(nums[i]);
+                } else {
+                    if (!intQueue.isEmpty() && sum > 0) {
+                        int item = intQueue.peek();
 
+                        if (item > nums[i]) {
+                            intQueue.poll();
+                            sum -= item;
+
+                            intQueue.add(nums[i]);
+                            sum += nums[i];
+                        }
+                    }
+                }
             }
+
+            res.add(intQueue.size());
         }
 
-        return new int[0];
+        return res.stream().mapToInt(Integer::intValue).toArray();
     }
 }
