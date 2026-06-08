@@ -17,6 +17,13 @@ public class BinarySearch {
         System.out.println(position);
     }
 
+    /**
+     * Binary Search Template 1
+     *
+     * @param arr
+     * @param k
+     * @return
+     */
     public static int binarySearchIterative(int[] arr, int k) {
         int left = 0;
         int right = arr.length - 1;
@@ -53,4 +60,14 @@ public class BinarySearch {
         }
     }
 
+    public static int binarySearchTemplate2(int[] arr, int k) {
+
+
+        return 0;
+    }
+
+    public static int binarySearchTemplate3(int[] arr, int k) {
+
+        return 0;
+    }
 }
