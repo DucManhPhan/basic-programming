@@ -13,12 +13,13 @@ public class BinarySearch {
         int k = 2;
 
 //        int position = binarySearchIterative(arr, k);
-        int position = binarySearchRecursive(arr, k, 0, arr.length - 1);
+//        int position = binarySearchTemplate2(arr, k);
+        int position = binarySearchTemplate3(arr, k);
         System.out.println(position);
     }
 
     /**
-     * Binary Search Template 1
+     * Binary Search Template 1 - Standard Binary Search
      *
      * @param arr
      * @param k
@@ -44,6 +45,15 @@ public class BinarySearch {
         return -1;
     }
 
+    /**
+     * The recursive version of Binary Search
+     *
+     * @param arr
+     * @param k
+     * @param left
+     * @param right
+     * @return
+     */
     public static int binarySearchRecursive(int[] arr, int k, int left, int right) {
         if (left > right) {
             return -1;
@@ -61,12 +71,47 @@ public class BinarySearch {
     }
 
     public static int binarySearchTemplate2(int[] arr, int k) {
+        int left = 0;
+        int right = arr.length;
 
+        while (left < right) {
+            int mid = left + (right - left) / 2;
 
-        return 0;
+            if (arr[mid] < k) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+
+        if (left < arr.length && arr[left] == k) {
+            return left;
+        }
+
+        return -1;
     }
 
     public static int binarySearchTemplate3(int[] arr, int k) {
+        int left = 0;
+        int right = arr.length;
+
+        while (left + 1 < right) {
+            int mid = left + (right - left) / 2;
+
+            if (arr[mid] < k) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+
+        if (left < arr.length && arr[left] == k) {
+            return left;
+        }
+
+        if (right < arr.length && arr[right] == k) {
+            return right;
+        }
 
         return 0;
     }
